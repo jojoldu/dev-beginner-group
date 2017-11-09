@@ -1,0 +1,16 @@
+
+spring:
+  profiles.active: local
+
+---
+spring:
+  profiles: local
+
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/settler;MVCC=TRUE
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create

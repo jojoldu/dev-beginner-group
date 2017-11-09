@@ -1,0 +1,13 @@
+bootRepackage.enabled = false
+
+dependencies {
+
+	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+	compile("com.querydsl:querydsl-jpa")
+	compile("com.querydsl:querydsl-apt")
+
+	//DB
+	compile('com.h2database:h2')
+	compile("com.zaxxer:HikariCP")
+	compile("mysql:mysql-connector-java")
+}
