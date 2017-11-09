@@ -1,4 +1,4 @@
-package com.jojoldu.beginner.domain.posts;
+package com.jojoldu.beginner.domain.subscriber;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * Github : https://github.com/jojoldu
  */
 
-public interface PostsRepository extends JpaRepository<Posts, Long>, PostsRepositoryCustom{
+public interface SubscriberRepository extends JpaRepository<Subscriber, Long> {
 }
