@@ -1,0 +1,8 @@
+
+dependencies {
+	compile project(':dev-beginner-group-core')
+	compile('org.springframework.boot:spring-boot-starter-mail')
+	compile('com.amazonaws:aws-java-sdk-ses:1.11.227')
+
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
