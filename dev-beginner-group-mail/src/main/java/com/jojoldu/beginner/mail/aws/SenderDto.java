@@ -1,5 +1,6 @@
 package com.jojoldu.beginner.mail.aws;
 
+import com.amazonaws.services.simpleemail.model.*;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -29,5 +30,26 @@ public class SenderDto {
 
     public void addTo(String email){
         this.to.add(email);
+    }
+
+    public SendEmailRequest toSendRequestDto(){
+        Destination destination = new Destination()
+                .withToAddresses(this.to);
+
+        Message message = new Message()
+                .withSubject(createContent(this.subject))
+                .withBody(new Body()
+                        .withText(createContent(this.content)));
+
+        return new SendEmailRequest()
+                .withSource(this.from)
+                .withDestination(destination)
+                .withMessage(message);
+    }
+
+    private Content createContent(String text) {
+        return new Content()
+                .withCharset("UTF-8")
+                .withData(text);
     }
 }

@@ -1,8 +1,12 @@
 package com.jojoldu.beginner.mail.aws;
 
 import com.amazonaws.AmazonClientException;
+import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.auth.profile.ProfileCredentialsProvider;
+import com.amazonaws.regions.Region;
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailService;
+import com.amazonaws.services.simpleemail.AmazonSimpleEmailServiceClient;
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailServiceClientBuilder;
 import com.amazonaws.services.simpleemail.model.*;
 import lombok.extern.slf4j.Slf4j;
@@ -19,19 +23,6 @@ import org.springframework.stereotype.Component;
 public class Sender {
 
     public void send(SenderDto senderDto){
-        Destination destination = new Destination().withToAddresses(senderDto.getTo());
-        Content subject = new Content().withData(senderDto.getSubject());
-        Content textBody = new Content().withData(senderDto.getContent());
-        Body body = new Body().withText(textBody);
-        Message message = new Message()
-                .withSubject(subject)
-                .withBody(body);
-
-        SendEmailRequest request = new SendEmailRequest()
-                .withSource(senderDto.getFrom())
-                .withDestination(destination)
-                .withMessage(message);
-
         try {
             log.info("Attempting to send an email through Amazon SES by using the AWS SDK for Java...");
 
@@ -53,12 +44,15 @@ public class Sender {
                     .build();
 
             // Send the email.
-            client.sendEmail(request);
+            client.sendEmail(senderDto.toSendRequestDto());
             log.info("Email sent!");
 
         } catch (Exception ex) {
             log.error("The email was not sent.");
             log.error("Error message: " + ex.getMessage());
+            throw new AmazonClientException(
+                    ex.getMessage(),
+                    ex);
         }
     }
 }
