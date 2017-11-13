@@ -26,14 +26,19 @@ public class Subscriber {
     private String email;
     private LocalDate createDate;
     private boolean certified;
+    private boolean active;
 
     public Subscriber(String email, LocalDate createDate) {
         this.email = email;
         this.createDate = createDate;
         this.certified = false;
+        this.active = true;
     }
 
     public void certify(){
         this.certified = true;
+    }
+    public void inActive() {
+        this.active = false;
     }
 }
