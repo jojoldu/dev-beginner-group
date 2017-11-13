@@ -15,7 +15,7 @@ import java.util.List;
 
 @Getter
 public class SenderDto {
-    private String from;
+    private String from = "admin@devbeginner.com";
     private List<String> to = new ArrayList<>();
     private String subject;
     private String content;
@@ -39,7 +39,7 @@ public class SenderDto {
         Message message = new Message()
                 .withSubject(createContent(this.subject))
                 .withBody(new Body()
-                        .withText(createContent(this.content)));
+                        .withHtml(createContent(this.content)));
 
         return new SendEmailRequest()
                 .withSource(this.from)

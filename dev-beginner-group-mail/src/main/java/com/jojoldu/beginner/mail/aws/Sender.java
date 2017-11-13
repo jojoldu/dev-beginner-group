@@ -1,16 +1,10 @@
 package com.jojoldu.beginner.mail.aws;
 
 import com.amazonaws.AmazonClientException;
-import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.auth.profile.ProfileCredentialsProvider;
-import com.amazonaws.regions.Region;
-import com.amazonaws.regions.Regions;
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailService;
-import com.amazonaws.services.simpleemail.AmazonSimpleEmailServiceClient;
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailServiceClientBuilder;
-import com.amazonaws.services.simpleemail.model.*;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 
 /**
  * Created by jojoldu@gmail.com on 2017. 11. 10.
@@ -18,7 +12,6 @@ import org.springframework.stereotype.Component;
  * Github : https://github.com/jojoldu
  */
 
-@Component
 @Slf4j
 public class Sender {
 
