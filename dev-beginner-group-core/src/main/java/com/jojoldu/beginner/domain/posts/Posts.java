@@ -4,9 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 /**
@@ -18,6 +16,7 @@ import java.time.LocalDate;
 @Getter
 @NoArgsConstructor
 @Entity
+@Table(indexes = @Index(name = "IDX_POSTS_PUBLISH_DATE", columnList = "publish_date"))
 public class Posts {
 
     @Id
