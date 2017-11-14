@@ -69,6 +69,7 @@ subprojects {
 
 	dependencies {
 		compile('org.springframework.boot:spring-boot-starter')
+		compile('org.apache.commons:commons-lang3:3.7')
 		compileOnly('org.projectlombok:lombok')
 		testCompile('org.springframework.boot:spring-boot-starter-test')
 		testCompile('org.spockframework:spock-core:1.1-groovy-2.4')
