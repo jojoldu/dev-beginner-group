@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @Getter
 @NoArgsConstructor
 @Entity
-@Table(indexes = @Index(name = "IDX_POSTS_PUBLISH_DATE", columnList = "publish_date"))
+@Table(indexes = @Index(name = "IDX_POSTS_PUBLISH_DATE", columnList = "publishDate"))
 public class Posts {
 
     @Id

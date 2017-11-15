@@ -1,5 +1,8 @@
 package com.jojoldu.beginner.batch.subscribe.job
 
+import com.jojoldu.beginner.domain.letter.Letter
+import com.jojoldu.beginner.domain.letter.LetterRepository
+import com.jojoldu.beginner.domain.letter.LetterStatus
 import com.jojoldu.beginner.domain.subscriber.Subscriber
 import com.jojoldu.beginner.domain.subscriber.SubscriberRepository
 import org.springframework.batch.core.BatchStatus
@@ -35,15 +38,25 @@ class SubscribeJobConfigurationTest extends Specification {
     @Autowired
     private SubscriberRepository subscriberRepository
 
+    @Autowired
+    private LetterRepository letterRepository
+
+    def cleanup () {
+        subscriberRepository.deleteAll()
+        letterRepository.deleteAll()
+    }
+
     def "메일발송 배치 " () {
         given:
         subscriberRepository.save(new Subscriber("jojoldu@gmail.com", LocalDate.of(2017,11,13)))
+        letterRepository.save(Letter.builder()
+                .subject("안녕하세요? 11월 1주차 정기메일입니다.")
+                .content(content)
+                .from("admin@devbeginner.com")
+                .build())
 
         JobParametersBuilder builder = new JobParametersBuilder()
-                .addString("templateId", "1")
-                .addString("startDate", "20171106")
-                .addString("endDate", "20171112")
-                .addString("from", "admin@devbeginner.com")
+                .addString("letterId", "1")
                 .addString("version", LocalDate.now().toString())
 
         when:
@@ -51,5 +64,8 @@ class SubscribeJobConfigurationTest extends Specification {
 
         then:
         jobExecution.status == BatchStatus.COMPLETED
+        Letter letter = letterRepository.findOne(1L)
+        letter.status == LetterStatus.COMPLETE
+
     }
 }

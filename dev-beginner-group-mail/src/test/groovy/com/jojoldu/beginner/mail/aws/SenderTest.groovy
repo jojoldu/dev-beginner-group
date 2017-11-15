@@ -17,7 +17,7 @@ class SenderTest extends Specification {
         given:
         SenderDto dto = SenderDto.builder()
                 .from("admin@devbeginner.com")
-                .to(Lists.newArrayList("admin@devbeginner.com"))
+                .to(Lists.newArrayList("jojoldu@gmail.com"))
                 .subject("테스트")
                 .content("안녕하세요")
                 .build()
