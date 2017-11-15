@@ -1,7 +1,6 @@
 package com.jojoldu.beginner.batch.subscribe.job;
 
-import com.jojoldu.beginner.domain.posts.PostsRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.Getter;
 import org.springframework.stereotype.Component;
 
 /**
@@ -10,14 +9,16 @@ import org.springframework.stereotype.Component;
  * Github : https://github.com/jojoldu
  */
 
+@Component
+@Getter
 public class MailCacheComponent {
     private String subject;
     private String content;
     private String from;
 
-    public void init(String subject, String from, String templateId){
+    public void init(String subject, String content, String from) {
         this.subject = subject;
+        this.content = content;
         this.from = from;
     }
-
 }

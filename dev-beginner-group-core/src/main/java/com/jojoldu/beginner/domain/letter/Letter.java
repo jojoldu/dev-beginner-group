@@ -1,5 +1,6 @@
 package com.jojoldu.beginner.domain.letter;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -23,18 +24,31 @@ public class Letter {
     @GeneratedValue
     private Long id;
 
+    private String subject;
+    private String from;
     private String content;
 
     private LocalDate sendDate;
 
     private LocalDate createDate;
 
-    public Letter(String content, LocalDate createDate) {
+    private LetterStatus status;
+
+    @Builder
+    public Letter(String subject, String from, String content) {
+        this.subject = subject;
+        this.from = from;
         this.content = content;
-        this.createDate = createDate;
+        this.createDate = LocalDate.now();
     }
 
-    public void send(LocalDate sendDate){
-        this.sendDate = sendDate;
+    public void sending() {
+        this.sendDate = LocalDate.now();
+        this.status = LetterStatus.SENDING;
+    }
+
+    public void sendComplete(){
+        this.sendDate = LocalDate.now();
+        this.status = LetterStatus.COMPLETE;
     }
 }

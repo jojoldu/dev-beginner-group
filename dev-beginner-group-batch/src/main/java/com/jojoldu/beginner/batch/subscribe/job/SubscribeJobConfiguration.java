@@ -1,6 +1,9 @@
 package com.jojoldu.beginner.batch.subscribe.job;
 
 import com.jojoldu.beginner.batch.core.QuerydslCursorItemReader;
+import com.jojoldu.beginner.domain.letter.Letter;
+import com.jojoldu.beginner.domain.letter.LetterRepository;
+import com.jojoldu.beginner.domain.posts.PostsRepository;
 import com.jojoldu.beginner.domain.subscriber.Subscriber;
 import com.jojoldu.beginner.mail.aws.Sender;
 import com.jojoldu.beginner.mail.aws.SenderDto;
@@ -48,10 +51,26 @@ public class SubscribeJobConfiguration {
     private JobBuilderFactory jobBuilderFactory;
     @Autowired
     private StepBuilderFactory stepBuilderFactory;
+
+    @Autowired
+    private PostsRepository postsRepository;
+
+    @Autowired
+    private LetterRepository letterRepository;
+
     @Autowired
     private Sender sender;
+
     @Autowired
     private HandlebarsFactory handlebarsFactory;
+
+    @Autowired
+    private MailCacheComponent mailCacheComponent;
+
+    private static String START_DATE_PARAM = null;
+    private static String END_DATE_PARAM = null;
+    private static String FROM_PARAM = null;
+    private static String LETTER_ID_PARAM = null;
 
     /**
      * 1. 메일 양식 생성
@@ -62,19 +81,47 @@ public class SubscribeJobConfiguration {
     @Bean
     public Job job() {
         return jobBuilderFactory.get(JOB_NAME)
-                .start(createContent(null, null, null))
+                .start(createContent(LETTER_ID_PARAM))
+                .next(start(LETTER_ID_PARAM))
                 .next(send())
+                .next(end(LETTER_ID_PARAM))
+                .build();
+    }
+
+
+    @Bean
+    @JobScope
+    public Step start(@Value("#{jobParameters[letterId]}") String letterId) {
+        return stepBuilderFactory.get(STEP_NAME+"_start")
+                .tasklet((contribution, chunkContext) -> {
+                    Letter letter = letterRepository.findOne(Long.valueOf(letterId));
+                    letter.sending();
+                    letterRepository.save(letter);
+                    return RepeatStatus.FINISHED;
+                })
                 .build();
     }
 
     @Bean
     @JobScope
-    public Step createContent(@Value("#{jobParameters[templateId]}") String templateId,
-                              @Value("#{jobParameters[startDate]}") String startDate,
-                              @Value("#{jobParameters[endDate]}") String endDate) {
-
+    public Step createContent(@Value("#{jobParameters[letterId]}") String letterId) {
         return stepBuilderFactory.get(STEP_NAME+"_createContent")
                 .tasklet((contribution, chunkContext) -> {
+                    Letter letter = letterRepository.findOne(Long.valueOf(letterId));
+                    mailCacheComponent.init(letter.getSubject(), letter.getContent(), letter.getFrom());
+                    return RepeatStatus.FINISHED;
+                })
+                .build();
+    }
+
+    @Bean
+    @JobScope
+    public Step end(@Value("#{jobParameters[letterId]}") String letterId) {
+        return stepBuilderFactory.get(STEP_NAME+"_end")
+                .tasklet((contribution, chunkContext) -> {
+                    Letter letter = letterRepository.findOne(Long.valueOf(letterId));
+                    letter.sendComplete();
+                    letterRepository.save(letter);
                     return RepeatStatus.FINISHED;
                 })
                 .build();
@@ -87,7 +134,7 @@ public class SubscribeJobConfiguration {
                 .<Subscriber, String>chunk(chunkSize)
                 .reader(reader)
                 .processor(processor())
-                .writer(writer(null, null))
+                .writer(writer())
                 .build();
     }
 
@@ -109,14 +156,12 @@ public class SubscribeJobConfiguration {
 
     @Bean
     @StepScope
-    public ItemWriter<String> writer(
-            @Value("#{jobParameters[from]}") String from,
-            @Value("#{jobParameters[templateId]}") String templateId) {
+    public ItemWriter<String> writer() {
         return items -> {
             SenderDto senderDto = SenderDto.builder()
-                    .from(from)
-                    .subject("테스트")
-                    .content("테스트")
+                    .from(mailCacheComponent.getFrom())
+                    .subject(mailCacheComponent.getSubject())
+                    .content(mailCacheComponent.getContent())
                     .build();
 
             for (String item : items) {
