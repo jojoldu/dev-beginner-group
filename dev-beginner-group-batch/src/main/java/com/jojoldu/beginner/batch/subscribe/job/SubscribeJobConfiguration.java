@@ -26,6 +26,8 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.persistence.EntityManagerFactory;
 
+import java.util.ArrayList;
+
 import static com.jojoldu.beginner.batch.subscribe.job.SubscribeJobConfiguration.JOB_NAME;
 import static com.jojoldu.beginner.domain.subscriber.QSubscriber.subscriber;
 
@@ -88,6 +90,18 @@ public class SubscribeJobConfiguration {
                 .build();
     }
 
+    @Bean
+    @JobScope
+    public Step createContent(
+            @Value("#{jobParameters[letterId]}") String letterId) {
+        return stepBuilderFactory.get(STEP_NAME+"_createContent")
+                .tasklet((contribution, chunkContext) -> {
+                    Letter letter = letterRepository.findOne(Long.valueOf(letterId));
+                    mailCacheComponent.init(letter.getSubject(), letter.getContent(), letter.getSender());
+                    return RepeatStatus.FINISHED;
+                })
+                .build();
+    }
 
     @Bean
     @JobScope
@@ -97,18 +111,6 @@ public class SubscribeJobConfiguration {
                     Letter letter = letterRepository.findOne(Long.valueOf(letterId));
                     letter.sending();
                     letterRepository.save(letter);
-                    return RepeatStatus.FINISHED;
-                })
-                .build();
-    }
-
-    @Bean
-    @JobScope
-    public Step createContent(@Value("#{jobParameters[letterId]}") String letterId) {
-        return stepBuilderFactory.get(STEP_NAME+"_createContent")
-                .tasklet((contribution, chunkContext) -> {
-                    Letter letter = letterRepository.findOne(Long.valueOf(letterId));
-                    mailCacheComponent.init(letter.getSubject(), letter.getContent(), letter.getFrom());
                     return RepeatStatus.FINISHED;
                 })
                 .build();
@@ -162,11 +164,8 @@ public class SubscribeJobConfiguration {
                     .from(mailCacheComponent.getFrom())
                     .subject(mailCacheComponent.getSubject())
                     .content(mailCacheComponent.getContent())
+                    .to(new ArrayList<>(items))
                     .build();
-
-            for (String item : items) {
-                senderDto.addTo(item);
-            }
 
             sender.send(senderDto);
         };

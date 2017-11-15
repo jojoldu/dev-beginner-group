@@ -25,7 +25,7 @@ public class Letter {
     private Long id;
 
     private String subject;
-    private String from;
+    private String sender;
     private String content;
 
     private LocalDate sendDate;
@@ -35,9 +35,9 @@ public class Letter {
     private LetterStatus status;
 
     @Builder
-    public Letter(String subject, String from, String content) {
+    public Letter(String subject, String sender, String content) {
         this.subject = subject;
-        this.from = from;
+        this.sender = sender;
         this.content = content;
         this.createDate = LocalDate.now();
     }

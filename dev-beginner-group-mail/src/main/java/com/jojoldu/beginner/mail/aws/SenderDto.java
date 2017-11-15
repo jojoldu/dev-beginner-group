@@ -29,6 +29,9 @@ public class SenderDto {
     }
 
     public void addTo(String email){
+        if(to == null){
+            this.to = new ArrayList<>();
+        }
         this.to.add(email);
     }
 

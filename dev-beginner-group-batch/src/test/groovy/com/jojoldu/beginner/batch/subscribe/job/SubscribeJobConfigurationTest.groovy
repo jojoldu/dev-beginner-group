@@ -46,21 +46,24 @@ class SubscribeJobConfigurationTest extends Specification {
         letterRepository.deleteAll()
     }
 
-    def "메일발송 배치 " () {
+    def "정기 메일 발송" () {
         given:
-        subscriberRepository.save(new Subscriber("jojoldu@gmail.com", LocalDate.of(2017,11,13)))
+        def subscriber = new Subscriber("jojoldu@gmail.com", LocalDate.of(2017, 11, 13))
+        subscriber.certify()
+        subscriberRepository.save(subscriber)
         letterRepository.save(Letter.builder()
                 .subject("안녕하세요? 11월 1주차 정기메일입니다.")
                 .content(content)
-                .from("admin@devbeginner.com")
+                .sender("admin@devbeginner.com")
                 .build())
 
-        JobParametersBuilder builder = new JobParametersBuilder()
+        def jobParameters = new JobParametersBuilder()
                 .addString("letterId", "1")
-                .addString("version", LocalDate.now().toString())
+                .addDate("version", new Date())
+                .toJobParameters()
 
         when:
-        JobExecution jobExecution = jobLauncherTestUtils.launchJob(builder.toJobParameters())
+        JobExecution jobExecution = jobLauncherTestUtils.launchJob(jobParameters)
 
         then:
         jobExecution.status == BatchStatus.COMPLETED
