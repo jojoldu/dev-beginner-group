@@ -22,9 +22,10 @@ public class SimpleTest {
         assertThat(isEmptyNumber(NULL), is(true));
         assertThat(isEmptyNumber(ZERO), is(true));
         assertThat(isEmptyNumber(POSITIVE), is(false));
+
     }
 
     public boolean isEmptyNumber(Long number){
-        return number == null || number == 0;
+        return number == null || number.equals(0L);
     }
 }

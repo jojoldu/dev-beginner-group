@@ -1,8 +1,14 @@
 package com.jojoldu.beginner.web.controller;
 
-import org.springframework.stereotype.Controller;
+import com.jojoldu.beginner.web.dto.SubscribeRequestDto;
+import com.jojoldu.beginner.web.dto.SubscribeResponseDto;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
+
 
 /**
  * Created by jojoldu@gmail.com on 2017. 11. 16.
@@ -11,7 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
+@AllArgsConstructor
 public class WebController {
 
+
+    @PostMapping("/subscribe")
+    public SubscribeResponseDto subscribe(@RequestBody @Valid SubscribeRequestDto requestDto) {
+        return new SubscribeResponseDto(true);
+    }
 
 }

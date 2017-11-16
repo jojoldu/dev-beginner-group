@@ -1,10 +1,13 @@
 package com.jojoldu.beginner.web.controller
 
 import com.jojoldu.beginner.web.dto.SubscribeRequestDto
+import com.jojoldu.beginner.web.dto.SubscribeResponseDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.context.embedded.LocalServerPort
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.client.TestRestTemplate
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import spock.lang.Specification
 
 /**
@@ -23,13 +26,26 @@ class WebControllerTest extends Specification {
     private TestRestTemplate restTemplate
 
     def "이메일 양식으로 보내면 통과" (){
-//        given:
-//        SubscribeRequestDto dto = new SubscribeRequestDto("admin@devbeginner.com")
-//        String url = "http://localhost:" + port + "/"
-//        when:
-//        this.restTemplate.postForEntity()
-//        assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/",
-//                String.class)).contains("Hello World");
+        given:
+        SubscribeRequestDto dto = new SubscribeRequestDto("admin@devbeginner.com")
+        String url = "http://localhost:" + port + "/subscribe"
+
+        when:
+        SubscribeResponseDto result = this.restTemplate.postForObject(url, dto, SubscribeResponseDto.class)
+
+        then:
+        result.getIsSuccess() == true
     }
 
+    def "이메일 양식이 아니면 400 Error 발생" (){
+        given:
+        SubscribeRequestDto dto = new SubscribeRequestDto("admin@devbeginner")
+        String url = "http://localhost:" + port + "/subscribe"
+
+        when:
+        ResponseEntity<SubscribeResponseDto> response = this.restTemplate.postForEntity(url, dto, SubscribeResponseDto.class)
+
+        then:
+        response.getStatusCode() == HttpStatus.BAD_REQUEST
+    }
 }
