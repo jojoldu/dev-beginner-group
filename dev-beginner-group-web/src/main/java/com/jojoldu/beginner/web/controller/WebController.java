@@ -2,6 +2,7 @@ package com.jojoldu.beginner.web.controller;
 
 import com.jojoldu.beginner.web.dto.SubscribeRequestDto;
 import com.jojoldu.beginner.web.dto.SubscribeResponseDto;
+import com.jojoldu.beginner.web.service.SubscribeService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,10 +21,12 @@ import javax.validation.Valid;
 @AllArgsConstructor
 public class WebController {
 
+    private SubscribeService subscribeService;
 
     @PostMapping("/subscribe")
     public SubscribeResponseDto subscribe(@RequestBody @Valid SubscribeRequestDto requestDto) {
-        return new SubscribeResponseDto(true);
+        boolean result = subscribeService.saveWaitingList(requestDto.getEmail());
+        return new SubscribeResponseDto(result);
     }
 
 }

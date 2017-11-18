@@ -48,4 +48,5 @@ class WebControllerTest extends Specification {
         then:
         response.getStatusCode() == HttpStatus.BAD_REQUEST
     }
+
 }

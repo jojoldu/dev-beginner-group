@@ -3,6 +3,7 @@ package com.jojoldu.beginner.domain.subscriber;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.annotation.Nonnull;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -26,11 +27,13 @@ public class Subscriber {
     private String email;
     private LocalDate createDate;
     private boolean certified;
+    private String certifyMessage;
     private boolean active;
 
-    public Subscriber(String email, LocalDate createDate) {
+    public Subscriber(@Nonnull String email, @Nonnull LocalDate createDate, @Nonnull String certifyMessage) {
         this.email = email;
         this.createDate = createDate;
+        this.certifyMessage = certifyMessage;
         this.certified = false;
         this.active = true;
     }

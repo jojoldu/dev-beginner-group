@@ -1,0 +1,17 @@
+spring:
+  profiles:
+    active: local
+    
+
+devbeginner:
+  mail:
+    enabled: true
+  web:
+    url: http://localhost:4000
+---
+spring:
+  profiles: local
+
+  jpa:
+    database-platform: H2
+    show-sql: true
