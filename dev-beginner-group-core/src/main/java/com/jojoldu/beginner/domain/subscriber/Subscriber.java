@@ -4,9 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.annotation.Nonnull;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 /**
@@ -18,6 +16,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Getter
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(name = "UNI_SUBSCRIBER_EMAIL", columnNames = {"email"}))
 public class Subscriber {
 
     @Id

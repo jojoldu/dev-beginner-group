@@ -13,5 +13,6 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum ExceptionStatus {
 
+    BAD_REQUEST
 
 }

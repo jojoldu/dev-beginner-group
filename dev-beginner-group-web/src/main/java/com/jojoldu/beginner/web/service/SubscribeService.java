@@ -7,6 +7,9 @@ import com.jojoldu.beginner.mail.aws.SenderDto;
 import com.jojoldu.beginner.mail.util.MailFromType;
 import com.jojoldu.beginner.util.CryptoComponent;
 import com.jojoldu.beginner.web.config.WebProperties;
+import com.jojoldu.beginner.web.exception.DuplicateException;
+import com.jojoldu.beginner.web.exception.InvalidParameterException;
+import com.jojoldu.beginner.web.exception.NotFoundResourceException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -14,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.Collections;
+import java.util.Optional;
 
 /**
  * Created by jojoldu@gmail.com on 2017. 11. 17.
@@ -33,6 +37,7 @@ public class SubscribeService {
 
     @Transactional
     public boolean saveWaitingList(String email){
+        verifyDuplicateEmail(email);
         final LocalDate now = LocalDate.now();
         final String certifyMessage = createCertifyMessage(email, now);
         subscriberRepository.save(new Subscriber(email, now, certifyMessage));
@@ -46,6 +51,28 @@ public class SubscribeService {
         return true;
     }
 
+    @Transactional
+    public boolean certifyComplete(String email, String certifyMessage){
+        Subscriber subscriber = subscriberRepository.findTopByEmail(email)
+                .orElseThrow(()->new NotFoundResourceException("이메일"));
+
+        if(!subscriber.getCertifyMessage().equals(certifyMessage)){
+            throw new InvalidParameterException("인증코드");
+        }
+
+        subscriber.certify();
+
+        return true;
+    }
+
+    private void verifyDuplicateEmail(String email){
+        Optional<Subscriber> optional = subscriberRepository.findTopByEmail(email);
+
+        if(optional.isPresent()){
+            throw new DuplicateException("email");
+        }
+    }
+
     private String createCertifyMessage(String email, LocalDate now){
         return cryptoComponent.sha256(email+now);
     }
@@ -54,13 +81,13 @@ public class SubscribeService {
         return SenderDto.builder()
                 .to(Collections.singletonList(email))
                 .from(MailFromType.ADMIN.getEmail())
-                .content(createCertifyContent(certifyMessage))
+                .content(createCertifyContent(email, certifyMessage))
                 .subject("초보개발자모임 구독 이메일 인증입니다.")
                 .build();
     }
 
-    private String createCertifyContent(String certifyMessage){
-        final String link = String.format("%s/certifyEmail?message=%s", webProperties.getWebUrl(), certifyMessage);
+    private String createCertifyContent(String email, String certifyMessage){
+        final String link = String.format("%s/certifyEmail?email=%s&message=%s", webProperties.getWebUrl(), email, certifyMessage);
         return String.format("<a href='%s'> %s", link, link);
     }
 }
