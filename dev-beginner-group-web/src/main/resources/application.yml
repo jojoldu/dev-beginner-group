@@ -1,13 +1,16 @@
 spring:
   profiles:
     active: local
-    
+
+server:
+  port: 10020
 
 devbeginner:
   mail:
     enabled: true
   web:
-    url: http://localhost:4000
+    url: http://localhost:10020
+
 ---
 spring:
   profiles: local

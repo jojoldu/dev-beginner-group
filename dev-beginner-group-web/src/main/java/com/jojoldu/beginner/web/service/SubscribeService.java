@@ -8,6 +8,7 @@ import com.jojoldu.beginner.mail.util.MailFromType;
 import com.jojoldu.beginner.util.CryptoComponent;
 import com.jojoldu.beginner.web.config.WebProperties;
 import com.jojoldu.beginner.web.exception.DuplicateException;
+import com.jojoldu.beginner.web.exception.EmailServerException;
 import com.jojoldu.beginner.web.exception.InvalidParameterException;
 import com.jojoldu.beginner.web.exception.NotFoundResourceException;
 import lombok.AllArgsConstructor;
@@ -36,7 +37,7 @@ public class SubscribeService {
     private WebProperties webProperties;
 
     @Transactional
-    public boolean saveWaitingList(String email){
+    public void saveWaitingList(String email){
         verifyDuplicateEmail(email);
         final LocalDate now = LocalDate.now();
         final String certifyMessage = createCertifyMessage(email, now);
@@ -46,13 +47,12 @@ public class SubscribeService {
             sender.send(createSenderDto(email, certifyMessage));
         } catch (Exception e){
             log.error("이메일 등록 실패", e);
-            return false;
+            throw new EmailServerException();
         }
-        return true;
     }
 
     @Transactional
-    public boolean certifyComplete(String email, String certifyMessage){
+    public void certifyComplete(String email, String certifyMessage){
         Subscriber subscriber = subscriberRepository.findTopByEmail(email)
                 .orElseThrow(()->new NotFoundResourceException("이메일"));
 
@@ -61,8 +61,6 @@ public class SubscribeService {
         }
 
         subscriber.certify();
-
-        return true;
     }
 
     private void verifyDuplicateEmail(String email){
@@ -87,7 +85,7 @@ public class SubscribeService {
     }
 
     private String createCertifyContent(String email, String certifyMessage){
-        final String link = String.format("%s/certifyEmail?email=%s&message=%s", webProperties.getWebUrl(), email, certifyMessage);
+        final String link = String.format("%s/subscribe/certify?email=%s&message=%s", webProperties.getWebUrl(), email, certifyMessage);
         return String.format("<a href='%s'> %s", link, link);
     }
 }

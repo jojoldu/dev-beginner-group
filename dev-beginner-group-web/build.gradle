@@ -3,4 +3,5 @@ dependencies {
 	compile project(':dev-beginner-group-mail')
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 	compile('org.springframework.boot:spring-boot-starter-web')
+	compile("org.springframework.boot:spring-boot-devtools")
 }
