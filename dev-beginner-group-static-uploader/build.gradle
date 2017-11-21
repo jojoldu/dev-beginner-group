@@ -1,0 +1,8 @@
+bootRepackage.enabled = false
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-web')
+	compile('com.amazonaws:aws-java-sdk-s3:1.11.232')
+	compile group: 'commons-io', name: 'commons-io', version: '2.6'
+
+}
