@@ -1,0 +1,14 @@
+spring:
+  profiles:
+    active: local
+
+server:
+  port: 10040
+
+---
+spring:
+  profiles: local
+
+  jpa:
+    database-platform: H2
+    show-sql: true

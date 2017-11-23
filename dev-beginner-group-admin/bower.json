@@ -1,0 +1,24 @@
+{
+  "name": "dev-beginner-group-admin",
+  "description": "Dev Beginner Group Admin Page",
+  "main": "index.js",
+  "authors": [
+    "jojoldu@gmail.com"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "npm",
+    "bower",
+    "webpack",
+    "woowahanjs",
+    "tui.editor"
+  ],
+  "homepage": "https://github.com/jojoldu/dev-beginner-group",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
