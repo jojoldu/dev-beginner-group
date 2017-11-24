@@ -20,10 +20,10 @@ class StaticUploaderTest extends Specification {
         StaticUploader staticUploader = new StaticUploader()
 
         when:
-        staticUploader.upload(file, "테스트파일"+LocalDate.now().toString()+".jpg")
+        String url = staticUploader.upload(file, "테스트파일"+System.currentTimeMillis().toString()+".jpg")
 
         then:
-        true
+        println url
     }
 
     def "현재위치 출력"() {

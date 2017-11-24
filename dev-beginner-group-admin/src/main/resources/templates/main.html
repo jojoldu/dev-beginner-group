@@ -14,8 +14,27 @@
     $('#editSection').tuiEditor({
         initialEditType: 'markdown',
         previewStyle: 'vertical',
-        height: 300
+        height: 300,
+        hooks: {
+            'addImageBlobHook': function(blob, callback) {
+                //이미지 블롭을 이용해 서버 연동 후 콜백실행
+                //callback('이미지URL');
+                var formData = new FormData();
+                formData.append('data', blob);
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/upload-image',
+                    data: formData,
+                    processData: false,
+                    contentType: false
+                }).done(function(data) {
+                    callback(data);
+                });
+            }
+        }
     });
+
 </script>
 </body>
 </html>

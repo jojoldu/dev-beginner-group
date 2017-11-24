@@ -5,6 +5,9 @@ spring:
 server:
   port: 10040
 
+devbeginner:
+  static:
+    enabled: true
 ---
 spring:
   profiles: local
