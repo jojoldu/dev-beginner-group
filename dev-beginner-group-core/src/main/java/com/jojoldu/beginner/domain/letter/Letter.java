@@ -4,9 +4,9 @@ import com.jojoldu.beginner.util.Constants;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -27,9 +27,17 @@ public class Letter {
     @GeneratedValue
     private Long id;
 
+    @Column(nullable = false)
     private String subject;
+
+    @Column(nullable = false)
     private String sender;
+
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
+
+    @Column(columnDefinition = "TEXT", nullable = false)
+    private String markdown;
 
     private LocalDate sendDate;
 
@@ -38,11 +46,11 @@ public class Letter {
     private LetterStatus status;
 
     @Builder
-    public Letter(String subject, String sender, String content) {
-        Assert.isTrue(StringUtils.isEmpty(subject) || StringUtils.isEmpty(sender), "subject와 sender는 빈 값이 올수 없습니다.");
+    public Letter(String subject, String sender, String content, String markdown) {
         this.subject = subject;
         this.sender = StringUtils.isEmpty(sender)? Constants.ADMIN_EMAIL : sender;
         this.content = content;
+        this.markdown = markdown;
         this.createDate = LocalDate.now();
     }
 

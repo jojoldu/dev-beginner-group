@@ -19,12 +19,14 @@ public class LetterAdminRequestDto {
     private String subject;
     private String sender;
     private String content;
+    private String markdown;
 
     public Letter toEntity(){
         Letter letter = Letter.builder()
                 .subject(subject)
                 .sender(sender)
                 .content(content)
+                .markdown(markdown)
                 .build();
 
         letter.sending();

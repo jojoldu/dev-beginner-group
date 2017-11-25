@@ -37,7 +37,7 @@ public class AdminController {
     @PostMapping("/upload-content")
     @ResponseBody
     public Long uploadContent(@RequestBody LetterAdminRequestDto requestDto) {
-        return letterAdminService.save(requestDto);
+        return letterAdminService.saveAndSend(requestDto);
     }
 
 }

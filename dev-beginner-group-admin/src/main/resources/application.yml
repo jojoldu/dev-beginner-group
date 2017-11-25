@@ -8,6 +8,8 @@ server:
 devbeginner:
   static:
     enabled: true
+  mail:
+    enabled: true
 ---
 spring:
   profiles: local

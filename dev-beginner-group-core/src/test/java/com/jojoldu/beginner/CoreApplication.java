@@ -1,4 +1,4 @@
-package com.jojoldu.beginner.domain;
+package com.jojoldu.beginner;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

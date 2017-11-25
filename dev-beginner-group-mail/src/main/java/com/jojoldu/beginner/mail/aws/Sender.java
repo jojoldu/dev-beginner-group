@@ -37,7 +37,9 @@ public class Sender {
                     .build();
 
             // Send the email.
-            client.sendEmail(senderDto.toSendRequestDto());
+            senderDto.toSendRequestDtos()
+                    .forEach(client::sendEmail);
+
             log.info("Email sent!");
 
         } catch (Exception ex) {
@@ -48,4 +50,5 @@ public class Sender {
                     ex);
         }
     }
+
 }

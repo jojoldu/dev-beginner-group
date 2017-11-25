@@ -1,25 +1,25 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Join the devbeginner.com community on Email!</title>
+    <title>DevBeginner Admin</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="/dist/css/lib.css" />
-    <link rel="stylesheet" href="/dist/fonts/glyphicons-halflings-regular.eot"  type="text/css"/>
-    <link rel="stylesheet" href="/dist/fonts/glyphicons-halflings-regular.svg"  type="text/css"/>
-    <link rel="stylesheet" href="/dist/fonts/glyphicons-halflings-regular.ttf"  type="text/css"/>
-    <link rel="stylesheet" href="/dist/fonts/glyphicons-halflings-regular.woff"  type="text/css"/>
-    <link rel="stylesheet" href="/dist/fonts/glyphicons-halflings-regular.woff2"  type="text/css"/>
+    <link rel="stylesheet" href="/dist/fonts/glyphicons-halflings-regular.eot"  type="application/vnd.ms-fontobject"/>
+    <link rel="stylesheet" href="/dist/fonts/glyphicons-halflings-regular.svg"  type="image/svg+xml"/>
+    <link rel="stylesheet" href="/dist/fonts/glyphicons-halflings-regular.ttf"  type="application/x-font-ttf"/>
+    <link rel="stylesheet" href="/dist/fonts/glyphicons-halflings-regular.woff"  type="application/font-woff"/>
+    <link rel="stylesheet" href="/dist/fonts/glyphicons-halflings-regular.woff2"  type="application/font-woff2"/>
 </head>
 <body>
-<div id="row">
+<div id="row" class="col-md-12">
     <form class="form-inline">
         <div class="form-group">
             <label for="subject">제목</label>
             <input type="text" class="form-control" id="subject" placeholder="X월 Y주차 뉴스레터"/>
         </div>
-        <button type="submit" class="btn btn-default">저장</button>
-        <button type="submit" class="btn btn-success">발송</button>
+        <button type="button" class="btn btn-default" id="btn-save">저장</button>
+        <button type="button" class="btn btn-success" id="btn-send">발송</button>
     </form>
 
 </div>
@@ -35,8 +35,6 @@
         height: 300,
         hooks: {
             'addImageBlobHook': function(blob, callback) {
-                //이미지 블롭을 이용해 서버 연동 후 콜백실행
-                //callback('이미지URL');
                 var formData = new FormData();
                 formData.append('data', blob);
 
@@ -51,6 +49,29 @@
                 });
             }
         }
+    });
+
+    $('#btn-save').on('click', function () {
+        var content = encodeURIComponent($('.tui-editor-contents')[0].innerHTML);
+        var subject = encodeURIComponent($('#subject').val());
+        var markdown = encodeURIComponent($('#editSection').tuiEditor('getValue'));
+
+        var request = {
+            subject: subject,
+            content: content,
+            markdown: markdown
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: '/upload-content',
+            dataType: 'json',
+            contentType:'application/json; charset=utf-8',
+            data: JSON.stringify(request),
+        }).done(function(data) {
+            alert(data+' 글이 등록되었습니다.');
+        });
+
     });
 
 </script>

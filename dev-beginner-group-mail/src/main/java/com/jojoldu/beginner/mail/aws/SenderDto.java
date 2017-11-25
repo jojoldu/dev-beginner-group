@@ -1,11 +1,17 @@
 package com.jojoldu.beginner.mail.aws;
 
 import com.amazonaws.services.simpleemail.model.*;
+import com.jojoldu.beginner.util.Constants;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.StringUtils;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by jojoldu@gmail.com on 2017. 11. 10.
@@ -13,9 +19,10 @@ import java.util.List;
  * Github : https://github.com/jojoldu
  */
 
+@Slf4j
 @Getter
 public class SenderDto {
-    private String from = "admin@devbeginner.com";
+    private String from;
     private List<String> to = new ArrayList<>();
     private String subject;
     private String content;
@@ -35,19 +42,34 @@ public class SenderDto {
         this.to.add(email);
     }
 
-    public SendEmailRequest toSendRequestDto(){
-        Destination destination = new Destination()
-                .withToAddresses(this.to);
+    public List<SendEmailRequest> toSendRequestDtos(){
+        return to.stream()
+                .map(this::createSendRequestDto)
+                .collect(Collectors.toList());
+    }
 
-        Message message = new Message()
-                .withSubject(createContent(this.subject))
-                .withBody(new Body()
-                        .withHtml(createContent(this.content)));
+    private SendEmailRequest createSendRequestDto(String receiver) {
+        Destination destination = new Destination()
+                .withToAddresses(receiver);
+
+        Message message = null;
+        try {
+            message = new Message()
+                    .withSubject(createContent(URLDecoder.decode(this.subject, "UTF-8")))
+                    .withBody(new Body()
+                            .withHtml(createContent(URLDecoder.decode(this.content, "UTF-8"))));
+        } catch (UnsupportedEncodingException e) {
+            log.error("SenderRequest Decode Error ", e);
+        }
 
         return new SendEmailRequest()
-                .withSource(this.from)
+                .withSource(getFromOrDefault())
                 .withDestination(destination)
                 .withMessage(message);
+    }
+
+    private String getFromOrDefault(){
+        return StringUtils.isEmpty(this.from)? Constants.ADMIN_EMAIL : this.from;
     }
 
     private Content createContent(String text) {
