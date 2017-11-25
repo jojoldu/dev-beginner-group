@@ -12,50 +12,50 @@ const DIR = {
     DEST: 'src/main/resources/static/dist'
 };
 
-const SRC = {
-    JS: DIR.SRC + '/js/*.js',
-    CSS: DIR.SRC + '/css/*.css'
-};
-
 const DEST = {
     JS: DIR.DEST + '/js',
-    CSS: DIR.DEST + '/css'
+    CSS: DIR.DEST + '/css',
+    FONTS: DIR.DEST + '/fonts',
 };
 
-gulp.task('default', ['clean', 'copy', 'concat-js-lib', 'concat-css-lib'], () => {
-    gulpUtil.log('Gulp is running');
+gulp.task('default', ['clean', 'copy', 'minify-js-lib', 'minify-css-lib'], () => {
+    gulpUtil.log('Gulp is completed');
 });
 
 gulp.task('clean', () => {
     return del.sync([DIR.DEST]);
 });
 
-gulp.task('concat-js-lib', function() {
-    return gulp.src(DIR.SRC+'/js/lib/*.js')
+gulp.task('minify-js-lib', () => {
+    return gulp.src([
+        'bower_components/jquery/dist/jquery.js',
+        'bower_components/tui-code-snippet/dist/tui-code-snippet.js',
+        'bower_components/markdown-it/dist/markdown-it.js',
+        'bower_components/toMark/dist/toMark.js',
+        'bower_components/codemirror/lib/codemirror.js',
+        'bower_components/highlightjs/highlight.pack.js',
+        'bower_components/squire-rte/build/squire-raw.js',
+        'bower_components/tui-editor/dist/tui-editor.min.js',
+        'node_modules/bootstrap/dist/js/bootstrap.min.js'
+    ])
         .pipe(concat('lib.js'))
         .pipe(uglify())
         .pipe(gulp.dest(DEST.JS));
 });
 
-gulp.task('concat-css-lib', function() {
-    return gulp.src(DIR.SRC+'/css/lib/*.css')
+gulp.task('minify-css-lib', () => {
+    return gulp.src([
+        'node_modules/bootstrap/dist/css/*.min.css',
+        'bower_components/codemirror/lib/codemirror.css',
+        'bower_components/highlightjs/styles/github.css',
+        'bower_components/tui-editor/dist/tui-editor.css',
+        'bower_components/tui-editor/dist/tui-editor-contents.css'
+    ])
         .pipe(concat('lib.css'))
         .pipe(cleanCSS({compatibility: 'ie8'}))
         .pipe(gulp.dest(DEST.CSS));
 });
 
-gulp.task('copy', function () {
-    gulp.src('bower_components/jquery/dist/jquery.js').pipe(gulp.dest(DIR.SRC+'/js/lib'));
-    gulp.src('bower_components/tui-code-snippet/dist/tui-code-snippet.js').pipe(gulp.dest(DIR.SRC+'/js/lib'));
-    gulp.src('bower_components/markdown-it/dist/markdown-it.js').pipe(gulp.dest(DIR.SRC+'/js/lib'));
-    gulp.src('bower_components/toMark/dist/toMark.js').pipe(gulp.dest(DIR.SRC+'/js/lib'));
-    gulp.src('bower_components/codemirror/lib/codemirror.js').pipe(gulp.dest(DIR.SRC+'/js/lib'));
-    gulp.src('bower_components/highlightjs/highlight.pack.js').pipe(gulp.dest(DIR.SRC+'/js/lib'));
-    gulp.src('bower_components/squire-rte/build/squire-raw.js').pipe(gulp.dest(DIR.SRC+'/js/lib'));
-    gulp.src('bower_components/tui-editor/dist/tui-editor.min.js').pipe(gulp.dest(DIR.SRC+'/js/lib'));
-
-    gulp.src('bower_components/codemirror/lib/codemirror.css').pipe(gulp.dest(DIR.SRC+'/css/lib'));
-    gulp.src('bower_components/highlightjs/styles/github.css').pipe(gulp.dest(DIR.SRC+'/css/lib'));
-    gulp.src('bower_components/tui-editor/dist/tui-editor.css').pipe(gulp.dest(DIR.SRC+'/css/lib'));
-    gulp.src('bower_components/tui-editor/dist/tui-editor-contents.css').pipe(gulp.dest(DIR.SRC+'/css/lib'));
+gulp.task('copy', () => {
+    gulp.src('node_modules/bootstrap/dist/fonts/*').pipe(gulp.dest(DEST.FONTS));
 });

@@ -1,8 +1,11 @@
 package com.jojoldu.beginner.domain.letter;
 
+import com.jojoldu.beginner.util.Constants;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -36,8 +39,9 @@ public class Letter {
 
     @Builder
     public Letter(String subject, String sender, String content) {
+        Assert.isTrue(StringUtils.isEmpty(subject) || StringUtils.isEmpty(sender), "subject와 sender는 빈 값이 올수 없습니다.");
         this.subject = subject;
-        this.sender = sender;
+        this.sender = StringUtils.isEmpty(sender)? Constants.ADMIN_EMAIL : sender;
         this.content = content;
         this.createDate = LocalDate.now();
     }
