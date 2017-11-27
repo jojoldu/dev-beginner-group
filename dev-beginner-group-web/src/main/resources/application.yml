@@ -11,6 +11,7 @@ devbeginner:
   web:
     url: http://localhost:10020
 
+
 ---
 spring:
   profiles: local

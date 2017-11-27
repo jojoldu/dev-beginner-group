@@ -9,5 +9,5 @@ dependencies {
 	//DB
 	compile('com.h2database:h2')
 	compile("com.zaxxer:HikariCP")
-	compile("mysql:mysql-connector-java")
+	compile("org.mariadb.jdbc:mariadb-java-client")
 }

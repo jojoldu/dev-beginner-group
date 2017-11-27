@@ -18,7 +18,7 @@ buildscript {
 
 ext {
 	projectGroup = 'com.jojoldu.dev-beginner-group'
-	projectVersion = '0.0.1-SNAPSHOT'
+	projectVersion = '0.0.3-SNAPSHOT'
 }
 
 subprojects {
@@ -29,7 +29,7 @@ subprojects {
 	apply plugin: "com.ewerk.gradle.plugins.querydsl"
 
 	group = 'com.jojoldu'
-	version = '0.0.1-SNAPSHOT'
+	version = '0.0.2-SNAPSHOT'
 	sourceCompatibility = 1.8
 
 	repositories {
@@ -71,7 +71,7 @@ subprojects {
 		compile('org.springframework.boot:spring-boot-starter')
 		compile('org.apache.commons:commons-lang3:3.7')
 		compile 'com.google.code.findbugs:jsr305:3.0.2'
-		compileOnly('org.projectlombok:lombok')
+		compile('org.projectlombok:lombok')
 		testCompile('org.springframework.boot:spring-boot-starter-test')
 		testCompile('org.spockframework:spock-core:1.1-groovy-2.4')
 		testCompile('org.spockframework:spock-spring:1.1-groovy-2.4')

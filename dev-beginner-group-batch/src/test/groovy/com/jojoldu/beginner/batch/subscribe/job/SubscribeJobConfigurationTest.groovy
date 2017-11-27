@@ -48,13 +48,15 @@ class SubscribeJobConfigurationTest extends Specification {
 
     def "정기 메일 발송" () {
         given:
-        def subscriber = new Subscriber("jojoldu@gmail.com", LocalDate.of(2017, 11, 13))
+        def message = "aa"
+        def subscriber = new Subscriber("jojoldu@gmail.com", LocalDate.of(2017, 11, 13), message)
         subscriber.certify()
         subscriberRepository.save(subscriber)
         letterRepository.save(Letter.builder()
                 .subject("안녕하세요? 11월 1주차 정기메일입니다.")
-                .content(content)
                 .sender("admin@devbeginner.com")
+                .content(content)
+                .markdown("안녕하세요? 11월 1주차 정기메일입니다.")
                 .build())
 
         def jobParameters = new JobParametersBuilder()
