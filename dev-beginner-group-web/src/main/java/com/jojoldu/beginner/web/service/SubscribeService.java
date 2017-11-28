@@ -1,5 +1,6 @@
 package com.jojoldu.beginner.web.service;
 
+import com.google.common.collect.ImmutableMap;
 import com.jojoldu.beginner.domain.subscriber.Subscriber;
 import com.jojoldu.beginner.domain.subscriber.SubscriberRepository;
 import com.jojoldu.beginner.mail.aws.Sender;
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.Collections;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -35,6 +37,7 @@ public class SubscribeService {
     private CryptoComponent cryptoComponent;
     private Sender sender;
     private WebProperties webProperties;
+    private TemplateComponent templateComponent;
 
     @Transactional
     public void saveWaitingList(String email){
@@ -79,13 +82,17 @@ public class SubscribeService {
         return SenderDto.builder()
                 .to(Collections.singletonList(email))
                 .from(MailFromType.ADMIN.getEmail())
-                .content(createCertifyContent(email, certifyMessage))
+                .content(createContent(email, certifyMessage))
                 .subject("초보개발자모임 구독 이메일 인증입니다.")
                 .build();
     }
 
-    private String createCertifyContent(String email, String certifyMessage){
+    private String createContent(String email, String certifyMessage){
         final String link = String.format("%s/subscribe/certify?email=%s&message=%s", webProperties.getWebUrl(), email, certifyMessage);
-        return String.format("<a href='%s'> %s", link, link);
+        Map<String, Object> model = ImmutableMap.<String, Object>builder()
+                .put("link", link)
+                .build();
+
+        return templateComponent.template("/mail/certify", model);
     }
 }
