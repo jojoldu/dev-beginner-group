@@ -149,7 +149,7 @@
                                                 <td width="200" valign="top" align="center">
                                                     <div class="contentEditableContainer contentImageEditable">
                                                         <div class="contentEditable" align='center' >
-                                                            <img src="images/logo.png" width="155" height="155"  alt='Logo'  data-default="placeholder" />
+                                                            <img src="https://s3.ap-northeast-2.amazonaws.com/devbeginner.com/%E1%84%8E%E1%85%A9%E1%84%80%E1%85%A2%E1%84%86%E1%85%A9.png?v=1" width="155" height="155"  alt='Logo'  data-default="placeholder" />
                                                         </div>
                                                     </div>
                                                 </td>
@@ -169,7 +169,7 @@
                                                 <td width="100%" colspan="3" align="center" style="padding-bottom:10px;padding-top:25px;">
                                                     <div class="contentEditableContainer contentTextEditable">
                                                         <div class="contentEditable" align='center' >
-                                                            <h2 >It's been a while...</h2>
+                                                            <h2 >초보개발자모임</h2>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -198,7 +198,7 @@
                                                             <td bgcolor="#ED006F" align="center" style="border-radius:4px;" width="200" height="50">
                                                                 <div class="contentEditableContainer contentTextEditable">
                                                                     <div class="contentEditable" align='center' >
-                                                                        <a target='_blank' href="@{${link}}" class='link2'>인증하기</a>
+                                                                        <a target='_blank' th:href="@{${link}}" class='link2'>인증하기</a>
                                                                     </div>
                                                                 </div>
                                                             </td>
@@ -219,17 +219,17 @@
                                             <tr>
                                                 <td width="60%" height="70" valign="middle" style="padding-bottom:20px;">
                                                     <div class="contentEditableContainer contentTextEditable">
-                                                        <div class="contentEditable" align='left' >
-                                                            <span style="font-size:13px;color:#181818;font-family:Helvetica, Arial, sans-serif;line-height:200%;">Sent to [email] by [CLIENTS.COMPANY_NAME]</span>
+                                                        <div class="contentEditable" align="left" >
+                                                            <span style="font-size:13px;color:#181818;font-family:Helvetica, Arial, sans-serif;line-height:200%;">초보개발자모임</span>
                                                             <br/>
-                                                            <span style="font-size:11px;color:#555;font-family:Helvetica, Arial, sans-serif;line-height:200%;">[CLIENTS.ADDRESS] | [CLIENTS.PHONE]</span>
+                                                            <span style="font-size:11px;color:#555;font-family:Helvetica, Arial, sans-serif;line-height:200%;">
+                                                                <a target='_blank' href="https://www.devbeginner.com" style="text-decoration:none;color:#555">사이트 방문하기</a>
+                                                            </span>
                                                             <br/>
+
                                                             <span style="font-size:13px;color:#181818;font-family:Helvetica, Arial, sans-serif;line-height:200%;">
-											<a target='_blank' href="[FORWARD]" style="text-decoration:none;color:#555">Forward to a friend</a>
-											</span>
-                                                            <br/>
-                                                            <span style="font-size:13px;color:#181818;font-family:Helvetica, Arial, sans-serif;line-height:200%;">
-											<a target='_blank' href="[UNSUBSCRIBE]" style="text-decoration:none;color:#555">click here to unsubscribe</a></span>
+											                    <a target='_blank' href="https://www.devbeginner.com" style="text-decoration:none;color:#555">구독취소</a>
+                                                            </span>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -239,8 +239,28 @@
                                                             <td width='57%'></td>
                                                             <td valign="top" width='34'>
                                                                 <div class="contentEditableContainer contentFacebookEditable" style='display:inline;'>
-                                                                    <div class="contentEditable" >
-                                                                        <img src="https://s3.ap-northeast-2.amazonaws.com/devbeginner.com/facebook.png" data-default="placeholder" data-max-width='30' data-customIcon="true" width='30' height='30' alt='facebook' style='margin-right:40x;'>
+                                                                    <div class="contentEditable">
+                                                                        <a href="https://www.facebook.com/devbeginner">
+                                                                            <img src="https://s3.ap-northeast-2.amazonaws.com/devbeginner.com/facebook.png" data-default="placeholder" data-max-width='30' data-customIcon="true" width='30' height='30' alt='facebook' style='margin-right:40x;'>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td valign="top" width='34'>
+                                                                <div class="contentEditableContainer contentFacebookEditable" style='display:inline;'>
+                                                                    <div class="contentEditable">
+                                                                        <a href="http://jojoldu.tistory.com/">
+                                                                            <img src="https://s3.ap-northeast-2.amazonaws.com/devbeginner.com/%E1%84%90%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A9%E1%84%85%E1%85%B5.png" data-default="placeholder" data-max-width='30' data-customIcon="true" width='30' height='30' alt='Tistory' style='margin-right:40x;'>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td valign="top" width='34'>
+                                                                <div class="contentEditableContainer contentFacebookEditable" style='display:inline;'>
+                                                                    <div class="contentEditable">
+                                                                        <a href="https://brunch.co.kr/@jojoldu/">
+                                                                            <img src="https://s3.ap-northeast-2.amazonaws.com/devbeginner.com/%E1%84%87%E1%85%B3%E1%84%85%E1%85%A5%E1%86%AB%E1%84%8E%E1%85%B5.png" data-default="placeholder" data-max-width='30' data-customIcon="true" width='30' height='30' alt='brunch' style='margin-right:40x;'>
+                                                                        </a>
                                                                     </div>
                                                                 </div>
                                                             </td>
