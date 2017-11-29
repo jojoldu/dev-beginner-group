@@ -57,7 +57,7 @@ public class SenderDto {
             message = new Message()
                     .withSubject(createContent(URLDecoder.decode(this.subject, "UTF-8")))
                     .withBody(new Body()
-                            .withHtml(createContent(URLDecoder.decode(this.content, "UTF-8"))));
+                            .withHtml(createContent(this.content)));
         } catch (UnsupportedEncodingException e) {
             log.error("SenderRequest Decode Error ", e);
         }

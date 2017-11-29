@@ -7,7 +7,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 public class WebApplication {
 
 	public static final String APPLICATION_LOCATIONS = "spring.config.location="
-			+ "classpath:/application.yml,"
+			+ "classpath:application.yml,"
 			+ "/var/app/dev-beginner-group-web/real-application.yml";
 
 	public static void main(String[] args) {
