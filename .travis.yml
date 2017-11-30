@@ -10,9 +10,8 @@ cache:
   directories:
     - '$HOME/.m2/repository'
     - '$HOME/.gradle'
-    - '.gradle'
 
-script: "./gradlew build"
+script: "./gradlew clean build"
 
 deploy:
   - provider: s3
