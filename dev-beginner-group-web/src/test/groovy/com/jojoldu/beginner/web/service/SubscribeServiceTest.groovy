@@ -36,10 +36,10 @@ class SubscribeServiceTest extends Specification {
         String email = "admin@devbeginner.com"
 
         when:
-        boolean result = subscribeService.saveWaitingList(email)
+        subscribeService.saveWaitingList(email)
 
         then:
-        result == true
+        true
     }
 
     def "인증메일의 링크를 클릭하면 구독 완료됨" () {
@@ -52,7 +52,7 @@ class SubscribeServiceTest extends Specification {
         subscribeService.certifyComplete(email, message)
 
         then:
-        Subscriber subscriber = subscriberRepository.findOne(1L)
+        Subscriber subscriber = subscriberRepository.findAll().get(0)
         subscriber.isCertified() == true
     }
 

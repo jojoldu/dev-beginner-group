@@ -55,16 +55,10 @@ public class SubscribeJobConfiguration {
     private StepBuilderFactory stepBuilderFactory;
 
     @Autowired
-    private PostsRepository postsRepository;
-
-    @Autowired
     private LetterRepository letterRepository;
 
     @Autowired
     private Sender sender;
-
-    @Autowired
-    private HandlebarsFactory handlebarsFactory;
 
     @Autowired
     private MailCacheComponent mailCacheComponent;

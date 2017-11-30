@@ -31,10 +31,10 @@ class WebControllerTest extends Specification {
         String url = "http://localhost:" + port + "/subscribe"
 
         when:
-        SubscribeResponseDto result = this.restTemplate.postForObject(url, dto, SubscribeResponseDto.class)
+        String result = this.restTemplate.postForObject(url, dto, SubscribeResponseDto.class)
 
         then:
-        result.getIsSuccess() == true
+        result.length() > 1
     }
 
     def "이메일 양식이 아니면 400 Error 발생" (){

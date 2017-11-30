@@ -4,6 +4,7 @@ spring:
 devbeginner:
   mail:
     enabled: true
+
 ---
 spring:
   profiles: local
