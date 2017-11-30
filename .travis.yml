@@ -18,7 +18,7 @@ deploy:
     access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
     secret_access_key: $AWS_SECRET_KEY
     bucket: deploy-travis-ci
-    region: us-west-2
+    region: us-east-1
     skip_cleanup: true
     acl: public_read
     wait-until-deployed: true
@@ -33,7 +33,7 @@ deploy:
     bundle_type: zip
     application: devbeginner-group
     deployment_group: devbeginner
-    region: us-west-2
+    region: us-east-1
     wait-until-deployed: true
     on:
       repo: jojoldu/dev-beginner-group
