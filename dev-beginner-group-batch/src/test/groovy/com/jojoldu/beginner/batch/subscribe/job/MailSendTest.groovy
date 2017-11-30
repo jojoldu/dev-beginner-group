@@ -27,22 +27,22 @@ class MailSendTest extends Specification {
     HandlebarsFactory handlebarsFactory
 
     def "Batch에서 Mail모듈을 사용하여 메일 전송"() {
-//        Template template = handlebarsFactory.get("WeeklyLetter")
-//        String content = template.apply("")
-//
-//        given:
-//        SenderDto dto = SenderDto.builder()
-//                .from("admin@devbeginner.com")
-//                .to(Lists.newArrayList("jojoldu@gmail.com"))
-//                .subject("테스트")
-//                .content(content)
-//                .build()
-//
-//        when:
-//        sender.send(dto)
-//
-//        then:
-//        println "전송되었습니다."
+        Template template = handlebarsFactory.get("WeeklyLetter")
+        String content = template.apply("")
+
+        given:
+        SenderDto dto = SenderDto.builder()
+                .from("admin@devbeginner.com")
+                .to(Lists.newArrayList("jojoldu@gmail.com"))
+                .subject("테스트")
+                .content(content)
+                .build()
+
+        when:
+        sender.send(dto)
+
+        then:
+        println "전송되었습니다."
     }
 
 
