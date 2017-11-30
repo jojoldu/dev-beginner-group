@@ -1,1 +1,49 @@
 language: java
+jdk:
+  - oraclejdk8
+  - openjdk8
+
+branches:
+  only:
+    - master
+
+cache:
+  directories:
+    - '$HOME/.m2/repository'
+    - '$HOME/.gradle'
+    - '.gradle'
+
+script: "./gradlew build"
+
+deploy:
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
+    secret_access_key: $AWS_SECRET_KEY
+    local_dir: deploy_devbeginner
+    bucket: deploy-travis-ci
+    region: us-west-2
+    skip_cleanup: true
+    acl: public_read
+    wait-until-deployed: true
+    on:
+      repo: jojoldu/dev-beginner-group
+      branch: master
+  - provider: codedeploy
+    access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: deploy-travis-ci
+    key: devbeginner-group.zip
+    bundle_type: zip
+    application: devbeginner-group
+    deployment_group: devbeginner
+    region: ap-northeast-2
+    wait-until-deployed: true
+    on:
+      repo: jojoldu/dev-beginner-group
+      branch: master
+after_deploy:
+  - echo "Performing after deploy procedures..."
+notifications:
+  email:
+    recipients:
+      - jojoldu@gmail.com
