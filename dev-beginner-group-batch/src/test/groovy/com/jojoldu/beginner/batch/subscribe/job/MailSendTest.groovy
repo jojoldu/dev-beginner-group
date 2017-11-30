@@ -8,6 +8,7 @@ import org.assertj.core.util.Lists
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.TestPropertySource
+import spock.lang.Ignore
 import spock.lang.Specification
 
 /**
@@ -18,6 +19,7 @@ import spock.lang.Specification
 
 @SpringBootTest
 @TestPropertySource(properties = "job.name=subscribeBatch")
+@Ignore
 class MailSendTest extends Specification {
 
     @Autowired

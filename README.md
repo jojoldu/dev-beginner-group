@@ -1,4 +1,4 @@
-# 초보 개발자 모임  
+# 초보 개발자 모임  [![Build Status](https://travis-ci.org/jojoldu/dev-beginner-group.svg?branch=master)](https://travis-ci.org/jojoldu/dev-beginner-group)
 
 ## 구성
 
