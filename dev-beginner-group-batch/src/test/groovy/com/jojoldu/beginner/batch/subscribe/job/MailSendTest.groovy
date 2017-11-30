@@ -19,7 +19,6 @@ import spock.lang.Specification
 
 @SpringBootTest
 @TestPropertySource(properties = "job.name=subscribeBatch")
-@Ignore
 class MailSendTest extends Specification {
 
     @Autowired

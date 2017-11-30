@@ -17,7 +17,6 @@ deploy:
   - provider: s3
     access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
     secret_access_key: $AWS_SECRET_KEY
-    local_dir: deploy_devbeginner
     bucket: deploy-travis-ci
     region: us-west-2
     skip_cleanup: true

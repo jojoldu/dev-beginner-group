@@ -24,7 +24,6 @@ import java.time.LocalDate
  */
 @SpringBootTest
 @TestPropertySource(properties = "job.name=subscribeBatch")
-@Ignore
 class SubscribeJobConfigurationTest extends Specification {
 
     String content = "오늘 playnode 2017이 개최되었습니다!\n" +
