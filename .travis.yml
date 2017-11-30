@@ -6,6 +6,7 @@ branches:
   only:
     - master
 
+# Travis CI 서버의 Home
 cache:
   directories:
     - '$HOME/.m2/repository'
@@ -33,7 +34,7 @@ deploy:
     bundle_type: zip
     application: devbeginner-group
     deployment_group: devbeginner
-    region: us-east-1
+    region: ap-northeast-2
     wait-until-deployed: true
     on:
       repo: jojoldu/dev-beginner-group
