@@ -19,7 +19,7 @@ deploy:
     access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
     secret_access_key: $AWS_SECRET_KEY
     bucket: deploy-devbeginner
-    region: us-east-1
+    region: ap-northeast-2
     skip_cleanup: true
     acl: public_read
     wait-until-deployed: true
