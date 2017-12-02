@@ -14,6 +14,11 @@ cache:
 
 script: "./gradlew clean build -x test"
 
+before_deploy:
+  - zip -r devbeginner-group *
+  - mkdir -p deploy
+  - mv devbeginner-group.zip deploy/devbeginner-group.zip
+
 deploy:
   - provider: s3
     access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
@@ -21,6 +26,7 @@ deploy:
     bucket: deploy-devbeginner
     region: ap-northeast-2
     skip_cleanup: true
+    local_dir: deploy
     acl: public_read
     wait-until-deployed: true
     on:
