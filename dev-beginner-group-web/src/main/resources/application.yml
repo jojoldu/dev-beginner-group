@@ -4,13 +4,13 @@ spring:
   thymeleaf:
     mode: LEGACYHTML5
 server:
-  port: 10020
+  port: 8080
 
 devbeginner:
   mail:
     enabled: true
   web:
-    url: http://localhost:10020
+    url: http://localhost:8080
 
 
 ---
@@ -20,3 +20,5 @@ spring:
   jpa:
     database-platform: H2
     show-sql: true
+  pid:
+    file: local-application.pid

@@ -2,6 +2,7 @@ package com.jojoldu.beginner;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.system.ApplicationPidFileWriter;
 
 @SpringBootApplication
 public class WebApplication {
@@ -13,6 +14,7 @@ public class WebApplication {
 	public static void main(String[] args) {
 		new SpringApplicationBuilder(WebApplication.class)
 				.properties(APPLICATION_LOCATIONS)
+				.listeners(new ApplicationPidFileWriter())
 				.run(args);
 
 	}
