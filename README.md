@@ -8,6 +8,8 @@
 * Batch
   * 정기 메일 발송
   * 기타 배치 작업
+* Static Uploader
+  * 정적파일 S3 업로더  
 * Web
   * 메일 구독 등록
   * 페이스북 Web Hook
