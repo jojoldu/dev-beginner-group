@@ -3,6 +3,9 @@ spring:
         profiles: set1
         pid:
                 file: /home/ec2-user/app/script/set1-application.pid
+        devtools:
+              livereload:
+              enabled: false
 server:
   port: 8081
 
@@ -29,6 +32,9 @@ spring:
         profiles: set2
         pid:
                 file: /home/ec2-user/app/script/set2-application.pid
+        devtools:
+              livereload:
+              enabled: false
 server:
   port: 8082
 

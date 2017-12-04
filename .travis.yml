@@ -45,8 +45,11 @@ deploy:
     on:
       repo: jojoldu/dev-beginner-group
       branch: master
+
 after_deploy:
   - echo "Performing after deploy procedures..."
+  - /home/ec2-user/app/script/deploy.sh
+
 notifications:
   email:
     recipients:

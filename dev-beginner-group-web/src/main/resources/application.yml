@@ -22,3 +22,6 @@ spring:
     show-sql: true
   pid:
     file: local-application.pid
+  devtools:
+    livereload:
+      enabled: false
