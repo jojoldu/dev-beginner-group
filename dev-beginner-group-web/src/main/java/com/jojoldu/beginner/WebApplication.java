@@ -9,7 +9,7 @@ public class WebApplication {
 
 	public static final String APPLICATION_LOCATIONS = "spring.config.location="
 			+ "classpath:application.yml,"
-			+ "~/app/config/real-application.yml";
+			+ "/app/config/real-application.yml";
 
 	public static void main(String[] args) {
 		new SpringApplicationBuilder(WebApplication.class)
