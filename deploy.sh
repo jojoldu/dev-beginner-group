@@ -32,7 +32,7 @@ IDLE_APPLICATION=$DEPLOY_PATH$IDLE_SET-dev-beginner-group-web.jar
 
 ln -Tfs $DEPLOY_PATH$BUILD_FILE_NAME $IDLE_APPLICATION
 
-echo "> SET $IDLE_SET 에서 구동중인 애플리케이션 pid 확인"
+echo "> $IDLE_SET 에서 구동중인 애플리케이션 pid 확인"
 CURRENT_PID=$(cat ~/app/script/$IDLE_SET-application.pid)
 
 if [ -z $CURRENT_PID ]; then

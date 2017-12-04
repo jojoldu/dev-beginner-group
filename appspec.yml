@@ -5,3 +5,8 @@ os: linux
 files:
   - source: /
     destination: /home/ec2-user/app/build/
+
+hooks:
+  AfterInstall:
+    - location: /home/ec2-user/app/script/deploy.sh
+      timeout: 180

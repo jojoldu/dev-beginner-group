@@ -48,7 +48,6 @@ deploy:
 
 after_deploy:
   - echo "Performing after deploy procedures..."
-  - /home/ec2-user/app/script/deploy.sh
 
 notifications:
   email:

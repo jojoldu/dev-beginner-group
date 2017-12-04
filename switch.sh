@@ -3,7 +3,7 @@
 echo "> 현재 구동중인 Port 확인"
 PORT_SET1=8081
 PORT_SET2=8082
-CURRENT_PORT=$(cat /etc/nginx/nginx.conf | grep '$PORT [0-9]*' | sed 's/[^0-9]//g')
+CURRENT_PORT=$(cat /etc/nginx/conf.d/service-url.inc | sed 's/[^0-9]//g')
 echo "> Nginx Current Proxy Port: $CURRENT_PORT"
 
 # Switch Port
@@ -19,10 +19,11 @@ else
 fi
 
 
-sudo sed -i "s/set \$PORT [0-9]*/set \$PORT $SWITCH_PORT/g" /etc/nginx/nginx.conf
+echo "> Port Switch"
+sudo sed -i "s/localhost:[0-9]*/localhost:$SWITCH_PORT/g" /etc/nginx/conf.d/service-url.inc
 
-PROXY_PORT=$(cat /etc/nginx/nginx.conf | grep '$PORT [0-9]*' | sed 's/[^0-9]//g')
-echo "> Nginx Proxy Port: $PROXY_PORT"
+PROXY_PORT=$(cat /etc/nginx/conf.d/service-url.inc | sed 's/[^0-9]//g')
+echo "> Nginx Current Proxy Port: $PROXY_PORT"
 
 echo "> Ngin Reload"
 
