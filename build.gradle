@@ -18,7 +18,7 @@ buildscript {
 
 ext {
 	projectGroup = 'com.jojoldu.dev-beginner-group'
-	projectVersion = '0.0.8'
+	projectVersion = '0.0.9'
 }
 
 task wrapper(type: Wrapper) {

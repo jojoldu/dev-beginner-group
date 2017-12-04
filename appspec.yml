@@ -8,5 +8,5 @@ files:
 
 hooks:
   AfterInstall:
-    - location: /home/ec2-user/app/script/deploy.sh
+    - location: scripts/code-deploy.sh
       timeout: 180
