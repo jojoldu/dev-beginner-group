@@ -3,5 +3,16 @@
 version: 0.0
 os: linux
 files:
-  - source:  dev-beginner-group-web
+  - source:  /
     destination: /home/ec2-user/app/build/
+
+#permissions:
+#  - object: /home/ec2-user
+#    owner: ec2-user
+#    group: ec2-user
+#
+#hooks:
+#  AfterInstall:
+#    - location: scripts/code-deploy.sh
+#      timeout: 180
+#      runas: ec2-user
