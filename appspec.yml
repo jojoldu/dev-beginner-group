@@ -9,4 +9,3 @@ files:
 hooks:
   AfterInstall:
     - location: scripts/code-deploy.sh
-      timeout: 180
