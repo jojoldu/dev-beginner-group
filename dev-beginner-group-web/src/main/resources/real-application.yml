@@ -1,0 +1,51 @@
+---
+spring:
+        profiles: set1
+        pid:
+                file: /home/ec2-user/app/script/set1-application.pid
+server:
+  port: 8081
+
+devbeginner:
+  mail:
+      enabled: true
+  web:
+      url: https://www.devbeginner.com
+
+#Connection
+spring.datasource:
+        url: AWS RDS 주소
+        username: AWS RDS 계정
+        password: AWS RDS 비밀번호
+        driver-class-name: org.mariadb.jdbc.Driver
+        hikari:
+                connectionTimeout: 30000 #30s
+                idleTimeout: 600000      #10m
+                maxLifetime: 1800000     #30m
+                maximumPoolSize: 100
+
+---
+spring:
+        profiles: set2
+        pid:
+                file: /home/ec2-user/app/script/set2-application.pid
+server:
+  port: 8082
+
+devbeginner:
+  mail:
+      enabled: true
+  web:
+      url: https://www.devbeginner.com
+
+#Connection
+spring.datasource:
+        url: AWS RDS 주소
+        username: AWS RDS 계정
+        password: AWS RDS 비밀번호
+        driver-class-name: org.mariadb.jdbc.Driver
+        hikari:
+                connectionTimeout: 30000 #30s
+                idleTimeout: 600000      #10m
+                maxLifetime: 1800000     #30m
+                maximumPoolSize: 100
