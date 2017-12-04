@@ -1,9 +1,11 @@
 #!/bin/bash
 
+#!/bin/bash
+
 echo "> 현재 구동중인 Port 확인"
 PORT_SET1=8081
 PORT_SET2=8082
-CURRENT_PORT=$(cat /etc/nginx/conf.d/service-url.inc | sed 's/[^0-9]//g')
+CURRENT_PORT=$(cat /etc/nginx/conf.d/service-url.inc |tr ';' ' ' |cut -d':' -f3- |xargs)
 echo "> Nginx Current Proxy Port: $CURRENT_PORT"
 
 # Switch Port
@@ -20,11 +22,11 @@ fi
 
 
 echo "> Port Switch"
-sudo sed -i "s/localhost:[0-9]*/localhost:$SWITCH_PORT/g" /etc/nginx/conf.d/service-url.inc
+echo "set \$service_url http://127.0.0.1:${SWITCH_PORT};" |sudo tee /etc/nginx/conf.d/service-url.inc
+# sudo sed -i "s/localhost:[0-9]*/localhost:$SWITCH_PORT/g" /etc/nginx/conf.d/service-url.inc
 
-PROXY_PORT=$(cat /etc/nginx/conf.d/service-url.inc | sed 's/[^0-9]//g')
+PROXY_PORT=$(cat /etc/nginx/conf.d/service-url.inc |tr ';' ' ' |cut -d':' -f3- |xargs)
 echo "> Nginx Current Proxy Port: $PROXY_PORT"
 
 echo "> Ngin Reload"
-
 sudo service nginx reload
