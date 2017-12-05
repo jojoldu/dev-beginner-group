@@ -3,7 +3,7 @@
 version: 0.0
 os: linux
 files:
-  - source:  /
+  - source:  dev-beginner-group-web/build/libs/*.jar
     destination: /home/ec2-user/app/build/
 
 #permissions:
@@ -15,4 +15,3 @@ files:
 #  AfterInstall:
 #    - location: scripts/code-deploy.sh
 #      timeout: 180
-#      runas: ec2-user
