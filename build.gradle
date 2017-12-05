@@ -18,7 +18,7 @@ buildscript {
 
 ext {
 	projectGroup = 'com.jojoldu.dev-beginner-group'
-	projectVersion = '0.0.12'
+	projectVersion = '0.0.13-'+new Date().format("yyyyMMddHHmmss")
 }
 
 task wrapper(type: Wrapper) {
@@ -50,7 +50,7 @@ subprojects {
 			additionalProperties = [
 					'group'         : "${projectGroup}",
 					'version'       : "${projectVersion}",
-					'build-datetime': new Date().format("yyyy-MM-dd HH:mm:ss zzz")
+					'build-datetime': new Date().format("yyyyMMddHHmmss")
 			]
 		}
 	}

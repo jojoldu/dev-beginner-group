@@ -1,18 +1,13 @@
 # AWS Codedeploy Spec
 
 # source에 정규표현식은 안먹힘
-# 디렉토리 채로 옮기거나, build/libs 채로 옮겨야함
+# 디렉토리 채로 옮기거나, build/libs 채로 옮겨야 함
 version: 0.0
 os: linux
 files:
   - source:  /
     destination: /home/ec2-user/app/build/
 
-#permissions:
-#  - object: /home/ec2-user
-#    owner: ec2-user
-#    group: ec2-user
-#
 hooks:
   AfterInstall:
     - location: scripts/code-deploy.sh
