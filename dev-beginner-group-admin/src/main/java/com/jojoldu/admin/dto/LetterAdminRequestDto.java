@@ -1,11 +1,13 @@
 package com.jojoldu.admin.dto;
 
 import com.jojoldu.beginner.domain.letter.Letter;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.annotation.Nonnull;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 
@@ -25,6 +27,14 @@ public class LetterAdminRequestDto {
     private String sender;
     private String content;
     private String markdown;
+
+    @Builder
+    public LetterAdminRequestDto(@Nonnull String subject, @Nonnull String sender, @Nonnull String content, @Nonnull String markdown) {
+        this.subject = subject;
+        this.sender = sender;
+        this.content = content;
+        this.markdown = markdown;
+    }
 
     public Letter toEntity(){
         Letter letter = Letter.builder()
