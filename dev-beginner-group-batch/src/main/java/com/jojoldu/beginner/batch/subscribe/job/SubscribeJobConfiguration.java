@@ -91,7 +91,7 @@ public class SubscribeJobConfiguration {
         return stepBuilderFactory.get(STEP_NAME+"_createContent")
                 .tasklet((contribution, chunkContext) -> {
                     Letter letter = letterRepository.findOne(Long.valueOf(letterId));
-                    mailCacheComponent.init(letter.getSubject(), letter.getContent(), letter.getSender());
+//                    mailCacheComponent.init(letter.getSubject(), letter.get(), letter.getSender());
                     return RepeatStatus.FINISHED;
                 })
                 .build();
