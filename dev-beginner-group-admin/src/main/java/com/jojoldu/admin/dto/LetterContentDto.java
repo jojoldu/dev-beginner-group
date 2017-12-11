@@ -1,11 +1,15 @@
 package com.jojoldu.admin.dto;
 
-import lombok.AllArgsConstructor;
+import com.jojoldu.beginner.domain.letter.LetterContent;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.annotation.Nonnull;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 
 /**
  * Created by jojoldu@gmail.com on 2017. 12. 9.
@@ -13,13 +17,44 @@ import java.util.List;
  * Github : https://github.com/jojoldu
  */
 
+@Slf4j
+@Setter
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
 public class LetterContentDto {
-    private List<LetterPostDto> posts = new ArrayList<>();
+    private String title;
+    private String link;
+    private String img;
+    private String content;
+    private String contentMarkdown;
 
-    public void add(LetterPostDto dto) {
-        this.posts.add(dto);
+    @Builder
+    public LetterContentDto(@Nonnull String title, @Nonnull String link, @Nonnull String img, @Nonnull String content, @Nonnull String contentMarkdown) {
+        this.title = title;
+        this.link = link;
+        this.img = img;
+        this.content = content;
+        this.contentMarkdown = contentMarkdown;
     }
+
+    public LetterContent toEntity(){
+        return LetterContent.builder()
+                .title(title)
+                .link(link)
+                .img(img)
+                .content(decode(content))
+                .contentMarkdown(contentMarkdown)
+                .build();
+    }
+
+    private String decode(String origin){
+        try {
+            return URLDecoder.decode(origin, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            final String message = "Decode Exception, title: " + title;
+            log.error(message, e);
+            throw new RuntimeException(message);
+        }
+    }
+
 }

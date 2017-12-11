@@ -6,11 +6,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.util.StringUtils;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.annotation.Nonnull;
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by jojoldu@gmail.com on 2017. 11. 14.
@@ -33,25 +34,39 @@ public class Letter {
     @Column(nullable = false)
     private String sender;
 
-    @Column(columnDefinition = "TEXT", nullable = false)
-    private String content;
-
-    @Column(columnDefinition = "TEXT", nullable = false)
-    private String markdown;
-
     private LocalDate sendDate;
 
     private LocalDate createDate;
 
     private LetterStatus status;
 
+    @OneToMany(mappedBy = "letter", cascade = CascadeType.ALL)
+    private List<LetterContentMap> letterContents = new ArrayList<>();
+
     @Builder
-    public Letter(String subject, String sender, String content, String markdown) {
+    public Letter(@Nonnull String subject, String sender, List<LetterContent> letterContents) {
         this.subject = subject;
         this.sender = StringUtils.isEmpty(sender)? Constants.ADMIN_EMAIL : sender;
-        this.content = content;
-        this.markdown = markdown;
         this.createDate = LocalDate.now();
+        this.addContents(letterContents);
+    }
+
+    public List<LetterContent> getContentEntity(){
+        return this.getLetterContents().stream()
+                .map(LetterContentMap::getLetterContent)
+                .collect(Collectors.toList());
+    }
+
+    public void addContents(List<LetterContent> contents){
+        if(contents != null){
+            for (LetterContent content : contents) {
+                this.addContent(content);
+            }
+        }
+    }
+
+    public void addContent(LetterContent content) {
+        this.letterContents.add(new LetterContentMap(this, content));
     }
 
     public void sending() {

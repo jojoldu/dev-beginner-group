@@ -3,8 +3,7 @@ package com.jojoldu.admin.service;
 import com.github.jknack.handlebars.Template;
 import com.google.common.collect.ImmutableMap;
 import com.jojoldu.admin.dto.LetterAdminRequestDto;
-import com.jojoldu.beginner.domain.letter.Letter;
-import com.jojoldu.beginner.domain.letter.LetterRepository;
+import com.jojoldu.beginner.domain.letter.*;
 import com.jojoldu.beginner.mail.aws.Sender;
 import com.jojoldu.beginner.mail.aws.SenderDto;
 import com.jojoldu.beginner.mail.template.HandlebarsFactory;
@@ -16,8 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.swing.text.html.Option;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Created by jojoldu@gmail.com on 2017. 11. 24.
@@ -31,18 +32,25 @@ import java.util.Optional;
 public class LetterAdminService {
 
     private LetterRepository letterRepository;
+    private LetterContentRepository letterContentRepository;
     private Sender sender;
     private HandlebarsFactory handlebarsFactory;
 
     @Transactional
     public Long saveAndSend(LetterAdminRequestDto dto){
-        final Letter letter = letterRepository.save(dto.toEntity());
+        final Letter letter = createLetter(dto);
         sendTestUser(letter);
         return letter.getId();
     }
 
+    Letter createLetter(LetterAdminRequestDto dto) {
+        Letter letter = dto.toEntity();
+        letter.addContents(letterContentRepository.findAllByIdIn(dto.getContentIds()));
+        return letterRepository.save(letter);
+    }
+
     private void sendTestUser(Letter letter){
-        compileContent(letter.getContent())
+        compileContent(letter.getSubject(), letter.getContentEntity())
                 .ifPresent(content -> {
                     SenderDto senderDto = SenderDto.builder()
                             .to(Constants.TEST_USERS)
@@ -53,13 +61,13 @@ public class LetterAdminService {
                 });
     }
 
-    private Optional<String> compileContent(String content){
+    private Optional<String> compileContent(String subject, List<LetterContent> contentList){
         final Template template = handlebarsFactory.get("newsletter");
-        Map<String, String> map = ImmutableMap.of("content", content);
+        Map<String, List<LetterContent>> map = ImmutableMap.of("posts", contentList);
         try {
             return Optional.of(template.apply(map));
         } catch (IOException e) {
-            log.error(String.format("Handlebars Template Exception: content: %s", content));
+            log.error(String.format("Handlebars Template Exception: subject: %s", subject));
             return Optional.empty();
         }
     }

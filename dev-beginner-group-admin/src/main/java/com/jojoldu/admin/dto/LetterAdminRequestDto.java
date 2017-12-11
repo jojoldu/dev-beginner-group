@@ -1,6 +1,7 @@
 package com.jojoldu.admin.dto;
 
 import com.jojoldu.beginner.domain.letter.Letter;
+import com.jojoldu.beginner.domain.letter.LetterContentMap;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,6 +11,9 @@ import lombok.extern.slf4j.Slf4j;
 import javax.annotation.Nonnull;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by jojoldu@gmail.com on 2017. 11. 24.
@@ -25,23 +29,19 @@ public class LetterAdminRequestDto {
 
     private String subject;
     private String sender;
-    private String content;
-    private String markdown;
+    private List<Long> contentIds = new ArrayList<>();
 
     @Builder
-    public LetterAdminRequestDto(@Nonnull String subject, @Nonnull String sender, @Nonnull String content, @Nonnull String markdown) {
+    public LetterAdminRequestDto(@Nonnull String subject, @Nonnull String sender, List<Long> contentIds) {
         this.subject = subject;
         this.sender = sender;
-        this.content = content;
-        this.markdown = markdown;
+        this.contentIds = contentIds;
     }
 
     public Letter toEntity(){
         Letter letter = Letter.builder()
                 .sender(sender)
-                .subject(decode(subject))
-                .content(decode(content))
-                .markdown(decode(markdown))
+                .subject(subject)
                 .build();
 
         letter.sending();
@@ -49,13 +49,6 @@ public class LetterAdminRequestDto {
         return letter;
     }
 
-    private String decode(String origin){
-        try {
-            return URLDecoder.decode(origin, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            final String message = "Decode Exception, Subject: " + subject;
-            log.error(message, e);
-            throw new RuntimeException(message);
-        }
-    }
+
+
 }

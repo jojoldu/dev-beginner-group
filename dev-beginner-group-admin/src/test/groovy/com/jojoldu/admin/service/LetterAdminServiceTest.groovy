@@ -2,11 +2,21 @@ package com.jojoldu.admin.service
 
 import com.jojoldu.admin.dto.LetterAdminRequestDto
 import com.jojoldu.beginner.domain.letter.Letter
+import com.jojoldu.beginner.domain.letter.LetterContent
+import com.jojoldu.beginner.domain.letter.LetterContentRepository
 import com.jojoldu.beginner.domain.letter.LetterRepository
+import com.jojoldu.beginner.mail.aws.Sender
+import com.jojoldu.beginner.mail.aws.SenderDto
 import com.jojoldu.beginner.util.Constants
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.boot.test.mock.mockito.SpyBean
 import spock.lang.Specification
+
+import static org.mockito.Matchers.any
+import static org.mockito.Mockito.doReturn
+import static org.mockito.Mockito.times
+import static org.mockito.Mockito.verify
 
 /**
  * Created by jojoldu@gmail.com on 2017. 12. 8.
@@ -18,39 +28,58 @@ import spock.lang.Specification
 class LetterAdminServiceTest extends Specification {
 
     @Autowired
-    LetterAdminService letterAdminService
-
-    @Autowired
     LetterRepository letterRepository
 
+    @Autowired
+    LetterContentRepository contentRepository
+
+    @SpyBean
+    LetterAdminService letterAdminService
+
+    @SpyBean
+    Sender sender
+
     def cleanup() {
+        contentRepository.deleteAll()
         letterRepository.deleteAll()
     }
 
     def "newsletter.hbs에 content가 추가되어 메일 전송된다" () {
         given:
-        String content = "<h1>11월 2주차</h1>\n" +
-                "    <p>안녕하세요?<br>\n" +
-                "        11월 2주차 뉴스레터입니다.</p>\n" +
-                "    <h3>베스트 기사</h3>\n" +
-                "    <p>\n" +
-                "        <img src=\"https://s3.ap-northeast-2.amazonaws.com/devbeginner.com/%E1%84%92%E1%85%A2%E1%86%B7%E1%84%90%E1%85%A9%E1%84%85%E1%85%B5%20%E1%84%83%E1%85%B1%E1%84%84%E1%85%AE%E1%86%BC.gif\" alt=\"햄토리 뒤뚱.gif\">\n" +
-                "    </p>"
-
+        String img = "https://s3.ap-northeast-2.amazonaws.com/devbeginner.com/%E1%84%8E%E1%85%A9%E1%84%80%E1%85%A2%E1%84%86%E1%85%A9.png"
         def subject = "뉴스레터 테스트"
-        def dto = LetterAdminRequestDto.builder()
-                .subject(subject)
-                .sender(Constants.ADMIN_EMAIL)
-                .markdown("### 테스트")
-                .content(content)
+        def spyLetter = Spy(Letter.builder().subject(subject).build())
+
+        spyLetter.getContentEntity() >> Arrays.asList(
+                LetterContent.builder()
+                        .title("뉴스레터#1")
+                        .content("초보개발자모임 첫 뉴스레터 발송을 축하하는 의미 <br> 매주 월요일 오전에 지난주에 있었던 개발 이야기를 전달해드립니다.")
+                        .contentMarkdown("초보개발자모임 첫 뉴스레터 발송을 축하하는 의미")
+                        .link("http://jojoldu.tistory.com/")
+                        .img(img)
+                        .build(),
+                LetterContent.builder()
+                        .title("뉴스레터#2")
+                        .content("초보개발자모임 페이스북 페이지 링크 소개")
+                        .contentMarkdown("초보개발자모임 페이스북 페이지 링크 소개")
+                        .link("https://www.facebook.com/devbeginner/")
+                        .img(img)
+                        .build(),
+        )
+
+        def requestDto = LetterAdminRequestDto.builder()
+                .subject("테스트")
+                .sender("admin@devbeginner.com")
                 .build()
+
+        doReturn(spyLetter)
+                .when(letterAdminService)
+                .createLetter(requestDto)
+
         when:
-        letterAdminService.saveAndSend(dto)
+        letterAdminService.saveAndSend(requestDto)
 
         then:
-        def letters = letterRepository.findAll()
-        letters.size() == 1
-        letters.get(0).sender == Constants.ADMIN_EMAIL
-        letters.get(0).subject == subject
+        verify(sender, times(1)).send(any(SenderDto.class))
     }
 }
