@@ -1,7 +1,8 @@
 package com.jojoldu.admin.controller;
 
-import com.jojoldu.admin.dto.LetterAdminRequestDto;
+import com.jojoldu.admin.dto.LetterContentDto;
 import com.jojoldu.admin.service.LetterAdminService;
+import com.jojoldu.beginner.domain.letter.LetterContentRepository;
 import com.jojoldu.staticuploader.aws.StaticUploader;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -22,22 +23,25 @@ public class AdminController {
 
     private StaticUploader staticUploader;
     private LetterAdminService letterAdminService;
+    private LetterContentRepository letterContentRepository;
 
     @GetMapping("/")
     public String main() {
         return "main";
     }
 
-    @PostMapping("/upload-image")
+    @PostMapping("/image/upload")
     @ResponseBody
     public String uploadImage(@RequestParam("data") MultipartFile file) throws IOException {
         return staticUploader.upload(file);
     }
 
-    @PostMapping("/upload-content")
+    @PostMapping("/letter-content/save")
     @ResponseBody
-    public Long uploadContent(@RequestBody LetterAdminRequestDto requestDto) {
-        return letterAdminService.saveAndSend(requestDto);
+    public Long uploadContent(@RequestBody LetterContentDto requestDto) {
+        return letterContentRepository.save(requestDto.toEntity()).getId();
     }
+
+
 
 }

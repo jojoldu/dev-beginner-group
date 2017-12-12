@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>DevBeginner Admin</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/dist/css/lib.css" />
+    <link rel="stylesheet" href="/dist/fonts/glyphicons-halflings-regular.eot"  type="application/vnd.ms-fontobject"/>
+    <link rel="stylesheet" href="/dist/fonts/glyphicons-halflings-regular.svg"  type="image/svg+xml"/>
+    <link rel="stylesheet" href="/dist/fonts/glyphicons-halflings-regular.ttf"  type="application/x-font-ttf"/>
+    <link rel="stylesheet" href="/dist/fonts/glyphicons-halflings-regular.woff"  type="application/font-woff"/>
+    <link rel="stylesheet" href="/dist/fonts/glyphicons-halflings-regular.woff2"  type="application/font-woff2"/>
+</head>
+<body>
+<div class="row">
+    <div class="col-md-4">
+        <form>
+            <div class="form-group">
+                <label for="title">제목</label>
+                <input type="text" class="form-control" id="title" placeholder="X월 Y주차 뉴스레터"/>
+            </div>
+            <button type="button" class="btn btn-default" id="btn-save">저장</button>
+            <button type="button" class="btn btn-success" id="btn-send">발송</button>
+        </form>
+    </div>
+    <div class="col-md-8">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>id</th>
+                    <th>등록일</th>
+                    <th>제목</th>
+                    <th>바로가기</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>1,001</td>
+                    <td>Lorem</td>
+                    <td>ipsum</td>
+                    <td>dolor</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<br/>
+
+<script src="/dist/js/lib.js"></script>
+<script>
+    $('#btn-save').on('click', function () {
+        var title = encodeURIComponent($('#title').val());
+
+        var request = {
+            title: title,
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: '/letter-content/save',
+            dataType: 'json',
+            contentType:'application/json; charset=utf-8',
+            data: JSON.stringify(request)
+        }).done(function(data) {
+            alert(data+' 글이 등록되었습니다.');
+        }).fail(function (error) {
+            alert(error);
+        });
+    });
+
+</script>
+</body>
+</html>
