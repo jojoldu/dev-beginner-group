@@ -40,12 +40,12 @@ public class StaticUploader {
     }
 
     private File convert(MultipartFile file) throws IOException {
-        File convFile = new File(file.getOriginalFilename());
-        convFile.createNewFile();
-        try (FileOutputStream fos = new FileOutputStream(convFile)) {
+        File convertFile = new File(file.getOriginalFilename());
+        convertFile.createNewFile();
+        try (FileOutputStream fos = new FileOutputStream(convertFile)) {
             fos.write(file.getBytes());
         }
-        return convFile;
+        return convertFile;
     }
 
     private AWSCredentials getAwsCredentials() {

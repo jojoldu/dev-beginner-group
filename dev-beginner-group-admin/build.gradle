@@ -2,7 +2,9 @@ dependencies {
 	compile project(':dev-beginner-group-core')
 	compile project(':dev-beginner-group-static-uploader')
 	compile project(':dev-beginner-group-mail')
-	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+//	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+//	compile 'net.sourceforge.nekohtml:nekohtml:1.9.22'
+	compile 'pl.allegro.tech.boot:handlebars-spring-boot-starter:0.2.15'
 	compile('org.springframework.boot:spring-boot-starter-web')
 	runtime('org.springframework.boot:spring-boot-devtools')
 }
