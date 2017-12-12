@@ -15,7 +15,7 @@ const DIR = {
 const DEST = {
     JS: DIR.DEST + '/js',
     CSS: DIR.DEST + '/css',
-    FONTS: DIR.DEST + '/fonts',
+    FONTS: DIR.DEST + '/fonts'
 };
 
 gulp.task('default', ['clean', 'copy', 'minify-js-lib', 'minify-css-lib'], () => {

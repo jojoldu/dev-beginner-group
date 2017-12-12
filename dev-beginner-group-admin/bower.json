@@ -20,5 +20,8 @@
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "tui-editor": "https://github.com/nhnent/tui.editor.git"
+  }
 }
