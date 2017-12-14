@@ -21,7 +21,7 @@ import java.net.URLDecoder;
 @Setter
 @Getter
 @NoArgsConstructor
-public class LetterContentDto {
+public class LetterContentRequestDto {
     private String title;
     private String link;
     private String img;
@@ -29,7 +29,7 @@ public class LetterContentDto {
     private String contentMarkdown;
 
     @Builder
-    public LetterContentDto(@Nonnull String title, @Nonnull String link, @Nonnull String img, @Nonnull String content, @Nonnull String contentMarkdown) {
+    public LetterContentRequestDto(@Nonnull String title, @Nonnull String link, @Nonnull String img, @Nonnull String content, @Nonnull String contentMarkdown) {
         this.title = title;
         this.link = link;
         this.img = img;

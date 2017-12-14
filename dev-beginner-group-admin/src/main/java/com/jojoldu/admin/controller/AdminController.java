@@ -1,5 +1,7 @@
 package com.jojoldu.admin.controller;
 
+import com.jojoldu.admin.dto.LetterPageRequestDto;
+import com.jojoldu.admin.service.LetterAdminService;
 import com.jojoldu.beginner.domain.letter.LetterContentRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -16,7 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @AllArgsConstructor
 public class AdminController {
 
-    private LetterContentRepository letterContentRepository;
+    private LetterAdminService service;
 
     @GetMapping("/")
     public String main() {
@@ -24,10 +26,8 @@ public class AdminController {
     }
 
     @GetMapping("/letter/form/save")
-    public String letterSaveForm(Model model) {
-        model.addAttribute("contents", letterContentRepository.);
+    public String letterSaveForm(Model model, LetterPageRequestDto pageDto) {
+        model.addAttribute("contents", service.findByPageable(pageDto));
         return "letter/save";
     }
-
-
 }

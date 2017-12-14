@@ -1,5 +1,7 @@
 package com.jojoldu.beginner.domain.letter;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -14,5 +16,5 @@ public interface LetterContentRepository extends JpaRepository<LetterContent, Lo
 
     List<LetterContent> findAllByIdIn (List<Long> ids);
 
-    List<LetterContent> findAllOrOrderByIdDesc();
+    Page<LetterContent> findAll(Pageable pageable);
 }

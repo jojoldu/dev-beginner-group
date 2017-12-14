@@ -17,5 +17,5 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 public class LetterContentCollectionDto {
-    private List<LetterContentDto> letterContents = new ArrayList<>();
+    private List<LetterContentRequestDto> letterContents = new ArrayList<>();
 }

@@ -3,6 +3,8 @@ package com.jojoldu.admin.service;
 import com.github.jknack.handlebars.Template;
 import com.google.common.collect.ImmutableMap;
 import com.jojoldu.admin.dto.LetterAdminRequestDto;
+import com.jojoldu.admin.dto.LetterContentResponseDto;
+import com.jojoldu.admin.dto.LetterPageRequestDto;
 import com.jojoldu.beginner.domain.letter.*;
 import com.jojoldu.beginner.mail.aws.Sender;
 import com.jojoldu.beginner.mail.aws.SenderDto;
@@ -10,6 +12,7 @@ import com.jojoldu.beginner.mail.template.HandlebarsFactory;
 import com.jojoldu.beginner.util.Constants;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,6 +38,14 @@ public class LetterAdminService {
     private LetterContentRepository letterContentRepository;
     private Sender sender;
     private HandlebarsFactory handlebarsFactory;
+
+    @Transactional(readOnly = true)
+    public List<LetterContentResponseDto> findByPageable(LetterPageRequestDto dto){
+        return letterContentRepository.findAll(dto.toPageable())
+                .getContent().stream()
+                .map(LetterContentResponseDto::new)
+                .collect(Collectors.toList());
+    }
 
     @Transactional
     public Long saveAndSend(LetterAdminRequestDto dto){

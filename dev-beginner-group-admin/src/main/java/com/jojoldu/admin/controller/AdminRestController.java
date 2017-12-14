@@ -1,7 +1,7 @@
 package com.jojoldu.admin.controller;
 
 import com.jojoldu.admin.dto.LetterAdminRequestDto;
-import com.jojoldu.admin.dto.LetterContentDto;
+import com.jojoldu.admin.dto.LetterContentRequestDto;
 import com.jojoldu.admin.service.LetterAdminService;
 import com.jojoldu.beginner.domain.letter.LetterContentRepository;
 import com.jojoldu.staticuploader.aws.StaticUploader;
@@ -33,7 +33,7 @@ public class AdminRestController {
 
     @PostMapping("/letter-content/save")
     @ResponseBody
-    public Long saveContent(@RequestBody LetterContentDto requestDto) {
+    public Long saveContent(@RequestBody LetterContentRequestDto requestDto) {
         return letterContentRepository.save(requestDto.toEntity()).getId();
     }
 

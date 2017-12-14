@@ -1,5 +1,6 @@
 package com.jojoldu.beginner.domain.letter;
 
+import com.jojoldu.beginner.domain.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,7 +21,7 @@ import java.util.stream.Collectors;
 @Entity
 @Getter
 @NoArgsConstructor
-public class LetterContent {
+public class LetterContent extends BaseTimeEntity {
 
     @Id
     @GeneratedValue
