@@ -48,7 +48,9 @@ class LetterAdminServiceTest extends Specification {
         given:
         String img = "https://s3.ap-northeast-2.amazonaws.com/devbeginner.com/%E1%84%8E%E1%85%A9%E1%84%80%E1%85%A2%E1%84%86%E1%85%A9.png"
         def subject = "뉴스레터 테스트"
-        def spyLetter = Spy(Letter.builder().subject(subject).build())
+        def spyLetter = Spy(Letter.builder()
+                .subject(subject)
+                .build())
 
         spyLetter.getContentEntity() >> Arrays.asList(
                 LetterContent.builder()
@@ -75,6 +77,40 @@ class LetterAdminServiceTest extends Specification {
         doReturn(spyLetter)
                 .when(letterAdminService)
                 .createLetter(requestDto)
+
+        when:
+        letterAdminService.saveAndSend(requestDto)
+
+        then:
+        verify(sender, times(1)).send(any(SenderDto.class))
+    }
+
+    def "[통합] newsletter.hbs에 content가 추가되어 메일 전송된다" () {
+        given:
+        String img = "https://s3.ap-northeast-2.amazonaws.com/devbeginner.com/%E1%84%8E%E1%85%A9%E1%84%80%E1%85%A2%E1%84%86%E1%85%A9.png"
+
+        LetterContent savedContent1 = contentRepository.save(LetterContent.builder()
+                .title("뉴스레터#1")
+                .content("초보개발자모임 첫 뉴스레터 발송을 축하하는 의미 <br> 매주 월요일 오전에 지난주에 있었던 개발 이야기를 전달해드립니다.")
+                .contentMarkdown("초보개발자모임 첫 뉴스레터 발송을 축하하는 의미")
+                .link("http://jojoldu.tistory.com/")
+                .img(img)
+                .build())
+
+        LetterContent savedContent2 = contentRepository.save(LetterContent.builder()
+                .title("뉴스레터#2")
+                .content("초보개발자모임 페이스북 페이지 링크 소개")
+                .contentMarkdown("초보개발자모임 페이스북 페이지 링크 소개")
+                .link("https://www.facebook.com/devbeginner/")
+                .img(img)
+                .build())
+
+
+        def requestDto = LetterAdminRequestDto.builder()
+                .subject("뉴스레터 테스트")
+                .sender("admin@devbeginner.com")
+                .contentIds(Arrays.asList(savedContent1.id, savedContent2.id))
+                .build()
 
         when:
         letterAdminService.saveAndSend(requestDto)

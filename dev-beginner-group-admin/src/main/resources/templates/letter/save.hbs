@@ -28,6 +28,7 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
+                    <th></th>
                     <th>id</th>
                     <th>등록일</th>
                     <th>제목</th>
@@ -35,12 +36,17 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>1,001</td>
-                    <td>Lorem</td>
-                    <td>ipsum</td>
-                    <td>dolor</td>
-                </tr>
+                {{#each contents}}
+                    <tr>
+                        <td><input type="checkbox" class="check-content" data-id="{{id}}"></td>
+                        <td>{{id}}</td>
+                        <td>{{createDate}}</td>
+                        <td>{{title}}</td>
+                        <td>
+                            <input type="button" class="btn-default" href="/content/{{id}}">
+                        </td>
+                    </tr>
+                {{/each}}
                 </tbody>
             </table>
         </div>
@@ -53,9 +59,11 @@
 <script>
     $('#btn-save').on('click', function () {
         var title = encodeURIComponent($('#title').val());
+        var contentIds = getCheckedValue('.check-content', 'id');
 
         var request = {
             title: title,
+            contentIds: contentIds
         };
 
         $.ajax({
@@ -70,6 +78,16 @@
             alert(error);
         });
     });
+
+    function getCheckedValue(key, dataKey) {
+        var checkedValues = [];
+
+        $(key+':checked').each(function () {
+            checkedValues.push($(this).data(dataKey));
+        });
+
+        return checkedValues;
+    }
 
 </script>
 </body>

@@ -13,4 +13,6 @@ import java.util.List;
 public interface LetterContentRepository extends JpaRepository<LetterContent, Long>{
 
     List<LetterContent> findAllByIdIn (List<Long> ids);
+
+    List<LetterContent> findAllOrOrderByIdDesc();
 }
