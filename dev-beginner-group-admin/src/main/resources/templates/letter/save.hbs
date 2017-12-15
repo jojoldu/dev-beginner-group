@@ -16,8 +16,8 @@
     <div class="col-md-4">
         <form>
             <div class="form-group">
-                <label for="title">제목</label>
-                <input type="text" class="form-control" id="title" placeholder="X월 Y주차 뉴스레터"/>
+                <label for="subject">제목</label>
+                <input type="text" class="form-control" id="subject" placeholder="X월 Y주차 뉴스레터" value="[초보개발자모임] 2017년 12월 4주차 뉴스레터"/>
             </div>
             <button type="button" class="btn btn-default" id="btn-save">저장</button>
             <button type="button" class="btn btn-success" id="btn-send">발송</button>
@@ -43,7 +43,7 @@
                         <td>{{createDate}}</td>
                         <td>{{title}}</td>
                         <td>
-                            <input type="button" class="btn-default" href="/content/{{id}}">
+                            <input type="button" class="btn-default" href="/content/{{id}}" value="바로가기">
                         </td>
                     </tr>
                 {{/each}}
@@ -58,17 +58,17 @@
 <script src="/dist/js/lib.js"></script>
 <script>
     $('#btn-save').on('click', function () {
-        var title = encodeURIComponent($('#title').val());
+        var subject = encodeURIComponent($('#subject').val());
         var contentIds = getCheckedValue('.check-content', 'id');
 
         var request = {
-            title: title,
+            subject: subject,
             contentIds: contentIds
         };
 
         $.ajax({
             type: 'POST',
-            url: '/letter-content/save',
+            url: '/letter/save',
             dataType: 'json',
             contentType:'application/json; charset=utf-8',
             data: JSON.stringify(request)

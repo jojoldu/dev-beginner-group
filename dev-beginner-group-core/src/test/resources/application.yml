@@ -12,5 +12,6 @@ spring:
     password:
     driver-class-name: org.h2.Driver
   jpa:
+    show-sql: true
     hibernate:
       ddl-auto: create

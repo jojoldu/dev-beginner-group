@@ -14,6 +14,10 @@ public class LocalDateTimeUtil {
     private static DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     public static String toStringDate(LocalDateTime localDateTime){
+        if(localDateTime == null){
+            return "";
+        }
+
         return localDateTime.format(DATE_TIME_FORMATTER);
     }
 }

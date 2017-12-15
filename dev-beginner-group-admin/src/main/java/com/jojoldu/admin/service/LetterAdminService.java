@@ -12,11 +12,9 @@ import com.jojoldu.beginner.mail.template.HandlebarsFactory;
 import com.jojoldu.beginner.util.Constants;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.swing.text.html.Option;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -61,7 +59,7 @@ public class LetterAdminService {
     }
 
     private void sendTestUser(Letter letter){
-        compileContent(letter.getSubject(), letter.getContentEntity())
+        compileContent(letter.getSubject(), letter.getContentEntities())
                 .ifPresent(content -> {
                     SenderDto senderDto = SenderDto.builder()
                             .to(Constants.TEST_USERS)

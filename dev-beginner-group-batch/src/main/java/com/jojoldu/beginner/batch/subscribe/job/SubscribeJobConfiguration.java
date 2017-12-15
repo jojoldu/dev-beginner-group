@@ -3,11 +3,9 @@ package com.jojoldu.beginner.batch.subscribe.job;
 import com.jojoldu.beginner.batch.core.QuerydslCursorItemReader;
 import com.jojoldu.beginner.domain.letter.Letter;
 import com.jojoldu.beginner.domain.letter.LetterRepository;
-import com.jojoldu.beginner.domain.posts.PostsRepository;
 import com.jojoldu.beginner.domain.subscriber.Subscriber;
 import com.jojoldu.beginner.mail.aws.Sender;
 import com.jojoldu.beginner.mail.aws.SenderDto;
-import com.jojoldu.beginner.mail.template.HandlebarsFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -90,8 +88,7 @@ public class SubscribeJobConfiguration {
             @Value("#{jobParameters[letterId]}") String letterId) {
         return stepBuilderFactory.get(STEP_NAME+"_createContent")
                 .tasklet((contribution, chunkContext) -> {
-                    Letter letter = letterRepository.findOne(Long.valueOf(letterId));
-//                    mailCacheComponent.init(letter.getSubject(), letter.get(), letter.getSender());
+                    mailCacheComponent.init(Long.valueOf(letterId));
                     return RepeatStatus.FINISHED;
                 })
                 .build();

@@ -44,7 +44,7 @@ public class SubscribeService {
         verifyDuplicateEmail(email);
         final LocalDate now = LocalDate.now();
         final String certifyMessage = createCertifyMessage(email, now);
-        subscriberRepository.save(new Subscriber(email, now, certifyMessage));
+        subscriberRepository.save(new Subscriber(email, certifyMessage));
 
         try{
             sender.send(createSenderDto(email, certifyMessage));

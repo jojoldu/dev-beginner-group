@@ -1,5 +1,6 @@
 package com.jojoldu.beginner.domain.letter;
 
+import com.jojoldu.beginner.domain.BaseTimeEntity;
 import com.jojoldu.beginner.util.Constants;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,7 +23,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @Getter
 @Entity
-public class Letter {
+public class Letter extends BaseTimeEntity {
 
     @Id
     @GeneratedValue
@@ -36,8 +37,6 @@ public class Letter {
 
     private LocalDate sendDate;
 
-    private LocalDate createDate;
-
     private LetterStatus status;
 
     @OneToMany(mappedBy = "letter", cascade = CascadeType.ALL)
@@ -47,11 +46,10 @@ public class Letter {
     public Letter(@Nonnull String subject, String sender, List<LetterContent> letterContents) {
         this.subject = subject;
         this.sender = StringUtils.isEmpty(sender)? Constants.ADMIN_EMAIL : sender;
-        this.createDate = LocalDate.now();
         this.addContents(letterContents);
     }
 
-    public List<LetterContent> getContentEntity(){
+    public List<LetterContent> getContentEntities(){
         return this.getLetterContents().stream()
                 .map(LetterContentMap::getLetterContent)
                 .collect(Collectors.toList());

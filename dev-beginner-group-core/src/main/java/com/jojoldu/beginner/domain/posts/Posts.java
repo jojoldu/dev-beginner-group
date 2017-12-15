@@ -1,5 +1,6 @@
 package com.jojoldu.beginner.domain.posts;
 
+import com.jojoldu.beginner.domain.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,13 +18,15 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Entity
 @Table(indexes = @Index(name = "IDX_POSTS_PUBLISH_DATE", columnList = "publishDate"))
-public class Posts {
+public class Posts extends BaseTimeEntity {
 
     @Id
     @GeneratedValue
     private Long id;
 
     private LocalDate publishDate;
+
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
     private long favoriteCount;
 

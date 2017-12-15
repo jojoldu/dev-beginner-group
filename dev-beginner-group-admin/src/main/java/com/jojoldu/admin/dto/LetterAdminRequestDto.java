@@ -1,19 +1,16 @@
 package com.jojoldu.admin.dto;
 
 import com.jojoldu.beginner.domain.letter.Letter;
-import com.jojoldu.beginner.domain.letter.LetterContentMap;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.validator.constraints.NotBlank;
 
 import javax.annotation.Nonnull;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created by jojoldu@gmail.com on 2017. 11. 24.
@@ -27,6 +24,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class LetterAdminRequestDto {
 
+    @NotBlank(message = "제목이 누락되었습니다.")
     private String subject;
     private String sender;
     private List<Long> contentIds = new ArrayList<>();

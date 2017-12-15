@@ -46,7 +46,7 @@ class SubscribeServiceTest extends Specification {
         given:
         String email = "admin@devbeginner.com"
         String message = "devbeginner"
-        subscriberRepository.save(new Subscriber(email, LocalDate.now(), message))
+        subscriberRepository.save(new Subscriber(email, message))
 
         when:
         subscribeService.certifyComplete(email, message)
@@ -60,7 +60,7 @@ class SubscribeServiceTest extends Specification {
         given:
         String email = "admin@devbeginner.com"
         String message = "devbeginner"
-        subscriberRepository.save(new Subscriber(email, LocalDate.now(), message))
+        subscriberRepository.save(new Subscriber(email, message))
 
         when:
         subscribeService.certifyComplete(email, "aa")

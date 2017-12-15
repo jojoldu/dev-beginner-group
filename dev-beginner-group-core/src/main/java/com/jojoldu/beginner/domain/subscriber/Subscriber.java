@@ -1,5 +1,7 @@
 package com.jojoldu.beginner.domain.subscriber;
 
+import com.jojoldu.beginner.domain.BaseTimeEntity;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -17,21 +19,20 @@ import java.time.LocalDate;
 @Getter
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(name = "UNI_SUBSCRIBER_EMAIL", columnNames = {"email"}))
-public class Subscriber {
+public class Subscriber extends BaseTimeEntity {
 
     @Id
     @GeneratedValue
     private Long id;
 
     private String email;
-    private LocalDate createDate;
     private boolean certified;
     private String certifyMessage;
     private boolean active;
 
-    public Subscriber(@Nonnull String email, @Nonnull LocalDate createDate, @Nonnull String certifyMessage) {
+    @Builder
+    public Subscriber(@Nonnull String email, @Nonnull String certifyMessage) {
         this.email = email;
-        this.createDate = createDate;
         this.certifyMessage = certifyMessage;
         this.certified = false;
         this.active = true;

@@ -1,6 +1,8 @@
 package com.jojoldu.beginner.batch.subscribe.job;
 
+import com.jojoldu.beginner.domain.letter.LetterRepository;
 import lombok.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -9,16 +11,18 @@ import org.springframework.stereotype.Component;
  * Github : https://github.com/jojoldu
  */
 
-@Component
 @Getter
+@Component
 public class MailCacheComponent {
+
+    @Autowired
+    private LetterRepository letterRepository;
+
     private String subject;
     private String content;
     private String from;
 
-    public void init(String subject, String content, String from) {
-        this.subject = subject;
-        this.content = content;
-        this.from = from;
+    public void init(Long letterId) {
+
     }
 }

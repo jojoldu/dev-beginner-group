@@ -7,7 +7,6 @@ import com.jojoldu.beginner.domain.letter.LetterContentRepository
 import com.jojoldu.beginner.domain.letter.LetterRepository
 import com.jojoldu.beginner.mail.aws.Sender
 import com.jojoldu.beginner.mail.aws.SenderDto
-import com.jojoldu.beginner.util.Constants
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.mock.mockito.SpyBean
@@ -40,8 +39,8 @@ class LetterAdminServiceTest extends Specification {
     Sender sender
 
     def cleanup() {
-        contentRepository.deleteAll()
         letterRepository.deleteAll()
+        contentRepository.deleteAll()
     }
 
     def "newsletter.hbs에 content가 추가되어 메일 전송된다" () {
@@ -52,7 +51,7 @@ class LetterAdminServiceTest extends Specification {
                 .subject(subject)
                 .build())
 
-        spyLetter.getContentEntity() >> Arrays.asList(
+        spyLetter.getContentEntities() >> Arrays.asList(
                 LetterContent.builder()
                         .title("뉴스레터#1")
                         .content("초보개발자모임 첫 뉴스레터 발송을 축하하는 의미 <br> 매주 월요일 오전에 지난주에 있었던 개발 이야기를 전달해드립니다.")
