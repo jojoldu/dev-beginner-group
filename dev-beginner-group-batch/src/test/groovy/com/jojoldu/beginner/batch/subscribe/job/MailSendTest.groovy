@@ -27,6 +27,7 @@ class MailSendTest extends Specification {
     @Autowired
     HandlebarsFactory handlebarsFactory
 
+    @Ignore
     def "Batch에서 Mail모듈을 사용하여 메일 전송"() {
         Template template = handlebarsFactory.get("WeeklyLetter")
         String content = template.apply("")

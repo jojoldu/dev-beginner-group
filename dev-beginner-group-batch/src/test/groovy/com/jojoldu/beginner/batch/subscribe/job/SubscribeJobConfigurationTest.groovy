@@ -39,6 +39,7 @@ class SubscribeJobConfigurationTest extends Specification {
         letterRepository.deleteAll()
     }
 
+    @Ignore
     def "정기 메일 발송" () {
         given:
         def message = "aa"
