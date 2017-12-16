@@ -12,7 +12,7 @@ cache:
     - '$HOME/.m2/repository'
     - '$HOME/.gradle'
 
-script: "./gradlew clean build"
+script: "./gradlew clean build -x test"
 
 before_deploy:
   - zip -r devbeginner-group *

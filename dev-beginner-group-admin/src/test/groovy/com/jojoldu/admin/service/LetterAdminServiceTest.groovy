@@ -44,7 +44,6 @@ class LetterAdminServiceTest extends Specification {
         contentRepository.deleteAll()
     }
 
-    @spock.lang.Ignore
     def "newsletter.hbs에 content가 추가되어 메일 전송된다" () {
         given:
         String img = "https://s3.ap-northeast-2.amazonaws.com/devbeginner.com/%E1%84%8E%E1%85%A9%E1%84%80%E1%85%A2%E1%84%86%E1%85%A9.png"
@@ -86,7 +85,6 @@ class LetterAdminServiceTest extends Specification {
         verify(sender, times(1)).send(any(SenderDto.class))
     }
 
-    @spock.lang.Ignore
     def "[통합] newsletter.hbs에 content가 추가되어 메일 전송된다" () {
         given:
         String img = "https://s3.ap-northeast-2.amazonaws.com/devbeginner.com/%E1%84%8E%E1%85%A9%E1%84%80%E1%85%A2%E1%84%86%E1%85%A9.png"

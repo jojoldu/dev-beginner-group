@@ -22,7 +22,6 @@ import spock.lang.Specification
  */
 @SpringBootTest
 @TestPropertySource(properties = "job.name=subscribeBatch")
-@Ignore
 class SubscribeJobConfigurationTest extends Specification {
 
     @Autowired
@@ -39,7 +38,6 @@ class SubscribeJobConfigurationTest extends Specification {
         letterRepository.deleteAll()
     }
 
-    @Ignore
     def "정기 메일 발송" () {
         given:
         def message = "aa"
