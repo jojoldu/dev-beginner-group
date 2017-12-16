@@ -5,6 +5,7 @@ import com.jojoldu.beginner.domain.subscriber.Subscriber;
 import com.jojoldu.beginner.domain.subscriber.SubscriberRepository;
 import com.jojoldu.beginner.mail.aws.Sender;
 import com.jojoldu.beginner.mail.aws.SenderDto;
+import com.jojoldu.beginner.mail.template.TemplateComponent;
 import com.jojoldu.beginner.mail.util.MailFromType;
 import com.jojoldu.beginner.util.CryptoComponent;
 import com.jojoldu.beginner.web.config.WebProperties;
@@ -88,11 +89,16 @@ public class SubscribeService {
     }
 
     private String createContent(String email, String certifyMessage){
-        final String link = String.format("%s/subscribe/certify?email=%s&message=%s", webProperties.getWebUrl(), email, certifyMessage);
+        final String link = createCertifyLink(email, certifyMessage);
         Map<String, Object> model = ImmutableMap.<String, Object>builder()
                 .put("link", link)
                 .build();
 
-        return templateComponent.template("/mail/certify", model);
+        return templateComponent.template("certify", model);
     }
+
+    private String createCertifyLink(String email, String certifyMessage) {
+        return String.format("%s/subscribe/certify?email=%s&message=%s", webProperties.getWebUrl(), email, certifyMessage);
+    }
+
 }
