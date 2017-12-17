@@ -49,4 +49,15 @@ class WebControllerTest extends Specification {
         response.getStatusCode() == HttpStatus.BAD_REQUEST
     }
 
+    def "메인페이지 호출" () {
+        given:
+        String url = "http://localhost:" + port + "/subscribe/form"
+
+        when:
+        ResponseEntity<String> response = this.restTemplate.getForEntity( url, String.class)
+
+        then:
+        response.getStatusCode() == HttpStatus.OK
+        response.getBody().contains("매주 월요일 오전, 한주의 소식을 전달드립니다.")
+    }
 }

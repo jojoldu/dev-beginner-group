@@ -1,8 +1,6 @@
 spring:
   profiles:
     active: local
-  thymeleaf:
-    mode: LEGACYHTML5
 server:
   port: 8080
 

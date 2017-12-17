@@ -5,14 +5,13 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="/css/style.css" rel="stylesheet" type="text/css"/>
-    <link rel="icon" type="image/png" href="/favicon/favicon.png"/>
 </head>
 <body>
 <div id="wrapper">
     <div class="main">
         <div class="header">
-            <h1><strong>초보개발자모임</strong></h1>
-            <h2 th:text="${model.message}"></h2>
+            <h1>{{model.title}}</h1>
+            <h2>{{model.message}}</h2>
         </div>
     </div>
 </div>
