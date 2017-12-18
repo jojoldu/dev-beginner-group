@@ -5,6 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body>
+<input type="hidden" id="devbeginner-open-url" value="{{openUrl}}">
+<script>
+    var openUrl = document.getElementById("devbeginner-open-url").value;
+    var httpRequest;
+    if (window.XMLHttpRequest) { // 모질라, 사파리등 그외 브라우저, ...
+        httpRequest = new XMLHttpRequest();
+    } else if (window.ActiveXObject) { // IE 8 이상
+        httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+
+    httpRequest.open('GET', openUrl, true);
+    httpRequest.send(null);
+</script>
 <div marginwidth="0" marginheight="0" style="margin:0;padding:0;background-color:linen;height:100%!important;width:100%!important">
     <table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" style="border-collapse:collapse;margin:0;padding:0;background-color:#f2f2f2;height:100%!important;width:100%!important">
         <tbody>

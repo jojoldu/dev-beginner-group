@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 @Getter
 public class SenderDto {
     private String from;
-    private List<String> to = new ArrayList<>();
+    private List<String> to;
     private String subject;
     private String content;
 

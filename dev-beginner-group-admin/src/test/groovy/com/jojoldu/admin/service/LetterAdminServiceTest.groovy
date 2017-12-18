@@ -7,7 +7,6 @@ import com.jojoldu.beginner.domain.letter.LetterContentRepository
 import com.jojoldu.beginner.domain.letter.LetterRepository
 import com.jojoldu.beginner.mail.aws.Sender
 import com.jojoldu.beginner.mail.aws.SenderDto
-import org.junit.Ignore
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.mock.mockito.SpyBean

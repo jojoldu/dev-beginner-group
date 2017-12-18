@@ -39,7 +39,7 @@ public class AdminRestController {
 
     @PostMapping("/letter/save")
     @ResponseBody
-    public Long saveContent(@RequestBody LetterAdminRequestDto requestDto) {
+    public Long saveLetter(@RequestBody LetterAdminRequestDto requestDto) {
         return letterAdminService.saveAndSend(requestDto);
     }
 }
