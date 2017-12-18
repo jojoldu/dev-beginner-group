@@ -1,24 +1,26 @@
 package com.jojoldu.admin.service;
 
-import com.github.jknack.handlebars.Template;
 import com.google.common.collect.ImmutableMap;
+import com.jojoldu.admin.config.WebProperties;
 import com.jojoldu.admin.dto.LetterAdminRequestDto;
 import com.jojoldu.admin.dto.LetterContentResponseDto;
 import com.jojoldu.admin.dto.LetterPageRequestDto;
+import com.jojoldu.admin.dto.MailLinkRedirectDto;
 import com.jojoldu.beginner.domain.letter.*;
+import com.jojoldu.beginner.domain.subscriber.Subscriber;
+import com.jojoldu.beginner.domain.subscriber.SubscriberRepository;
 import com.jojoldu.beginner.mail.aws.Sender;
 import com.jojoldu.beginner.mail.aws.SenderDto;
-import com.jojoldu.beginner.mail.template.HandlebarsFactory;
+import com.jojoldu.beginner.mail.template.TemplateComponent;
 import com.jojoldu.beginner.util.Constants;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -34,8 +36,10 @@ public class LetterAdminService {
 
     private LetterRepository letterRepository;
     private LetterContentRepository letterContentRepository;
+    private SubscriberRepository subscriberRepository;
     private Sender sender;
-    private HandlebarsFactory handlebarsFactory;
+    private TemplateComponent templateComponent;
+    private WebProperties webProperties;
 
     @Transactional(readOnly = true)
     public List<LetterContentResponseDto> findByPageable(LetterPageRequestDto dto){
@@ -59,25 +63,26 @@ public class LetterAdminService {
     }
 
     private void sendTestUser(Letter letter){
-        compileContent(letter.getSubject(), letter.getContentEntities())
-                .ifPresent(content -> {
-                    SenderDto senderDto = SenderDto.builder()
-                            .to(Constants.TEST_USERS)
-                            .subject(letter.getSubject())
-                            .content(content)
-                            .build();
-                    sender.send(senderDto);
-                });
-    }
-
-    private Optional<String> compileContent(String subject, List<LetterContent> contentList){
-        final Template template = handlebarsFactory.get("newsletter");
-        Map<String, List<LetterContent>> map = ImmutableMap.of("posts", contentList);
-        try {
-            return Optional.of(template.apply(map));
-        } catch (IOException e) {
-            log.error(String.format("Handlebars Template Exception: subject: %s", subject));
-            return Optional.empty();
+        List<Subscriber> subscribers = subscriberRepository.findAllByEmailIn(Constants.TEST_USERS);
+        for (Subscriber subscriber : subscribers) {
+            send(letter, subscriber);
         }
     }
+
+    private void send(Letter letter, Subscriber subscriber) {
+        List<MailLinkRedirectDto> dtos = letter.getContentEntities().stream()
+                .map(entity -> new MailLinkRedirectDto(subscriber.getId(), webProperties.getWebUrl(), entity))
+                .collect(Collectors.toList());
+
+        Map<String, Object> model = ImmutableMap.of("posts", dtos, "openUrl", webProperties.getWebUrl()+"/mail/statistics/open");
+        String content = templateComponent.template("newsletter", model);
+
+        SenderDto senderDto = SenderDto.builder()
+                .to(Collections.singletonList(subscriber.getEmail()))
+                .subject(letter.getSubject())
+                .content(content)
+                .build();
+        sender.send(senderDto);
+    }
+
 }

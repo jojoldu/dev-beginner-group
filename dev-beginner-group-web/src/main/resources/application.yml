@@ -1,6 +1,8 @@
 spring:
   profiles:
     active: local
+  jpa:
+    open-in-view: false
 server:
   port: 8080
 
@@ -9,7 +11,6 @@ devbeginner:
     enabled: true
   web:
     url: http://localhost:8080
-
 
 ---
 spring:

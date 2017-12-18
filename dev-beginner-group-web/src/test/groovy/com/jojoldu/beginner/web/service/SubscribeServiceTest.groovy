@@ -3,20 +3,11 @@ package com.jojoldu.beginner.web.service
 import com.jojoldu.beginner.domain.subscriber.Subscriber
 import com.jojoldu.beginner.domain.subscriber.SubscriberRepository
 import com.jojoldu.beginner.mail.aws.Sender
-import com.jojoldu.beginner.mail.aws.SenderDto
 import com.jojoldu.beginner.web.exception.InvalidParameterException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.boot.test.mock.mockito.SpyBean
 import spock.lang.Specification
-
-import java.time.LocalDate
-
-import static org.mockito.BDDMockito.given
-import static org.mockito.Matchers.anyObject
-import static org.mockito.Mockito.times
-import static org.mockito.Mockito.verify
 
 /**
  * Created by jojoldu@gmail.com on 2017. 11. 16.

@@ -1,0 +1,18 @@
+<!--
+  Created by jojoldu@gmail.com on 2017. 12. 18.
+  Blog : http://jojoldu.tistory.com
+  Github : http://github.com/jojoldu
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
+    <input type="hidden" value="{{redirectUrl}}" id="redirectUrl">
+    <script>
+        var redirectUrl = document.getElementById("redirectUrl").value;
+        window.location.replace(redirectUrl);
+    </script>
+</body>
+</html>
