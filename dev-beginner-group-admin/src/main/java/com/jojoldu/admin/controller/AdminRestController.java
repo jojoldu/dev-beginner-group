@@ -40,6 +40,6 @@ public class AdminRestController {
     @PostMapping("/letter/save")
     @ResponseBody
     public Long saveLetter(@RequestBody LetterAdminRequestDto requestDto) {
-        return letterAdminService.saveAndSend(requestDto);
+        return letterAdminService.saveAndSendToTest(requestDto);
     }
 }

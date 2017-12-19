@@ -75,10 +75,10 @@ class LetterAdminServiceTest extends Specification {
 
         doReturn(spyLetter)
                 .when(letterAdminService)
-                .createLetter(requestDto)
+                .saveLetter(requestDto)
 
         when:
-        letterAdminService.saveAndSend(requestDto)
+        letterAdminService.saveAndSendToTest(requestDto)
 
         then:
         verify(sender, times(1)).send(any(SenderDto.class))
@@ -112,7 +112,7 @@ class LetterAdminServiceTest extends Specification {
                 .build()
 
         when:
-        letterAdminService.saveAndSend(requestDto)
+        letterAdminService.saveAndSendToTest(requestDto)
 
         then:
         verify(sender, times(1)).send(any(SenderDto.class))
