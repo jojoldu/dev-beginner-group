@@ -1,6 +1,7 @@
 package com.jojoldu.admin.controller;
 
-import com.jojoldu.admin.dto.LetterAdminRequestDto;
+import com.jojoldu.admin.dto.LetterAdminSaveRequestDto;
+import com.jojoldu.admin.dto.LetterAdminSendRequestDto;
 import com.jojoldu.admin.dto.LetterContentRequestDto;
 import com.jojoldu.admin.service.LetterAdminService;
 import com.jojoldu.beginner.domain.letter.LetterContentRepository;
@@ -26,20 +27,22 @@ public class AdminRestController {
     private LetterContentRepository letterContentRepository;
 
     @PostMapping("/image/upload")
-    @ResponseBody
     public String uploadImage(@RequestParam("data") MultipartFile file) throws IOException {
         return staticUploader.upload(file);
     }
 
     @PostMapping("/letter-content/save")
-    @ResponseBody
     public Long saveContent(@RequestBody LetterContentRequestDto requestDto) {
         return letterContentRepository.save(requestDto.toEntity()).getId();
     }
 
     @PostMapping("/letter/save")
-    @ResponseBody
-    public Long saveLetter(@RequestBody LetterAdminRequestDto requestDto) {
+    public Long saveLetter(@RequestBody LetterAdminSaveRequestDto requestDto) {
         return letterAdminService.saveAndSendToTest(requestDto);
+    }
+
+    @PostMapping("/letter/send")
+    public Long sendLetter(@RequestBody LetterAdminSendRequestDto requestDto) {
+        return letterAdminService.sendLetter(requestDto);
     }
 }

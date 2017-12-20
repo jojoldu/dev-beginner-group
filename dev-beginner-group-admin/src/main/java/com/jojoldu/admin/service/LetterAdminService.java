@@ -50,7 +50,7 @@ public class LetterAdminService {
     /**
      * send가 Async 구동이라 상위 메소드에서 Transactional 사용못함
      */
-    public Long saveAndSendToTest(LetterAdminRequestDto dto){
+    public Long saveAndSendToTest(LetterAdminSaveRequestDto dto){
         final List<LetterSendMailDto> sendMailDtos = createLetterAndTestMail(dto);
 
         for (LetterSendMailDto sendMailDto : sendMailDtos) {
@@ -60,14 +60,32 @@ public class LetterAdminService {
         return sendMailDtos.get(0).getLetterId();
     }
 
+    public Long sendLetter(LetterAdminSendRequestDto requestDto) {
+        Long letterId = requestDto.getLetterId();
+
+        createLetterSend(letterId)
+                .forEach(this::send);
+
+        return letterId;
+    }
+
+    @Transactional(readOnly = true)
+    public List<LetterSendMailDto> createLetterSend(Long letterId){
+        Letter letter = letterRepository.findById(letterId)
+                .orElseThrow(() -> new IllegalArgumentException(String.format("해당하는 Letter가 없습니다. ID: %d", letterId)));
+
+        List<Subscriber> subscribers = subscriberRepository.findAllActive();
+        return createLetterSendMailDto(letter, subscribers);
+    }
+
     @Transactional
-    public List<LetterSendMailDto> createLetterAndTestMail(LetterAdminRequestDto dto){
+    public List<LetterSendMailDto> createLetterAndTestMail(LetterAdminSaveRequestDto dto){
         final Letter letter = saveLetter(dto);
         List<Subscriber> subscribers = subscriberRepository.findAllByEmailIn(Constants.TEST_USERS);
         return createLetterSendMailDto(letter, subscribers);
     }
 
-    Letter saveLetter(LetterAdminRequestDto dto) {
+    Letter saveLetter(LetterAdminSaveRequestDto dto) {
         Letter letter = dto.toEntity();
         letter.addContents(letterContentRepository.findAllByIdIn(dto.getContentIds()));
         return letterRepository.save(letter);
@@ -96,4 +114,7 @@ public class LetterAdminService {
                 .content(content)
                 .build());
     }
+
+
+
 }

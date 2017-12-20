@@ -1,6 +1,7 @@
 package com.jojoldu.beginner.domain.subscriber;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,4 +16,9 @@ public interface SubscriberRepository extends JpaRepository<Subscriber, Long> {
     Optional<Subscriber> findTopByEmail(String email);
     Optional<Subscriber> findById(Long id);
     List<Subscriber> findAllByEmailIn(List<String> emails);
+
+    @Query("SELECT s " +
+            "FROM Subscriber s " +
+            "WHERE s.active = true and s.certified = true ")
+    List<Subscriber> findAllActive();
 }

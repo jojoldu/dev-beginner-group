@@ -22,7 +22,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Slf4j
-public class LetterAdminRequestDto {
+public class LetterAdminSaveRequestDto {
 
     @NotBlank(message = "제목이 누락되었습니다.")
     private String subject;
@@ -30,7 +30,7 @@ public class LetterAdminRequestDto {
     private List<Long> contentIds = new ArrayList<>();
 
     @Builder
-    public LetterAdminRequestDto(@Nonnull String subject, @Nonnull String sender, List<Long> contentIds) {
+    public LetterAdminSaveRequestDto(@Nonnull String subject, @Nonnull String sender, List<Long> contentIds) {
         this.subject = subject;
         this.sender = sender;
         this.contentIds = contentIds;

@@ -20,8 +20,17 @@
                 <input type="text" class="form-control" id="subject" placeholder="X월 Y주차 뉴스레터" value="[초보개발자모임] 2017년 12월 4주차 뉴스레터"/>
             </div>
             <button type="button" class="btn btn-default" id="btn-save">저장</button>
+        </form>
+        <br>
+        <br>
+        <form>
+            <div class="form-group">
+                <label for="letter-id">뉴스레터 ID</label>
+                <input type="text" class="form-control" id="letter-id" placeholder="방금 저장한 메일 ID"/>
+            </div>
             <button type="button" class="btn btn-success" id="btn-send">발송</button>
         </form>
+
     </div>
     <div class="col-md-8">
         <div class="table-responsive">
@@ -57,6 +66,25 @@
 
 <script src="/dist/js/lib.js"></script>
 <script>
+    
+    $('#btn-send').on('click', function () {
+        var request = {
+            letterId: $('#letter-id').val()
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: '/letter/send',
+            dataType: 'json',
+            contentType:'application/json; charset=utf-8',
+            data: JSON.stringify(request)
+        }).done(function(data) {
+            alert(data+' 글이 전송되었습니다.');
+        }).fail(function (error) {
+            alert(error);
+        });
+    });
+    
     $('#btn-save').on('click', function () {
         var subject = encodeURIComponent($('#subject').val());
         var contentIds = getCheckedValue('.check-content', 'id');

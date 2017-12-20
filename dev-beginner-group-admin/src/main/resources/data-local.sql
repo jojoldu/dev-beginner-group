@@ -2,3 +2,5 @@ insert into letter_content (content, content_markdown, title, link, img) values 
 insert into letter_content (content, content_markdown, title, link, img) values ('나는 왜 일일커밋을 하는가', '나는 왜 일일커밋을 하는가', '일일커밋 회고', 'https://brunch.co.kr/@jojoldu/13', 'https://s3.ap-northeast-2.amazonaws.com/devbeginner.com/100%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8F%E1%85%A5%E1%84%86%E1%85%B5%E1%86%BA.png');
 
 insert into subscriber (email, certified, active) values ('jojoldu@gmail.com', true, true);
+insert into subscriber (email, certified, active) values ('jojoldu@naver.com', true, true);
+insert into subscriber (email, certified, active) values ('jojoldu@daum.net', true, true);
