@@ -29,22 +29,8 @@ import java.util.Optional;
 public class MailStatisticsService {
 
     private SubscriberRepository subscriberRepository;
-    private LetterRepository letterRepository;
     private LetterContentRepository letterContentRepository;
-    private MailOpenRepository mailOpenRepository;
     private MailLinkClickRepository mailLinkClickRepository;
-
-    @Transactional
-    public void saveMailOpen(MailOpenRequestDto dto){
-        Optional<Subscriber> subscriberOptional = subscriberRepository.findById(dto.getSubscriberId());
-        Optional<Letter> letterOptional = letterRepository.findById(dto.getLetterId());
-
-        if(subscriberOptional.isPresent() && letterOptional.isPresent()){
-            final Subscriber subscriber = subscriberOptional.get();
-            final Letter letter = letterOptional.get();
-            mailOpenRepository.save(new MailOpen(subscriber, letter));
-        }
-    }
 
     @Transactional
     public String saveMailLinkClick(MailLinkClickRequestDto dto){

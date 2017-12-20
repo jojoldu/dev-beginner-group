@@ -23,13 +23,6 @@ public class MailStatisticsController {
     private MailStatisticsService service;
 
     @CrossOrigin
-    @GetMapping("/mail/statistics/open")
-    @ResponseBody
-    public void saveMailOpen(MailOpenRequestDto dto){
-        service.saveMailOpen(dto);
-    }
-
-    @CrossOrigin
     @GetMapping("/mail/statistics/link-click")
     public String saveMailLinkClick(MailLinkClickRequestDto dto, Model model){
         String redirectUrl = service.saveMailLinkClick(dto);
