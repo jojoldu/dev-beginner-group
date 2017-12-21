@@ -11,7 +11,7 @@ import spock.lang.Specification
  */
 
 @SpringBootTest
-class LetterRepositoryTest extends Specification {
+class LetterContentRepositoryTest extends Specification {
 
     @Autowired
     LetterContentRepository letterContentRepository

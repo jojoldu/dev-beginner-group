@@ -1,6 +1,8 @@
 package com.jojoldu.beginner.domain.letter;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 
@@ -11,5 +13,7 @@ import java.util.Optional;
  */
 
 public interface LetterRepository extends JpaRepository<Letter, Long>, LetterRepositoryCustom {
+
     Optional<Letter> findById(Long id);
+
 }

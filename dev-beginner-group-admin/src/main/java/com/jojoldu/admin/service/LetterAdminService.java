@@ -47,28 +47,6 @@ public class LetterAdminService {
                 .collect(Collectors.toList());
     }
 
-    /**
-     * send가 Async 구동이라 상위 메소드에서 Transactional 사용못함
-     */
-    public Long saveAndSendToTest(LetterAdminSaveRequestDto dto){
-        final List<LetterSendMailDto> sendMailDtos = createLetterAndTestMail(dto);
-
-        for (LetterSendMailDto sendMailDto : sendMailDtos) {
-            send(sendMailDto);
-        }
-
-        return sendMailDtos.get(0).getLetterId();
-    }
-
-    public Long sendLetter(LetterAdminSendRequestDto requestDto) {
-        Long letterId = requestDto.getLetterId();
-
-        createLetterSend(letterId)
-                .forEach(this::send);
-
-        return letterId;
-    }
-
     @Transactional(readOnly = true)
     public List<LetterSendMailDto> createLetterSend(Long letterId){
         Letter letter = letterRepository.findById(letterId)
@@ -78,14 +56,13 @@ public class LetterAdminService {
         return createLetterSendMailDto(letter, subscribers);
     }
 
-    @Transactional
-    public List<LetterSendMailDto> createLetterAndTestMail(LetterAdminSaveRequestDto dto){
-        final Letter letter = saveLetter(dto);
+    public List<LetterSendMailDto> createTestEmail(Letter letter){
         List<Subscriber> subscribers = subscriberRepository.findAllByEmailIn(Constants.TEST_USERS);
         return createLetterSendMailDto(letter, subscribers);
     }
 
-    Letter saveLetter(LetterAdminSaveRequestDto dto) {
+    @Transactional
+    public Letter saveLetter(LetterAdminSaveRequestDto dto) {
         Letter letter = dto.toEntity();
         letter.addContents(letterContentRepository.findAllByIdIn(dto.getContentIds()));
         return letterRepository.save(letter);
@@ -93,13 +70,13 @@ public class LetterAdminService {
 
     private List<LetterSendMailDto> createLetterSendMailDto(Letter letter, List<Subscriber> subscribers){
         return subscribers.stream()
-                .map(subscriber -> new LetterSendMailDto(letter.getId(), letter.getSubject(), subscriber.getEmail(), createRedirectDto(letter, subscriber)))
+                .map(subscriber -> new LetterSendMailDto(letter.getId(), letter.getSubject(), subscriber.getEmail(), createRedirectDto(letter.getContentEntities(), subscriber.getId())))
                 .collect(Collectors.toList());
     }
 
-    private List<MailLinkRedirectDto> createRedirectDto(Letter letter, Subscriber subscriber) {
-        return letter.getContentEntities().stream()
-                .map(entity -> new MailLinkRedirectDto(subscriber.getId(), webProperties.getWebUrl(), entity))
+    private List<MailLinkRedirectDto> createRedirectDto(List<LetterContent> contents, Long subscriberId) {
+        return contents.stream()
+                .map(content -> new MailLinkRedirectDto(subscriberId, webProperties.getWebUrl(), content))
                 .collect(Collectors.toList());
     }
 

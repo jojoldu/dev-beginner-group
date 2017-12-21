@@ -2,6 +2,7 @@ package com.jojoldu.admin.service
 
 import com.jojoldu.admin.dto.LetterAdminSaveRequestDto
 import com.jojoldu.admin.dto.LetterAdminSendRequestDto
+import com.jojoldu.admin.dto.LetterSendMailDto
 import com.jojoldu.beginner.domain.letter.Letter
 import com.jojoldu.beginner.domain.letter.LetterContent
 import com.jojoldu.beginner.domain.letter.LetterContentRepository
@@ -159,7 +160,10 @@ class LetterAdminServiceTest extends Specification {
                 .build())
 
         when:
-        letterAdminService.sendLetter(new LetterAdminSendRequestDto(1L))
+        List<LetterSendMailDto> mails = letterAdminService.createLetterSend(1L)
+        for (LetterSendMailDto mail : mails) {
+            letterAdminService.send(mail)
+        }
 
         then:
         verify(sender, times(1)).send(any(SenderDto.class))

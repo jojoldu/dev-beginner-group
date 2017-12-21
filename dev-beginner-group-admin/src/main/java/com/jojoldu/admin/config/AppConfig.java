@@ -5,6 +5,7 @@ import com.jojoldu.beginner.mail.template.TemplateComponent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 import java.io.IOException;
 
@@ -15,6 +16,7 @@ import java.io.IOException;
  */
 
 @Configuration
+@EnableAsync
 public class AppConfig {
 
     @Autowired
