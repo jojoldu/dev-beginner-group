@@ -3,6 +3,8 @@ package com.jojoldu.beginner.util;
 import com.google.common.hash.Hashing;
 import org.springframework.stereotype.Component;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 
 /**

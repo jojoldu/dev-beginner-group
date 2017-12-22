@@ -42,19 +42,9 @@ public class LetterContentRequestDto {
                 .title(title)
                 .link(link)
                 .img(img)
-                .content(decode(content))
+                .content(content)
                 .contentMarkdown(contentMarkdown)
                 .build();
-    }
-
-    private String decode(String origin){
-        try {
-            return URLDecoder.decode(origin, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            final String message = "Decode Exception, title: " + title;
-            log.error(message, e);
-            throw new RuntimeException(message);
-        }
     }
 
 }

@@ -4,3 +4,4 @@ insert into letter_content (content, content_markdown, title, link, img) values 
 insert into subscriber (email, certified, active) values ('jojoldu@gmail.com', true, true);
 insert into subscriber (email, certified, active) values ('jojoldu@naver.com', true, true);
 insert into subscriber (email, certified, active) values ('jojoldu@daum.net', true, true);
+insert into subscriber (email, certified, active) values ('dwlee@woowahan.com', true, true);

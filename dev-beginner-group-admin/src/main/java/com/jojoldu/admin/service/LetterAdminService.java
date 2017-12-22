@@ -82,7 +82,7 @@ public class LetterAdminService {
 
     @Async
     public void send(LetterSendMailDto dto) {
-        Map<String, Object> model = ImmutableMap.of("posts", dto.getRedirectDtos(), "openUrl", webProperties.getWebUrl()+"/mail/statistics/open");
+        Map<String, Object> model = ImmutableMap.of("posts", dto.getRedirectDtos());
         String content = templateComponent.template("newsletter", model);
 
         sender.send(SenderDto.builder()

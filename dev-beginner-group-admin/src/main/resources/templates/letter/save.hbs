@@ -49,7 +49,7 @@
                     <tr>
                         <td><input type="checkbox" class="check-content" data-id="{{id}}"></td>
                         <td>{{id}}</td>
-                        <td>{{createDate}}</td>
+                        <td>{{createdDate}}</td>
                         <td>{{title}}</td>
                         <td>
                             <input type="button" class="btn-default" href="/content/{{id}}" value="바로가기">
@@ -101,7 +101,7 @@
             contentType:'application/json; charset=utf-8',
             data: JSON.stringify(request)
         }).done(function(data) {
-            alert(data+' 글이 등록되었습니다.');
+            alert(data+' 명에게 발송 되었습니다.');
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });

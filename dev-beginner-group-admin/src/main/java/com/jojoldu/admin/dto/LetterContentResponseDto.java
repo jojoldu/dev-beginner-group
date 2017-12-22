@@ -1,9 +1,9 @@
 package com.jojoldu.admin.dto;
 
 import com.jojoldu.beginner.domain.letter.LetterContent;
+import com.jojoldu.beginner.util.Decoder;
 import lombok.Getter;
-
-import javax.persistence.Column;
+import lombok.extern.slf4j.Slf4j;
 
 import static com.jojoldu.beginner.util.LocalDateTimeUtil.toStringDate;
 
@@ -13,6 +13,7 @@ import static com.jojoldu.beginner.util.LocalDateTimeUtil.toStringDate;
  * Github : https://github.com/jojoldu
  */
 
+@Slf4j
 @Getter
 public class LetterContentResponseDto {
 
@@ -27,10 +28,10 @@ public class LetterContentResponseDto {
 
     public LetterContentResponseDto(LetterContent entity) {
         id = entity.getId();
-        title = entity.getTitle();
-        link = entity.getLink();
+        title = Decoder.decode(entity.getTitle());
+        link = Decoder.decode(entity.getLink());
         img = entity.getImg();
-        content = entity.getContent();
+        content = Decoder.decode(entity.getContent());
         contentMarkdown = entity.getContentMarkdown();
         createdDate = toStringDate(entity.getCreatedDate());
         modifiedDate = toStringDate(entity.getModifiedDate());

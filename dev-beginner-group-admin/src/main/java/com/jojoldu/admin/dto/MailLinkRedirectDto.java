@@ -1,6 +1,7 @@
 package com.jojoldu.admin.dto;
 
 import com.jojoldu.beginner.domain.letter.LetterContent;
+import com.jojoldu.beginner.util.Decoder;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -28,10 +29,10 @@ public class MailLinkRedirectDto {
     @Builder
     public MailLinkRedirectDto(Long subscriberId, String baseUrl, LetterContent letterContent){
         id = letterContent.getId();
-        title = letterContent.getTitle();
+        title = Decoder.decode(letterContent.getTitle());
         link = templateLink(baseUrl, subscriberId, letterContent.getId(), letterContent.getLink());
         img = letterContent.getImg();
-        content = letterContent.getContent();
+        content = Decoder.decode(letterContent.getContent());
     }
 
     private String templateLink(String baseUrl, Long subscriberId, Long letterContentId, String link) {
