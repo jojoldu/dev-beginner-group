@@ -11,7 +11,8 @@
 <body>
     <input type="hidden" value="{{redirectUrl}}" id="redirectUrl">
     <script>
-        window.location.href = document.getElementById("redirectUrl").value;
+        var url = document.getElementById("redirectUrl").value;
+        window.location.replace(decodeURIComponent(url));
     </script>
 </body>
 </html>
