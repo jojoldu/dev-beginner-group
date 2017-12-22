@@ -56,7 +56,11 @@ public class LetterAdminService {
         return createLetterSendMailDto(letter, subscribers);
     }
 
-    public List<LetterSendMailDto> createTestEmail(Letter letter){
+    @Transactional(readOnly = true)
+    public List<LetterSendMailDto> createTestEmail(Long letterId){
+        Letter letter = letterRepository.findById(letterId)
+                .orElseThrow(() -> new IllegalArgumentException(String.format("해당하는 Letter가 없습니다. ID: %d", letterId)));
+
         List<Subscriber> subscribers = subscriberRepository.findAllByEmailIn(Constants.TEST_USERS);
         return createLetterSendMailDto(letter, subscribers);
     }

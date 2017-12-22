@@ -42,7 +42,7 @@ public class AdminRestController {
     @PostMapping("/letter/save")
     public Long saveLetter(@RequestBody LetterAdminSaveRequestDto requestDto) {
         final Letter letter = letterAdminService.saveLetter(requestDto);
-        asyncSendMail(letterAdminService.createTestEmail(letter));
+        asyncSendMail(letterAdminService.createTestEmail(letter.getId()));
         return letter.getId();
     }
 
@@ -51,6 +51,12 @@ public class AdminRestController {
         List<LetterSendMailDto> mails = letterAdminService.createLetterSend(requestDto.getLetterId());
         asyncSendMail(mails);
         return mails.size();
+    }
+
+    @PostMapping("/letter/send/test")
+    public Long sendLetterToTestUser(@RequestBody LetterAdminSendRequestDto requestDto) {
+        asyncSendMail(letterAdminService.createTestEmail(requestDto.getLetterId()));
+        return requestDto.getLetterId();
     }
 
     private void asyncSendMail(List<LetterSendMailDto> mails) {

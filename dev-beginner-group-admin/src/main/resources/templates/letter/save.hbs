@@ -29,6 +29,7 @@
                 <input type="text" class="form-control" id="letter-id" placeholder="방금 저장한 메일 ID"/>
             </div>
             <button type="button" class="btn btn-success" id="btn-send">발송</button>
+            <button type="button" class="btn btn-success" id="btn-test-send">테스트 유저 발송</button>
         </form>
 
     </div>
@@ -80,6 +81,24 @@
             data: JSON.stringify(request)
         }).done(function(data) {
             alert(data+' 글이 전송되었습니다.');
+        }).fail(function (error) {
+            alert(error);
+        });
+    });
+
+    $('#btn-test-send').on('click', function () {
+        var request = {
+            letterId: $('#letter-id').val()
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: '/letter/send/test',
+            dataType: 'json',
+            contentType:'application/json; charset=utf-8',
+            data: JSON.stringify(request)
+        }).done(function(data) {
+            alert(data+' 글이 테스트 유저에게 전송되었습니다.');
         }).fail(function (error) {
             alert(error);
         });
