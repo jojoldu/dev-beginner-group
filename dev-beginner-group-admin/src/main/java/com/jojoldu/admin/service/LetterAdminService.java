@@ -1,9 +1,11 @@
 package com.jojoldu.admin.service;
 
-import com.google.common.collect.ImmutableMap;
 import com.jojoldu.admin.config.WebProperties;
 import com.jojoldu.admin.dto.*;
-import com.jojoldu.beginner.domain.letter.*;
+import com.jojoldu.beginner.domain.letter.Letter;
+import com.jojoldu.beginner.domain.letter.LetterContent;
+import com.jojoldu.beginner.domain.letter.LetterContentRepository;
+import com.jojoldu.beginner.domain.letter.LetterRepository;
 import com.jojoldu.beginner.domain.subscriber.Subscriber;
 import com.jojoldu.beginner.domain.subscriber.SubscriberRepository;
 import com.jojoldu.beginner.mail.aws.Sender;
@@ -18,7 +20,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -86,8 +87,7 @@ public class LetterAdminService {
 
     @Async
     public void send(LetterSendMailDto dto) {
-        Map<String, Object> model = ImmutableMap.of("posts", dto.getRedirectDtos());
-        String content = templateComponent.template("newsletter", model);
+        String content = templateComponent.template("newsletter", dto.getModel());
 
         sender.send(SenderDto.builder()
                 .to(Collections.singletonList(dto.getEmail()))
@@ -95,7 +95,4 @@ public class LetterAdminService {
                 .content(content)
                 .build());
     }
-
-
-
 }

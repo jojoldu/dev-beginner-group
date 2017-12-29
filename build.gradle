@@ -11,14 +11,14 @@ buildscript {
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-		classpath "io.spring.gradle:dependency-management-plugin:0.6.0.RELEASE"
+		classpath "io.spring.gradle:dependency-management-plugin:1.0.4.RELEASE"
 		classpath "gradle.plugin.com.ewerk.gradle.plugins:querydsl-plugin:1.0.7"
 	}
 }
 
 ext {
 	projectGroup = 'com.jojoldu.dev-beginner-group'
-	projectVersion = '0.0.13-'+new Date().format("yyyyMMddHHmmss")
+	projectVersion = '0.0.14-'+new Date().format("yyyyMMddHHmmss")
 }
 
 task wrapper(type: Wrapper) {

@@ -1,10 +1,12 @@
 package com.jojoldu.admin.dto;
 
+import com.google.common.collect.ImmutableMap;
 import lombok.Builder;
 import lombok.Getter;
 
 import javax.annotation.Nonnull;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by jojoldu@gmail.com on 2017. 12. 19.
@@ -26,5 +28,9 @@ public class LetterSendMailDto {
         this.subject = subject;
         this.email = email;
         this.redirectDtos = redirectDtos;
+    }
+
+    public Map<String, Object> getModel() {
+        return ImmutableMap.of("posts", redirectDtos);
     }
 }

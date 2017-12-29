@@ -22,7 +22,12 @@ public class AdminController {
 
     @GetMapping("/")
     public String main() {
-        return "main";
+        return "redirect:/content/form/save";
+    }
+
+    @GetMapping("/content/form/save")
+    public String contentSaveForm() {
+        return "content/save";
     }
 
     @GetMapping("/letter/form/save")

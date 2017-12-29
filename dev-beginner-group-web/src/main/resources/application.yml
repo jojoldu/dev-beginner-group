@@ -3,6 +3,9 @@ spring:
     active: local
   jpa:
     open-in-view: false
+  devtools:
+    livereload:
+      enabled: false
 server:
   port: 8080
 
@@ -21,6 +24,4 @@ spring:
     show-sql: true
   pid:
     file: local-application.pid
-  devtools:
-    livereload:
-      enabled: false
+
