@@ -6,6 +6,9 @@ spring:
   devtools:
     livereload:
       enabled: false
+  mvc:
+    favicon:
+      enabled: true
 server:
   port: 8080
 
@@ -14,7 +17,6 @@ devbeginner:
     enabled: true
   web:
     url: http://localhost:8080
-
 ---
 spring:
   profiles: local
