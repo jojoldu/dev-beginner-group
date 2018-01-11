@@ -80,7 +80,7 @@
             contentType:'application/json; charset=utf-8',
             data: JSON.stringify(request)
         }).done(function(data) {
-            alert(data+' 글이 전송되었습니다.');
+            alert(data+' 명에게 전송되었습니다.');
         }).fail(function (error) {
             alert(error);
         });
@@ -120,7 +120,7 @@
             contentType:'application/json; charset=utf-8',
             data: JSON.stringify(request)
         }).done(function(data) {
-            alert(data+' 명에게 발송 되었습니다.');
+            alert(data+' 글이 저장 되었습니다.');
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
