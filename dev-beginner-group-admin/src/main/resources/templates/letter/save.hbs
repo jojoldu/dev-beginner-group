@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
     <title>DevBeginner Admin</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -17,7 +17,7 @@
         <form>
             <div class="form-group">
                 <label for="subject">제목</label>
-                <input type="text" class="form-control" id="subject" placeholder="X월 Y주차 뉴스레터" value="[초보개발자모임] 2017년 12월 4주차 뉴스레터"/>
+                <input type="text" class="form-control" id="subject" placeholder="X월 Y주차 뉴스레터" value="[초보개발자모임] 2018년 1월 3주차 뉴스레터"/>
             </div>
             <button type="button" class="btn btn-default" id="btn-save">저장</button>
         </form>
@@ -120,7 +120,7 @@
             contentType:'application/json; charset=utf-8',
             data: JSON.stringify(request)
         }).done(function(data) {
-            alert(data+' 글이 저장 되었습니다.');
+            alert('ID: '+data+' 뉴스테러가 저장 되었습니다.');
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
