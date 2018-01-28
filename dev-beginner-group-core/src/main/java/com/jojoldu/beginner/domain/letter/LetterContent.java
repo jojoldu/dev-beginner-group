@@ -7,10 +7,8 @@ import lombok.NoArgsConstructor;
 
 import javax.annotation.Nonnull;
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created by jojoldu@gmail.com on 2017. 12. 10.
@@ -27,12 +25,13 @@ public class LetterContent extends BaseTimeEntity {
     @GeneratedValue
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 500)
     private String title;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 500)
     private String link;
 
+    @Column(length = 500)
     private String img;
 
     @Column(columnDefinition = "TEXT", nullable = false)
