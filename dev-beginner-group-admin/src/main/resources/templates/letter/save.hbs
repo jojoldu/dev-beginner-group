@@ -31,6 +31,17 @@
             <button type="button" class="btn btn-success" id="btn-send">발송</button>
             <button type="button" class="btn btn-success" id="btn-test-send">테스트 유저 발송</button>
         </form>
+        <br>
+        <br>
+        <form>
+            <div class="form-group">
+                <label for="letter-id">뉴스레터 ID</label>
+                <input type="text" class="form-control" id="target-letter-id" placeholder="방금 저장한 메일 ID"/>
+                <label for="letter-id">유저 Email</label>
+                <input type="text" class="form-control" id="target-email" placeholder="Email"/>
+            </div>
+            <button type="button" class="btn btn-success" id="btn-target-send">발송</button>
+        </form>
 
     </div>
     <div class="col-md-8">
@@ -81,6 +92,25 @@
             data: JSON.stringify(request)
         }).done(function(data) {
             alert(data+' 명에게 전송되었습니다.');
+        }).fail(function (error) {
+            alert(error);
+        });
+    });
+
+    $('#btn-target-send').on('click', function () {
+        var request = {
+            letterId: $('#target-letter-id').val(),
+            email: $('#target-email').val()
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: '/letter/send',
+            dataType: 'json',
+            contentType:'application/json; charset=utf-8',
+            data: JSON.stringify(request)
+        }).done(function(email) {
+            alert(email+' 에게 전송되었습니다.');
         }).fail(function (error) {
             alert(error);
         });

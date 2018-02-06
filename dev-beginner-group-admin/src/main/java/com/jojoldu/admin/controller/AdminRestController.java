@@ -9,7 +9,11 @@ import com.jojoldu.beginner.domain.letter.Letter;
 import com.jojoldu.beginner.domain.letter.LetterContentRepository;
 import com.jojoldu.staticuploader.aws.StaticUploader;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -48,7 +52,13 @@ public class AdminRestController {
 
     @PostMapping("/letter/send")
     public int sendLetter(@RequestBody LetterAdminSendRequestDto requestDto) {
-        List<LetterSendMailDto> mails = letterAdminService.createLetterSend(requestDto.getLetterId());
+        List<LetterSendMailDto> mails;
+        if(StringUtils.isEmpty(requestDto.getEmail())) {
+            mails = letterAdminService.createLetterSend(requestDto.getLetterId());
+        } else {
+            mails = letterAdminService.createLetterSend(requestDto.getLetterId(), requestDto.getEmail());
+        }
+
         asyncSendMail(mails);
         return mails.size();
     }

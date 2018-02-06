@@ -20,8 +20,5 @@ public class LetterAdminSendRequestDto {
 
     @NotBlank(message = "제목이 누락되었습니다.")
     private Long letterId;
-
-    public LetterAdminSendRequestDto(Long letterId) {
-        this.letterId = letterId;
-    }
+    private String email;
 }
