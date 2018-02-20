@@ -5,7 +5,6 @@ spring:
     open-in-view: false
 server:
   port: 9080
-
 devbeginner:
   static:
     enabled: true

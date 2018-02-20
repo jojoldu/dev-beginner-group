@@ -4,19 +4,13 @@
     <title>DevBeginner Admin</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="/dist/css/lib.css" />
-    <link rel="stylesheet" href="/dist/fonts/glyphicons-halflings-regular.eot"  type="application/vnd.ms-fontobject"/>
-    <link rel="stylesheet" href="/dist/fonts/glyphicons-halflings-regular.svg"  type="image/svg+xml"/>
-    <link rel="stylesheet" href="/dist/fonts/glyphicons-halflings-regular.ttf"  type="application/x-font-ttf"/>
-    <link rel="stylesheet" href="/dist/fonts/glyphicons-halflings-regular.woff"  type="application/font-woff"/>
-    <link rel="stylesheet" href="/dist/fonts/glyphicons-halflings-regular.woff2"  type="application/font-woff2"/>
 </head>
 <body>
 <div id="row" class="col-md-12">
     <form>
         <div class="form-group">
             <label for="title">제목</label>
-            <input type="text" class="form-control" id="title" placeholder="SpringBatch 도입기"/>
+            <input type="text" class="form-control" id="title" placeholder=""/>
         </div>
         <div class="form-group">
             <label for="link">링크</label>
@@ -28,6 +22,7 @@
             <input type="text" id="img-link">
         </div>
         <button type="button" class="btn btn-default" id="btn-save">저장</button>
+        <button type="button" class="btn btn-success" id="btn-send">발송</button>
     </form>
 </div>
 
@@ -35,63 +30,5 @@
 <div id="editSection"></div>
 
 <script src="/dist/js/lib.js"></script>
-<script>
-    $('#editSection').tuiEditor({
-        initialEditType: 'markdown',
-        previewStyle: 'vertical',
-        height: 300,
-        hooks: {
-            'addImageBlobHook': uploadImage
-        }
-    });
-
-    $('#btn-save').on('click', function () {
-        var imgFile = $('#img')[0].files[0];
-
-        uploadImage(imgFile, function (img) {
-            var title = encodeURIComponent($('#title').val());
-            var link = encodeURIComponent($('#link').val());
-            var content = encodeURIComponent($('.tui-editor-contents')[0].innerHTML);
-            var contentMarkdown = encodeURIComponent($('#editSection').tuiEditor('getValue'));
-
-            var request = {
-                title: title,
-                link: link,
-                img: img,
-                content: content,
-                contentMarkdown: contentMarkdown
-            };
-
-            $.ajax({
-                type: 'POST',
-                url: '/letter-content/save',
-                dataType: 'json',
-                contentType:'application/json; charset=utf-8',
-                data: JSON.stringify(request)
-            }).done(function(data) {
-                alert(data+' 글이 등록되었습니다.');
-            }).fail(function (error) {
-                alert(error);
-            })
-        });
-    });
-
-    function uploadImage(file, callback) {
-        var formData = new FormData();
-        formData.append('data', file);
-
-        $.ajax({
-            type: 'POST',
-            url: '/image/upload',
-            data: formData,
-            processData: false,
-            contentType: false
-        }).done(function(data) {
-            callback(data);
-        }).fail(function (error) {
-            callback(error);
-        })
-    }
-</script>
 </body>
 </html>

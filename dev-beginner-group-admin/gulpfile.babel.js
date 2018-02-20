@@ -28,15 +28,8 @@ gulp.task('clean', () => {
 
 gulp.task('minify-js-lib', () => {
     return gulp.src([
-        'bower_components/jquery/dist/jquery.js',
-        'bower_components/tui-code-snippet/dist/tui-code-snippet.js',
-        'bower_components/markdown-it/dist/markdown-it.js',
-        'bower_components/toMark/dist/toMark.js',
-        'bower_components/codemirror/lib/codemirror.js',
-        'bower_components/highlightjs/highlight.pack.js',
-        'bower_components/squire-rte/build/squire-raw.js',
-        'bower_components/tui-editor/dist/tui-editor.min.js',
-        'node_modules/bootstrap/dist/js/bootstrap.min.js'
+        'node_modules/jquery/dist/jquery.js',
+        'node_modules/tui-editor/dist/tui-editor-Editor.js'
     ])
         .pipe(concat('lib.js'))
         .pipe(uglify())
@@ -45,11 +38,8 @@ gulp.task('minify-js-lib', () => {
 
 gulp.task('minify-css-lib', () => {
     return gulp.src([
-        'node_modules/bootstrap/dist/css/*.min.css',
-        'bower_components/codemirror/lib/codemirror.css',
-        'bower_components/highlightjs/styles/github.css',
-        'bower_components/tui-editor/dist/tui-editor.css',
-        'bower_components/tui-editor/dist/tui-editor-contents.css'
+        'node_modules/tui-editor/dist/tui-editor.css',
+        'node_modules/tui-editor/dist/tui-editor-contents.css'
     ])
         .pipe(concat('lib.css'))
         .pipe(cleanCSS({compatibility: 'ie8'}))

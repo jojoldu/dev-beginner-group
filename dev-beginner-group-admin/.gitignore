@@ -2,11 +2,8 @@
 /build/
 !gradle/wrapper/gradle-wrapper.jar
 /out
-/node_modules
-/bower_components
+node_modules
 /src/main/resources/static/dist
-/src/main/resources/static/module/css/lib
-/src/main/resources/static/module/js/lib
 
 ### STS ###
 .apt_generated

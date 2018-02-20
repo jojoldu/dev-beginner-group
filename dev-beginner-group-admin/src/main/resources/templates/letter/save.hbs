@@ -4,14 +4,10 @@
     <title>DevBeginner Admin</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="/dist/css/lib.css" />
-    <link rel="stylesheet" href="/dist/fonts/glyphicons-halflings-regular.eot"  type="application/vnd.ms-fontobject"/>
-    <link rel="stylesheet" href="/dist/fonts/glyphicons-halflings-regular.svg"  type="image/svg+xml"/>
-    <link rel="stylesheet" href="/dist/fonts/glyphicons-halflings-regular.ttf"  type="application/x-font-ttf"/>
-    <link rel="stylesheet" href="/dist/fonts/glyphicons-halflings-regular.woff"  type="application/font-woff"/>
-    <link rel="stylesheet" href="/dist/fonts/glyphicons-halflings-regular.woff2"  type="application/font-woff2"/>
 </head>
 <body>
+<script src="/dist/js/lib.js"></script>
+
 <div class="row">
     <div class="col-md-4">
         <form>
@@ -76,9 +72,8 @@
 
 <br/>
 
-<script src="/dist/js/lib.js"></script>
 <script>
-    
+
     $('#btn-send').on('click', function () {
         var request = {
             letterId: $('#letter-id').val()
