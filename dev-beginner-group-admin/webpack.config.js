@@ -11,10 +11,13 @@ const defaultPath = 'src/main/resources/static';
 
 const config = {
     context: path.resolve(__dirname, defaultPath),
-    entry: ['./js/app/app.js'],
+    entry: {
+        vendor: ['bootstrap', 'bootstrap/dist/css/bootstrap.min.css'],
+        'content.save':['./js/content/save.js']
+    },
     output: {
         path: path.resolve(__dirname, defaultPath),
-        filename: './dist/js/lib.js'
+        filename: './dist/js/[name].bundle.js'
     },
     module: {
         rules: [
@@ -52,6 +55,9 @@ const config = {
         new webpack.ProvidePlugin({
             $: "jquery",
             jQuery: "jquery"
+        }),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: "vendor"
         })
     ],
     devtool: 'inline-source-map',
