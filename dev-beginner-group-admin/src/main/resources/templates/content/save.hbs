@@ -1,34 +1,27 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-    <title>DevBeginner Admin</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-</head>
-<body>
-<div id="row" class="col-md-12">
-    <form>
-        <div class="form-group">
-            <label for="title">제목</label>
-            <input type="text" class="form-control" id="title" placeholder=""/>
-        </div>
-        <div class="form-group">
-            <label for="link">링크</label>
-            <input type="text" class="form-control" id="link" placeholder="http://jojoldu.tistory.com"/>
-        </div>
-        <div class="form-group">
-            <label for="img">파일 업로드</label>
-            <input type="file" id="img">
-            <input type="text" id="img-link">
-        </div>
-        <button type="button" class="btn btn-default" id="btn-save">저장</button>
-        <button type="button" class="btn btn-success" id="btn-send">발송</button>
-    </form>
-</div>
+{{#partial "content" }}
+    <div id="row" class="col-md-12">
+        <form>
+            <div class="form-group">
+                <label for="title">제목</label>
+                <input type="text" class="form-control" id="title" placeholder=""/>
+            </div>
+            <div class="form-group">
+                <label for="link">링크</label>
+                <input type="text" class="form-control" id="link" placeholder="http://jojoldu.tistory.com"/>
+            </div>
+            <div class="form-group">
+                <label for="img">파일 업로드</label>
+                <input type="file" id="img">
+                <input type="text" id="img-link">
+            </div>
+            <button type="button" class="btn btn-primary" id="btn-save">저장</button>
+            <button type="button" class="btn btn-success" id="btn-send">발송</button>
+        </form>
+    </div>
 
-<br/>
-<div id="editSection"></div>
+    <br/>
+    <div id="editSection"></div>
+    <script src="/dist/js/content.save.bundle.js"></script>
+{{/partial}}
 
-<script src="/dist/js/lib.js"></script>
-</body>
-</html>
+{{> layout/base}}
