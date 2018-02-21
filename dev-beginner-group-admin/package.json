@@ -11,10 +11,10 @@
   },
   "keywords": [
     "npm",
-    "bower",
     "webpack",
     "woowahanjs",
-    "tui.editor"
+    "tui.editor",
+    "springboot"
   ],
   "author": "jojoldu@gmail.com",
   "license": "MIT",

@@ -13,7 +13,8 @@ const config = {
     context: path.resolve(__dirname, defaultPath),
     entry: {
         vendor: ['bootstrap', 'bootstrap/dist/css/bootstrap.min.css'],
-        'content.save':['./js/content/save.js']
+        'content.save':['./js/content/save.js'],
+        'letter.save':['./js/letter/save.js']
     },
     output: {
         path: path.resolve(__dirname, defaultPath),
