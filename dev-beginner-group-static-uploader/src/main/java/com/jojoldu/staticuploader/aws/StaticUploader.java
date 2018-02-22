@@ -9,8 +9,6 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.amazonaws.services.s3.model.PutObjectResult;
-import com.amazonaws.services.s3.model.S3Object;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -28,15 +26,16 @@ import java.net.URL;
 @Slf4j
 public class StaticUploader {
 
-    private static final String BUCKET_NAME = "devbeginner.com";
+    public static final String BUCKET_NAME = "devbeginner.com";
+    public static final String ARCHIVE_DIR_NAME = "archive";
 
     public String upload(MultipartFile multipartFile) throws IOException {
-        return upload(convert(multipartFile), multipartFile.getOriginalFilename());
+        return upload(convert(multipartFile), BUCKET_NAME, multipartFile.getOriginalFilename());
     }
 
-    public String upload(File uploadFile, String fileName) {
-        AmazonS3 s3 = getS3Instance(getAwsCredentials());
-        return putS3(uploadFile, fileName, s3);
+    public String uploadArchive(MultipartFile multipartFile) throws IOException {
+        String bucketName = BUCKET_NAME+"/"+ARCHIVE_DIR_NAME;
+        return upload(convert(multipartFile), bucketName, multipartFile.getOriginalFilename());
     }
 
     private File convert(MultipartFile file) throws IOException {
@@ -46,6 +45,11 @@ public class StaticUploader {
             fos.write(file.getBytes());
         }
         return convertFile;
+    }
+
+    public String upload(File uploadFile, String bucketName, String fileName) {
+        AmazonS3 s3 = getS3Instance(getAwsCredentials());
+        return putS3(uploadFile, bucketName, fileName, s3);
     }
 
     private AWSCredentials getAwsCredentials() {
@@ -69,12 +73,12 @@ public class StaticUploader {
                 .build();
     }
 
-    private String putS3(File uploadFile, String fileName, AmazonS3 s3) {
+    private String putS3(File uploadFile, String bucketName, String fileName,  AmazonS3 s3) {
         try {
             log.info("Uploading a new object to S3 from a file\n");
-            s3.putObject(new PutObjectRequest(BUCKET_NAME, fileName, uploadFile).withCannedAcl(CannedAccessControlList.PublicRead));
+            s3.putObject(new PutObjectRequest(bucketName, fileName, uploadFile).withCannedAcl(CannedAccessControlList.PublicRead));
             log.info("Static File Uploaded!");
-            return extractImageUrl(s3, fileName);
+            return extractImageUrl(s3, bucketName, fileName);
 
         } catch (AmazonServiceException ase) {
             log.error("Caught an AmazonServiceException, which means your request made it to Amazon S3, but was rejected with an error response for some reason.");
@@ -93,13 +97,13 @@ public class StaticUploader {
         }
     }
 
-    private String extractImageUrl(AmazonS3 s3, String fileName){
-        URL urlObject = s3.getUrl(BUCKET_NAME, fileName);
+    private String extractImageUrl(AmazonS3 s3, String bucketName, String fileName){
+        URL urlObject = s3.getUrl(bucketName, fileName);
         String protocol = urlObject.getProtocol();
         String host = "s3.ap-northeast-2.amazonaws.com";
         String path = urlObject.getPath();
 
-        return protocol+"://"+host+"/"+BUCKET_NAME+path;
+        return protocol+"://"+host+"/"+bucketName+path;
 
     }
 }

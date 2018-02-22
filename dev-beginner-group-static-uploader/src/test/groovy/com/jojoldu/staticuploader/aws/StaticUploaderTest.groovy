@@ -2,7 +2,6 @@ package com.jojoldu.staticuploader.aws
 
 import spock.lang.Specification
 
-import java.time.LocalDate
 import java.util.stream.Collectors
 import java.util.stream.Stream
 
@@ -18,9 +17,24 @@ class StaticUploaderTest extends Specification {
         given:
         File file = new File(getTestImagePath())
         StaticUploader staticUploader = new StaticUploader()
+        def fileName = "테스트파일" + System.currentTimeMillis().toString() + ".jpg"
 
         when:
-        String url = staticUploader.upload(file, "테스트파일"+System.currentTimeMillis().toString()+".jpg")
+        String url = staticUploader.upload(file, StaticUploader.BUCKET_NAME, fileName)
+
+        then:
+        println url
+    }
+
+    def "파일을 읽어 S3 버킷/디렉토리에 전송한다" () {
+        given:
+        File file = new File(getTestImagePath())
+        StaticUploader staticUploader = new StaticUploader()
+        def fileName = "테스트파일" + System.currentTimeMillis().toString() + ".jpg"
+        def bucket = StaticUploader.BUCKET_NAME + "/"+StaticUploader.ARCHIVE_DIR_NAME
+
+        when:
+        String url = staticUploader.upload(file, bucket, fileName)
 
         then:
         println url
