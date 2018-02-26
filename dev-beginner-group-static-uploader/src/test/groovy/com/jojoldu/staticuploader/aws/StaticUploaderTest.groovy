@@ -20,7 +20,7 @@ class StaticUploaderTest extends Specification {
         def fileName = "테스트파일" + System.currentTimeMillis().toString() + ".jpg"
 
         when:
-        String url = staticUploader.upload(file, StaticUploader.BUCKET_NAME, fileName)
+        String url = staticUploader.uploadToS3(file, StaticUploader.BUCKET_NAME, fileName)
 
         then:
         println url
@@ -34,11 +34,12 @@ class StaticUploaderTest extends Specification {
         def bucket = StaticUploader.BUCKET_NAME + "/"+StaticUploader.ARCHIVE_DIR_NAME
 
         when:
-        String url = staticUploader.upload(file, bucket, fileName)
+        String url = staticUploader.uploadToS3(file, bucket, fileName)
 
         then:
         println url
     }
+
 
     def "현재위치 출력"() {
         expect:

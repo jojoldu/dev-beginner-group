@@ -30,12 +30,27 @@ public class StaticUploader {
     public static final String ARCHIVE_DIR_NAME = "archive";
 
     public String upload(MultipartFile multipartFile) throws IOException {
-        return upload(convert(multipartFile), BUCKET_NAME, multipartFile.getOriginalFilename());
+        return uploadMultipartFile(multipartFile, BUCKET_NAME);
     }
 
     public String uploadArchive(MultipartFile multipartFile) throws IOException {
         String bucketName = BUCKET_NAME+"/"+ARCHIVE_DIR_NAME;
-        return upload(convert(multipartFile), bucketName, multipartFile.getOriginalFilename());
+        return uploadMultipartFile(multipartFile, bucketName);
+    }
+
+    private String uploadMultipartFile(MultipartFile multipartFile, String bucketName) throws IOException {
+        File targetFile = convert(multipartFile);
+        String uploadImageUrl = uploadToS3(targetFile, bucketName, multipartFile.getOriginalFilename());
+        removeNewFile(targetFile);
+        return uploadImageUrl;
+    }
+
+    public void removeNewFile(File targetFile) {
+        if(targetFile.delete()){
+            log.info("파일이 삭제되었습니다.");
+        }else {
+            log.info("파일이 삭제되지 못했습니다.");
+        }
     }
 
     private File convert(MultipartFile file) throws IOException {
@@ -47,7 +62,7 @@ public class StaticUploader {
         return convertFile;
     }
 
-    public String upload(File uploadFile, String bucketName, String fileName) {
+    public String uploadToS3(File uploadFile, String bucketName, String fileName) {
         AmazonS3 s3 = getS3Instance(getAwsCredentials());
         return putS3(uploadFile, bucketName, fileName, s3);
     }

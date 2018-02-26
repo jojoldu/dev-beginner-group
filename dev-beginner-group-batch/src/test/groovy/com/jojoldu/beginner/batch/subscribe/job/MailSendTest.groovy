@@ -5,6 +5,7 @@ import com.jojoldu.beginner.mail.aws.Sender
 import com.jojoldu.beginner.mail.aws.SenderDto
 import com.jojoldu.beginner.mail.template.HandlebarsFactory
 import org.assertj.core.util.Lists
+import org.junit.Ignore
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.TestPropertySource
@@ -26,6 +27,7 @@ class MailSendTest extends Specification {
     @Autowired
     HandlebarsFactory handlebarsFactory
 
+    @Ignore
     def "Batch에서 Mail모듈을 사용하여 메일 전송"() {
         Template template = handlebarsFactory.get("WeeklyLetter")
         String content = template.apply("")
