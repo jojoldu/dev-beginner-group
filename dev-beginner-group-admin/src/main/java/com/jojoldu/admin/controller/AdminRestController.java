@@ -5,6 +5,7 @@ import com.jojoldu.admin.dto.LetterAdminSendRequestDto;
 import com.jojoldu.admin.dto.LetterContentRequestDto;
 import com.jojoldu.admin.dto.LetterSendMailDto;
 import com.jojoldu.admin.service.LetterAdminService;
+import com.jojoldu.admin.service.MailAsyncSender;
 import com.jojoldu.beginner.domain.letter.Letter;
 import com.jojoldu.beginner.domain.letter.LetterContentRepository;
 import com.jojoldu.staticuploader.aws.StaticUploader;
@@ -29,6 +30,7 @@ import java.util.List;
 @AllArgsConstructor
 public class AdminRestController {
 
+    private MailAsyncSender mailAsyncSender;
     private StaticUploader staticUploader;
     private LetterAdminService letterAdminService;
     private LetterContentRepository letterContentRepository;
@@ -45,8 +47,8 @@ public class AdminRestController {
 
     @PostMapping("/letter/save")
     public Long saveLetter(@RequestBody LetterAdminSaveRequestDto requestDto) {
-        final Letter letter = letterAdminService.saveLetter(requestDto);
-        asyncSendMail(letterAdminService.createTestEmail(letter.getId()));
+        Letter letter = letterAdminService.saveLetter(requestDto);
+        mailAsyncSender.sendAll(letterAdminService.createTestEmail(letter.getId()));
         return letter.getId();
     }
 
@@ -59,19 +61,13 @@ public class AdminRestController {
             mails = letterAdminService.createLetterSend(requestDto.getLetterId(), requestDto.getEmail());
         }
 
-        asyncSendMail(mails);
+        mailAsyncSender.sendAll(mails);
         return mails.size();
     }
 
     @PostMapping("/letter/send/test")
     public Long sendLetterToTestUser(@RequestBody LetterAdminSendRequestDto requestDto) {
-        asyncSendMail(letterAdminService.createTestEmail(requestDto.getLetterId()));
+        mailAsyncSender.sendAll(letterAdminService.createTestEmail(requestDto.getLetterId()));
         return requestDto.getLetterId();
-    }
-
-    private void asyncSendMail(List<LetterSendMailDto> mails) {
-        for (LetterSendMailDto mail : mails) {
-            letterAdminService.send(mail);
-        }
     }
 }

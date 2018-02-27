@@ -8,13 +8,9 @@ import com.jojoldu.beginner.domain.letter.LetterContentRepository;
 import com.jojoldu.beginner.domain.letter.LetterRepository;
 import com.jojoldu.beginner.domain.subscriber.Subscriber;
 import com.jojoldu.beginner.domain.subscriber.SubscriberRepository;
-import com.jojoldu.beginner.mail.aws.Sender;
-import com.jojoldu.beginner.mail.aws.SenderDto;
-import com.jojoldu.beginner.mail.template.TemplateComponent;
 import com.jojoldu.beginner.util.Constants;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,8 +32,6 @@ public class LetterAdminService {
     private LetterRepository letterRepository;
     private LetterContentRepository letterContentRepository;
     private SubscriberRepository subscriberRepository;
-    private Sender sender;
-    private TemplateComponent templateComponent;
     private WebProperties webProperties;
 
     @Transactional(readOnly = true)
@@ -92,16 +86,5 @@ public class LetterAdminService {
         return contents.stream()
                 .map(content -> new MailLinkRedirectDto(subscriberId, webProperties.getWebUrl(), content))
                 .collect(Collectors.toList());
-    }
-
-    @Async
-    public void send(LetterSendMailDto dto) {
-        String content = templateComponent.template("newsletter", dto.getModel());
-
-        sender.send(SenderDto.builder()
-                .to(Collections.singletonList(dto.getEmail()))
-                .subject(dto.getSubject())
-                .content(content)
-                .build());
     }
 }
