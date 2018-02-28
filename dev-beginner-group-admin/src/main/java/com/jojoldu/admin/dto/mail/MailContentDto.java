@@ -1,13 +1,9 @@
-package com.jojoldu.admin.dto;
+package com.jojoldu.admin.dto.mail;
 
 import com.jojoldu.beginner.domain.letter.LetterContent;
 import com.jojoldu.beginner.util.Decoder;
 import lombok.Builder;
 import lombok.Getter;
-
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 
 /**
  * Created by jojoldu@gmail.com on 2017. 12. 18.
@@ -16,7 +12,7 @@ import javax.persistence.Id;
  */
 
 @Getter
-public class MailLinkRedirectDto {
+public class MailContentDto {
 
     private static final String REDIRECT_FORM = "%s/mail/statistics/link-click?subscriberId=%d&letterContentId=%d&redirectUrl=%s";
 
@@ -27,7 +23,7 @@ public class MailLinkRedirectDto {
     private String content;
 
     @Builder
-    public MailLinkRedirectDto(Long subscriberId, String baseUrl, LetterContent letterContent){
+    public MailContentDto(Long subscriberId, String baseUrl, LetterContent letterContent){
         id = letterContent.getId();
         title = Decoder.decode(letterContent.getTitle());
         link = templateLink(baseUrl, subscriberId, letterContent.getId(), letterContent.getLink());

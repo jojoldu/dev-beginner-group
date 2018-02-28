@@ -1,8 +1,7 @@
 package com.jojoldu.admin.service
 
 import com.jojoldu.admin.dto.LetterAdminSaveRequestDto
-import com.jojoldu.admin.dto.LetterAdminSendRequestDto
-import com.jojoldu.admin.dto.LetterSendMailDto
+import com.jojoldu.admin.dto.mail.LetterSendMailDto
 import com.jojoldu.beginner.domain.letter.Letter
 import com.jojoldu.beginner.domain.letter.LetterContent
 import com.jojoldu.beginner.domain.letter.LetterContentRepository
@@ -17,9 +16,7 @@ import org.springframework.boot.test.mock.mockito.SpyBean
 import spock.lang.Specification
 
 import static org.mockito.Matchers.any
-import static org.mockito.Mockito.doReturn
-import static org.mockito.Mockito.times
-import static org.mockito.Mockito.verify
+import static org.mockito.Mockito.*
 
 /**
  * Created by jojoldu@gmail.com on 2017. 12. 8.

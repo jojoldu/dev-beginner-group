@@ -3,11 +3,12 @@ package com.jojoldu.admin.controller;
 import com.jojoldu.admin.dto.LetterAdminSaveRequestDto;
 import com.jojoldu.admin.dto.LetterAdminSendRequestDto;
 import com.jojoldu.admin.dto.LetterContentRequestDto;
-import com.jojoldu.admin.dto.LetterSendMailDto;
+import com.jojoldu.admin.dto.mail.LetterSendMailDto;
 import com.jojoldu.admin.service.LetterAdminService;
 import com.jojoldu.admin.service.MailAsyncSender;
 import com.jojoldu.beginner.domain.letter.Letter;
 import com.jojoldu.beginner.domain.letter.LetterContentRepository;
+import com.jojoldu.beginner.util.Constants;
 import com.jojoldu.staticuploader.aws.StaticUploader;
 import lombok.AllArgsConstructor;
 import org.springframework.util.StringUtils;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -48,7 +50,7 @@ public class AdminRestController {
     @PostMapping("/letter/save")
     public Long saveLetter(@RequestBody LetterAdminSaveRequestDto requestDto) {
         Letter letter = letterAdminService.saveLetter(requestDto);
-        mailAsyncSender.sendAll(letterAdminService.createTestEmail(letter.getId()));
+        sendAll(letterAdminService.createLetterSend(letter.getId(), Constants.TEST_USERS));
         return letter.getId();
     }
 
@@ -58,16 +60,22 @@ public class AdminRestController {
         if(StringUtils.isEmpty(requestDto.getEmail())) {
             mails = letterAdminService.createLetterSend(requestDto.getLetterId());
         } else {
-            mails = letterAdminService.createLetterSend(requestDto.getLetterId(), requestDto.getEmail());
+            mails = letterAdminService.createLetterSend(requestDto.getLetterId(), Collections.singletonList(requestDto.getEmail()));
         }
 
-        mailAsyncSender.sendAll(mails);
+        sendAll(mails);
         return mails.size();
     }
 
     @PostMapping("/letter/send/test")
     public Long sendLetterToTestUser(@RequestBody LetterAdminSendRequestDto requestDto) {
-        mailAsyncSender.sendAll(letterAdminService.createTestEmail(requestDto.getLetterId()));
+        sendAll(letterAdminService.createLetterSend(requestDto.getLetterId(), Constants.TEST_USERS));
         return requestDto.getLetterId();
+    }
+
+    private void sendAll(List<LetterSendMailDto> mails) {
+        for (LetterSendMailDto dto : mails) {
+            mailAsyncSender.send(dto);
+        }
     }
 }

@@ -33,9 +33,11 @@ public class StaticUploader {
         return uploadMultipartFile(multipartFile, BUCKET_NAME);
     }
 
-    public String uploadArchive(MultipartFile multipartFile) throws IOException {
+    public String upload(File file) {
         String bucketName = BUCKET_NAME+"/"+ARCHIVE_DIR_NAME;
-        return uploadMultipartFile(multipartFile, bucketName);
+        String fileUrl = uploadToS3(file, bucketName, file.getName());
+        removeNewFile(file);
+        return fileUrl;
     }
 
     private String uploadMultipartFile(MultipartFile multipartFile, String bucketName) throws IOException {

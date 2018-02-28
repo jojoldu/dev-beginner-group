@@ -1,5 +1,6 @@
 package com.jojoldu.admin.dto
 
+import com.jojoldu.admin.dto.mail.MailContentDto
 import com.jojoldu.beginner.domain.letter.LetterContent
 import spock.lang.Specification
 
@@ -20,7 +21,7 @@ class MailLinkRedirectDtoTest extends Specification {
         letterContent.link = link
 
         when:
-        MailLinkRedirectDto dto = MailLinkRedirectDto.builder()
+        MailContentDto dto = MailContentDto.builder()
                 .subscriberId(1L)
                 .baseUrl(baseUrl)
                 .letterContent(letterContent)
