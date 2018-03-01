@@ -18,7 +18,7 @@ import spock.lang.Specification
 class ArchiveServiceTest extends Specification {
 
     @Autowired
-    ArchiveService archiveService
+    ArchiveFactory archiveService
 
     def "newsletter.hbs로 html파일을 로컬에 생성한다." () {
         given:

@@ -21,10 +21,10 @@ $('#btn-save').on('click', function () {
     const imgFile = $('#img')[0].files[0];
 
     uploadImage(imgFile, function (img) {
-        const title = encodeURIComponent($('#title').val());
-        const link = encodeURIComponent($('#link').val());
-        const content = encodeURIComponent($('.tui-editor-contents')[0].innerHTML);
-        const contentMarkdown = encodeURIComponent(editor.getMarkdown());
+        const title = $('#title').val();
+        const link = $('#link').val();
+        const content = $('.tui-editor-contents')[0].innerHTML;
+        const contentMarkdown = editor.getMarkdown();
 
         const request = {
             title: title,

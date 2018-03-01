@@ -13,7 +13,7 @@ import java.util.List;
  */
 
 @Getter
-public class LetterSendMailDto {
+public class MailSendDto {
 
     private Long letterId;
     private String subject;
@@ -21,10 +21,10 @@ public class LetterSendMailDto {
     private MailContentGroupDto contentGroup;
 
     @Builder
-    public LetterSendMailDto(@Nonnull Long letterId, @Nonnull String subject, @Nonnull String email, @Nonnull List<MailContentDto> redirectDtos) {
+    public MailSendDto(@Nonnull Long letterId, @Nonnull String subject, @Nonnull String email, @Nonnull List<MailContentDto> mailContents) {
         this.letterId = letterId;
         this.subject = subject;
         this.email = email;
-        this.contentGroup = new MailContentGroupDto(redirectDtos);
+        this.contentGroup = new MailContentGroupDto(mailContents);
     }
 }

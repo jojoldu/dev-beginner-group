@@ -1,6 +1,6 @@
 package com.jojoldu.admin.service;
 
-import com.jojoldu.admin.dto.mail.LetterSendMailDto;
+import com.jojoldu.admin.dto.mail.MailSendDto;
 import com.jojoldu.beginner.mail.aws.Sender;
 import com.jojoldu.beginner.mail.aws.SenderDto;
 import lombok.AllArgsConstructor;
@@ -24,7 +24,7 @@ public class MailAsyncSender {
     private NewsLetterFactory newsLetterFactory;
 
     @Async
-    public void send(LetterSendMailDto dto) {
+    public void send(MailSendDto dto) {
         String content = newsLetterFactory.createContent(dto.getContentGroup());
 
         sender.send(SenderDto.builder()

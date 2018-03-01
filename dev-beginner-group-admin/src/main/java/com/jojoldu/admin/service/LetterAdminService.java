@@ -4,14 +4,16 @@ import com.jojoldu.admin.config.WebProperties;
 import com.jojoldu.admin.dto.LetterAdminSaveRequestDto;
 import com.jojoldu.admin.dto.LetterContentResponseDto;
 import com.jojoldu.admin.dto.LetterPageRequestDto;
-import com.jojoldu.admin.dto.mail.LetterSendMailDto;
+import com.jojoldu.admin.dto.mail.ArchiveDto;
 import com.jojoldu.admin.dto.mail.MailContentDto;
+import com.jojoldu.admin.dto.mail.MailSendDto;
 import com.jojoldu.beginner.domain.letter.Letter;
 import com.jojoldu.beginner.domain.letter.LetterContent;
 import com.jojoldu.beginner.domain.letter.LetterContentRepository;
 import com.jojoldu.beginner.domain.letter.LetterRepository;
 import com.jojoldu.beginner.domain.subscriber.Subscriber;
 import com.jojoldu.beginner.domain.subscriber.SubscriberRepository;
+import com.jojoldu.beginner.util.Constants;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -35,27 +37,35 @@ public class LetterAdminService {
     private LetterContentRepository letterContentRepository;
     private SubscriberRepository subscriberRepository;
     private WebProperties webProperties;
+    private ArchiveFactory archiveFactory;
 
     @Transactional(readOnly = true)
     public List<LetterContentResponseDto> findByPageable(LetterPageRequestDto dto){
-        return letterContentRepository.findAll(dto.toPageable())
-                .getContent().stream()
+        return letterContentRepository.findAll(dto.toPageable()).getContent().stream()
                 .map(LetterContentResponseDto::new)
                 .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
-    public List<LetterSendMailDto> createLetterSend(Long letterId){
+    public List<MailSendDto> createSendMailList(Long letterId, List<String> emails){
         Letter letter = findLetter(letterId);
-        List<Subscriber> subscribers = subscriberRepository.findAllActive();
-        return createLetterSendMailDto(letter, subscribers);
+        return subscriberRepository.findAllActive(emails).stream()
+                .map(subscriber -> MailSendDto.builder()
+                        .letterId(letter.getId())
+                        .subject(letter.getSubject())
+                        .email(subscriber.getEmail())
+                        .mailContents(createMailContents(subscriber.getId(), letter.getContentEntities()))
+                        .build())
+                .collect(Collectors.toList());
     }
 
-    @Transactional(readOnly = true)
-    public List<LetterSendMailDto> createLetterSend(Long letterId, List<String> emails){
-        Letter letter = findLetter(letterId);
-        List<Subscriber> subscribers = subscriberRepository.findAllByEmailIn(emails);
-        return createLetterSendMailDto(letter, subscribers);
+    @Transactional
+    public Long saveLetter(LetterAdminSaveRequestDto dto) {
+        Letter letter = dto.toEntity();
+        List<LetterContent> letterContents = letterContentRepository.findAllByIdIn(dto.getContentIds());
+        letter.addContents(letterContents);
+        letter.updateArchive(archiveFactory.createArchive(createArchiveDto(dto.getSubject(), letterContents)));
+        return letterRepository.save(letter).getId();
     }
 
     private Letter findLetter(Long letterId) {
@@ -63,21 +73,17 @@ public class LetterAdminService {
                 .orElseThrow(() -> new IllegalArgumentException(String.format("해당하는 Letter가 없습니다. ID: %d", letterId)));
     }
 
-
-    @Transactional
-    public Letter saveLetter(LetterAdminSaveRequestDto dto) {
-        Letter letter = dto.toEntity();
-        letter.addContents(letterContentRepository.findAllByIdIn(dto.getContentIds()));
-        return letterRepository.save(letter);
+    private ArchiveDto createArchiveDto(String subject, List<LetterContent> letterContents){
+        return new ArchiveDto(subject, createMailContents(findAdminId(), letterContents));
     }
 
-    private List<LetterSendMailDto> createLetterSendMailDto(Letter letter, List<Subscriber> subscribers){
-        return subscribers.stream()
-                .map(subscriber -> new LetterSendMailDto(letter.getId(), letter.getSubject(), subscriber.getEmail(), createRedirectDto(letter.getContentEntities(), subscriber.getId())))
-                .collect(Collectors.toList());
+    private Long findAdminId(){
+        return subscriberRepository.findTopByEmail(Constants.ADMIN_EMAIL)
+                .map(Subscriber::getId)
+                .orElse(1L);
     }
 
-    private List<MailContentDto> createRedirectDto(List<LetterContent> contents, Long subscriberId) {
+    private List<MailContentDto> createMailContents(Long subscriberId, List<LetterContent> contents) {
         return contents.stream()
                 .map(content -> new MailContentDto(subscriberId, webProperties.getWebUrl(), content))
                 .collect(Collectors.toList());

@@ -61,7 +61,7 @@ $('#btn-test-send').on('click', function () {
 });
 
 $('#btn-save').on('click', function () {
-    const subject = encodeURIComponent($('#subject').val());
+    const subject = $('#subject').val();
     const contentIds = getCheckedValue('.check-content', 'id');
 
     const request = {

@@ -29,7 +29,7 @@ public class Letter extends BaseTimeEntity {
     @GeneratedValue
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 500)
     private String subject;
 
     @Column(nullable = false)
@@ -39,13 +39,17 @@ public class Letter extends BaseTimeEntity {
 
     private LetterStatus status;
 
+    @Column(length = 700)
+    private String archiveUrl;
+
     @OneToMany(mappedBy = "letter", cascade = CascadeType.ALL)
     private List<LetterContentMap> letterContents = new ArrayList<>();
 
     @Builder
-    public Letter(@Nonnull String subject, String sender, List<LetterContent> letterContents) {
+    public Letter(@Nonnull String subject, String sender, String archiveUrl, List<LetterContent> letterContents) {
         this.subject = subject;
         this.sender = StringUtils.isEmpty(sender)? Constants.ADMIN_EMAIL : sender;
+        this.archiveUrl = archiveUrl;
         this.addContents(letterContents);
     }
 
@@ -53,6 +57,10 @@ public class Letter extends BaseTimeEntity {
         return this.getLetterContents().stream()
                 .map(LetterContentMap::getLetterContent)
                 .collect(Collectors.toList());
+    }
+
+    public void updateArchive(String archiveUrl){
+        this.archiveUrl = archiveUrl;
     }
 
     public void addContents(List<LetterContent> contents){

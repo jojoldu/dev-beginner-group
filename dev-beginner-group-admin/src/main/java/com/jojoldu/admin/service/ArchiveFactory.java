@@ -20,7 +20,7 @@ import java.nio.charset.Charset;
 @Slf4j
 @AllArgsConstructor
 @Component
-public class ArchiveService {
+public class ArchiveFactory {
 
     private NewsLetterFactory newsLetterFactory;
     private StaticUploader staticUploader;
