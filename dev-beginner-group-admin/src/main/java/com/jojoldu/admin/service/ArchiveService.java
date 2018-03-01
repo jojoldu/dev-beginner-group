@@ -25,6 +25,13 @@ public class ArchiveService {
     private NewsLetterFactory newsLetterFactory;
     private StaticUploader staticUploader;
 
+    public String createArchive(ArchiveDto dto){
+        File newHtmlFile = createHtml(dto);
+        String uploadUrl = staticUploader.upload(newHtmlFile);
+        removeNewFile(newHtmlFile);
+        return uploadUrl;
+    }
+
     public File createHtml(ArchiveDto dto){
         File newHtmlFile = new File(dto.getSubject()+".html");
         String content = newsLetterFactory.createContent(dto.getContentGroupDto());
@@ -38,5 +45,12 @@ public class ArchiveService {
         }
     }
 
+    public void removeNewFile(File targetFile) {
+        if(targetFile.delete()){
+            log.info("파일이 삭제되었습니다.");
+        }else {
+            log.info("파일이 삭제되지 못했습니다.");
+        }
+    }
 
 }

@@ -17,7 +17,7 @@ class StaticUploaderTest extends Specification {
         given:
         File file = new File(getTestImagePath())
         StaticUploader staticUploader = new StaticUploader()
-        def fileName = "테스트파일" + System.currentTimeMillis().toString() + ".jpg"
+        def fileName = "StaticUploader_테스트파일" + ".jpg"
 
         when:
         String url = staticUploader.uploadToS3(file, StaticUploader.BUCKET_NAME, fileName)
@@ -30,7 +30,7 @@ class StaticUploaderTest extends Specification {
         given:
         File file = new File(getTestImagePath())
         StaticUploader staticUploader = new StaticUploader()
-        def fileName = "테스트파일" + System.currentTimeMillis().toString() + ".jpg"
+        def fileName = "StaticUploader_테스트파일" + ".jpg"
         def bucket = StaticUploader.BUCKET_NAME + "/"+StaticUploader.ARCHIVE_DIR_NAME
 
         when:

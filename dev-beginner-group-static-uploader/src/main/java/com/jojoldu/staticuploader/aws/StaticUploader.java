@@ -15,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URL;
 
 /**
  * Created by jojoldu@gmail.com on 2017. 11. 21.
@@ -26,7 +25,7 @@ import java.net.URL;
 @Slf4j
 public class StaticUploader {
 
-    public static final String BUCKET_NAME = "devbeginner.com";
+    public static final String BUCKET_NAME = "devbeginner.com/";
     public static final String ARCHIVE_DIR_NAME = "archive";
 
     public String upload(MultipartFile multipartFile) throws IOException {
@@ -34,10 +33,8 @@ public class StaticUploader {
     }
 
     public String upload(File file) {
-        String bucketName = BUCKET_NAME+"/"+ARCHIVE_DIR_NAME;
-        String fileUrl = uploadToS3(file, bucketName, file.getName());
-        removeNewFile(file);
-        return fileUrl;
+        String bucketName = BUCKET_NAME+ARCHIVE_DIR_NAME;
+        return uploadToS3(file, bucketName, file.getName());
     }
 
     private String uploadMultipartFile(MultipartFile multipartFile, String bucketName) throws IOException {
@@ -95,7 +92,7 @@ public class StaticUploader {
             log.info("Uploading a new object to S3 from a file\n");
             s3.putObject(new PutObjectRequest(bucketName, fileName, uploadFile).withCannedAcl(CannedAccessControlList.PublicRead));
             log.info("Static File Uploaded!");
-            return extractImageUrl(s3, bucketName, fileName);
+            return s3.getUrl(bucketName, fileName).toString();
 
         } catch (AmazonServiceException ase) {
             log.error("Caught an AmazonServiceException, which means your request made it to Amazon S3, but was rejected with an error response for some reason.");
@@ -114,13 +111,4 @@ public class StaticUploader {
         }
     }
 
-    private String extractImageUrl(AmazonS3 s3, String bucketName, String fileName){
-        URL urlObject = s3.getUrl(bucketName, fileName);
-        String protocol = urlObject.getProtocol();
-        String host = "s3.ap-northeast-2.amazonaws.com";
-        String path = urlObject.getPath();
-
-        return protocol+"://"+host+"/"+bucketName+path;
-
-    }
 }

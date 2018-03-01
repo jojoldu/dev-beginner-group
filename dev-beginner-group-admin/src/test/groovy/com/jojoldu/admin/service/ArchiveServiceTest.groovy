@@ -5,6 +5,7 @@ import com.jojoldu.admin.dto.mail.MailContentDto
 import com.jojoldu.beginner.domain.letter.LetterContent
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.util.StringUtils
 import spock.lang.Specification
 
 /**
@@ -32,6 +33,20 @@ class ArchiveServiceTest extends Specification {
         newHtmlFile.exists()
         newHtmlFile.canRead()
         newHtmlFile.delete()
+    }
+
+    def "newsletter.hbs로 html파일을 생성후 s3에 업로드 한다." () {
+        given:
+        def subject = "테스트아카이브"
+        def contentDtos = Arrays.asList(createContent())
+        def dto = new ArchiveDto(subject, contentDtos)
+
+        when:
+        String url = archiveService.createArchive(dto)
+
+        then:
+        println url
+        !StringUtils.isEmpty(url)
     }
 
     MailContentDto createContent(){
