@@ -50,6 +50,7 @@ after_deploy:
   - echo "Performing after deploy procedures..."
 
 notifications:
+  webhooks: https://fathomless-fjord-24024.herokuapp.com/notify
   email:
     recipients:
       - jojoldu@gmail.com
