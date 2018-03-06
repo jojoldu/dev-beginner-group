@@ -1,5 +1,6 @@
 package com.jojoldu.staticuploader.aws
 
+import spock.lang.Ignore
 import spock.lang.Specification
 
 import java.util.stream.Collectors
@@ -13,6 +14,7 @@ import java.util.stream.Stream
 
 class StaticUploaderTest extends Specification {
 
+    @Ignore
     def "파일을 읽어 S3에 전송한다" () {
         given:
         File file = new File(getTestImagePath())
@@ -26,6 +28,7 @@ class StaticUploaderTest extends Specification {
         println url
     }
 
+    @Ignore
     def "파일을 읽어 S3 버킷/디렉토리에 전송한다" () {
         given:
         File file = new File(getTestImagePath())
@@ -39,7 +42,6 @@ class StaticUploaderTest extends Specification {
         then:
         println url
     }
-
 
     def "현재위치 출력"() {
         expect:

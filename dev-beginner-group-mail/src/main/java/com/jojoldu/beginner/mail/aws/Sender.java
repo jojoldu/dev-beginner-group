@@ -43,7 +43,7 @@ public class Sender {
             log.info("Email sent!");
 
         } catch (Exception ex) {
-            log.error("The email was not sent.");
+            log.error("The email was not sent.: "+senderDto.getTo().get(0));
             log.error("Error message: " + ex.getMessage());
             throw new AmazonClientException(
                     ex.getMessage(),

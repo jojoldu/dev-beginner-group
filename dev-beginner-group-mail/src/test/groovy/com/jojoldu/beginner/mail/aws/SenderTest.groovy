@@ -1,6 +1,7 @@
 package com.jojoldu.beginner.mail.aws
 
 import org.assertj.core.util.Lists
+import spock.lang.Ignore
 import spock.lang.Specification
 
 /**
@@ -13,6 +14,7 @@ class SenderTest extends Specification {
 
     Sender sender = new Sender()
 
+    @Ignore
     def "메일 발송 테스트" () {
         given:
         SenderDto dto = SenderDto.builder()
