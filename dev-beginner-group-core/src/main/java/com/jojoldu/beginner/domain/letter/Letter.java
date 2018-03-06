@@ -63,6 +63,10 @@ public class Letter extends BaseTimeEntity {
         this.archiveUrl = archiveUrl;
     }
 
+    public void updateSubject(String subject){
+        this.subject = subject;
+    }
+
     public void addContents(List<LetterContent> contents){
         if(contents != null){
             for (LetterContent content : contents) {

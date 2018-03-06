@@ -52,4 +52,9 @@ public class LetterContent extends BaseTimeEntity {
         this.contentMarkdown = contentMarkdown;
     }
 
+    public void updateTitleAndMarkdown(String title, String markdown){
+        this.title = title;
+        this.contentMarkdown = markdown;
+    }
+
 }
