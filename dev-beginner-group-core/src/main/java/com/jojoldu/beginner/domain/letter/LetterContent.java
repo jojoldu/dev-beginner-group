@@ -57,4 +57,12 @@ public class LetterContent extends BaseTimeEntity {
         this.contentMarkdown = markdown;
     }
 
+    public Long getFirstLetterId(){
+        if(!letterContents.isEmpty()){
+            letterContents.get(0).getLetter().getId();
+        }
+
+        return null;
+    }
+
 }

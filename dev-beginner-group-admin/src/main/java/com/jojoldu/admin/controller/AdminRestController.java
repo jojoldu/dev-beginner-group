@@ -54,7 +54,7 @@ public class AdminRestController {
     @PostMapping("/letter/send")
     public int sendLetter(@RequestBody LetterAdminSendRequestDto requestDto) {
         List<MailSendDto> mails = letterAdminService.createSendMailList(requestDto.getLetterId(), requestDto.getEmails());
-        sendAll(mails);
+        mailAsyncSender.sendAll(mails);
         return mails.size();
     }
 
@@ -66,12 +66,6 @@ public class AdminRestController {
 
     private void sendAll(Long letterId, List<String> emails) {
         List<MailSendDto> mails = letterAdminService.createSendMailList(letterId, emails);
-        sendAll(mails);
-    }
-
-    private void sendAll(List<MailSendDto> mails) {
-        for (MailSendDto dto : mails) {
-            mailAsyncSender.send(dto);
-        }
+        mailAsyncSender.sendAll(mails);
     }
 }

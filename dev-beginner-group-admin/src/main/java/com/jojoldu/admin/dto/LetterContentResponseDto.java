@@ -18,6 +18,7 @@ import static com.jojoldu.beginner.util.LocalDateTimeUtil.toStringDate;
 public class LetterContentResponseDto {
 
     private Long id;
+    private Long letterId;
     private String title;
     private String link;
     private String img;
@@ -28,6 +29,7 @@ public class LetterContentResponseDto {
 
     public LetterContentResponseDto(LetterContent entity) {
         id = entity.getId();
+        letterId = entity.getFirstLetterId();
         title = Decoder.decode(entity.getTitle());
         link = Decoder.decode(entity.getLink());
         img = entity.getImg();

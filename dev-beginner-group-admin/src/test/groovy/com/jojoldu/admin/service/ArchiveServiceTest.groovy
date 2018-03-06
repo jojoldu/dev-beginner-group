@@ -6,6 +6,7 @@ import com.jojoldu.beginner.domain.letter.LetterContent
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.util.StringUtils
+import spock.lang.Ignore
 import spock.lang.Specification
 
 /**
@@ -20,6 +21,7 @@ class ArchiveServiceTest extends Specification {
     @Autowired
     ArchiveFactory archiveService
 
+    @Ignore
     def "newsletter.hbs로 html파일을 로컬에 생성한다." () {
         given:
         def subject = "테스트파일"
@@ -35,6 +37,7 @@ class ArchiveServiceTest extends Specification {
         newHtmlFile.delete()
     }
 
+    @Ignore
     def "newsletter.hbs로 html파일을 생성후 s3에 업로드 한다." () {
         given:
         def subject = "테스트아카이브"

@@ -1,14 +1,45 @@
 spring:
-  profiles.active: local
+  profiles:
+    active: local
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
 
+server:
+  port: 9080
 devbeginner:
+  static:
+    enabled: true
   mail:
     enabled: true
+  web:
+    url: http://localhost:8080
 
 ---
 spring:
   profiles: local
+  datasource:
+    platform: h2
+    url: jdbc:h2:tcp://localhost:9092/mem:testdb;MVCC=TRUE
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
 
   jpa:
     database-platform: H2
     show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+
+---
+spring.profiles: set1
+spring.profiles.include: real
+
+---
+spring.profiles: set2
+spring.profiles.include: real
+
+
+
