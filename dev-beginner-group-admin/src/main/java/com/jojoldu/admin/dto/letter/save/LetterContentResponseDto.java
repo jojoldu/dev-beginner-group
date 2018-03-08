@@ -1,9 +1,13 @@
-package com.jojoldu.admin.dto;
+package com.jojoldu.admin.dto.letter.save;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jojoldu.beginner.domain.letter.LetterContent;
 import com.jojoldu.beginner.util.Decoder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import java.time.LocalDateTime;
 
 import static com.jojoldu.beginner.util.LocalDateTimeUtil.toStringDate;
 
@@ -15,6 +19,7 @@ import static com.jojoldu.beginner.util.LocalDateTimeUtil.toStringDate;
 
 @Slf4j
 @Getter
+@NoArgsConstructor
 public class LetterContentResponseDto {
 
     private Long id;
@@ -24,8 +29,8 @@ public class LetterContentResponseDto {
     private String img;
     private String content;
     private String contentMarkdown;
-    private String createdDate;
-    private String modifiedDate;
+    @JsonIgnore private LocalDateTime createdDate;
+    @JsonIgnore private LocalDateTime modifiedDate;
 
     public LetterContentResponseDto(LetterContent entity) {
         id = entity.getId();
@@ -35,7 +40,15 @@ public class LetterContentResponseDto {
         img = entity.getImg();
         content = Decoder.decode(entity.getContent());
         contentMarkdown = entity.getContentMarkdown();
-        createdDate = toStringDate(entity.getCreatedDate());
-        modifiedDate = toStringDate(entity.getModifiedDate());
+        createdDate = entity.getCreatedDate();
+        modifiedDate = entity.getModifiedDate();
+    }
+
+    public String getCreatedDate() {
+        return toStringDate(createdDate);
+    }
+
+    public String getModifiedDate() {
+        return toStringDate(modifiedDate);
     }
 }

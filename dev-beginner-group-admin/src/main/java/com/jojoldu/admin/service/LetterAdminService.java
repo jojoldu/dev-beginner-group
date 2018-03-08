@@ -2,14 +2,14 @@ package com.jojoldu.admin.service;
 
 import com.jojoldu.admin.config.WebProperties;
 import com.jojoldu.admin.dto.LetterAdminSaveRequestDto;
-import com.jojoldu.admin.dto.LetterContentResponseDto;
 import com.jojoldu.admin.dto.LetterPageRequestDto;
+import com.jojoldu.admin.dto.letter.save.LetterContentResponseDto;
 import com.jojoldu.admin.dto.mail.ArchiveDto;
 import com.jojoldu.admin.dto.mail.MailContentDto;
 import com.jojoldu.admin.dto.mail.MailSendDto;
+import com.jojoldu.admin.repository.lettercontent.LetterContentWebRepository;
 import com.jojoldu.beginner.domain.letter.Letter;
 import com.jojoldu.beginner.domain.letter.LetterContent;
-import com.jojoldu.beginner.domain.letter.LetterContentRepository;
 import com.jojoldu.beginner.domain.letter.LetterRepository;
 import com.jojoldu.beginner.domain.subscriber.Subscriber;
 import com.jojoldu.beginner.domain.subscriber.SubscriberRepository;
@@ -34,16 +34,14 @@ import java.util.stream.Collectors;
 public class LetterAdminService {
 
     private LetterRepository letterRepository;
-    private LetterContentRepository letterContentRepository;
+    private LetterContentWebRepository letterContentRepository;
     private SubscriberRepository subscriberRepository;
     private WebProperties webProperties;
     private ArchiveFactory archiveFactory;
 
     @Transactional(readOnly = true)
     public List<LetterContentResponseDto> findByPageable(LetterPageRequestDto dto){
-        return letterContentRepository.findAll(dto.toPageable()).getContent().stream()
-                .map(LetterContentResponseDto::new)
-                .collect(Collectors.toList());
+        return letterContentRepository.findLetterContentDto(dto.toPageable());
     }
 
     @Transactional(readOnly = true)

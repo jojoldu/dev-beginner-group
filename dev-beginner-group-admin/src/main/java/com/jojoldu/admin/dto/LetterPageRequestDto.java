@@ -26,6 +26,6 @@ public class LetterPageRequestDto {
     }
 
     public Pageable toPageable(){
-        return new PageRequest(page,DEFAULT_SIZE, Sort.Direction.DESC, "id");
+        return new PageRequest(page, DEFAULT_SIZE, Sort.Direction.DESC, "id");
     }
 }

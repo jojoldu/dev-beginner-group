@@ -7,6 +7,7 @@ import com.jojoldu.beginner.web.exception.InvalidParameterException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.mock.mockito.SpyBean
+import spock.lang.Ignore
 import spock.lang.Specification
 
 /**
@@ -31,6 +32,7 @@ class SubscribeServiceTest extends Specification {
        subscriberRepository.deleteAll()
     }
 
+    @Ignore
     def "구독하면 해당 이메일로 인증 메일이 도착함" () {
         given:
         String email = "jojoldu@gmail.com"

@@ -28,19 +28,19 @@ class LetterAdminServiceTest extends Specification {
     LetterContentRepository letterContentRepository
 
     void setup() {
-        letterContentRepository.deleteAll()
+        letterContentRepository.deleteAllInBatch()
     }
 
     void cleanup() {
-        letterRepository.deleteAll()
-        letterContentRepository.deleteAll()
+        letterRepository.deleteAllInBatch()
+        letterContentRepository.deleteAllInBatch()
     }
 
     def "content 조회시 letterId가 포함된다."() {
         given:
         LetterContent content1 = createContent("title1", "content1", "markdown1", "link1", "img1")
         LetterContent content2 = createContent("title2", "content2", "markdown2", "link2", "img2")
-        LetterContent content3 = createContent("title3", "content2", "markdown3", "link3", "img3")
+        LetterContent content3 = createContent("title3", "content3", "markdown3", "link3", "img3")
         createLetter(Arrays.asList(content1, content2, content3))
 
         LetterPageRequestDto request  = new LetterPageRequestDto(0)
