@@ -2,7 +2,6 @@ package com.jojoldu.beginner;
 
 import com.jojoldu.beginner.mail.template.HandlebarsFactory;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.Bean;
@@ -15,12 +14,13 @@ import java.io.IOException;
 @Configuration
 public class BatchApplication {
 
-	public static final String BATCH_LOCATIONS = "spring.config.location="
-			+ "classpath:application.yml";
+	public static final String APPLICATION_LOCATIONS = "spring.config.location="
+			+ "classpath:application.yml,"
+			+ "/app/config/dev-beginner-group-admin/real-application.yml";
 
 	public static void main(String[] args) {
 		new SpringApplicationBuilder(BatchApplication.class)
-				.properties(BATCH_LOCATIONS)
+				.properties(APPLICATION_LOCATIONS)
 				.run(args);
 
 	}

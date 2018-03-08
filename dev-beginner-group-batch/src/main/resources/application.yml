@@ -34,12 +34,9 @@ spring:
       ddl-auto: create-drop
 
 ---
-spring.profiles: set1
+spring.profiles: prod
 spring.profiles.include: real
 
----
-spring.profiles: set2
-spring.profiles.include: real
 
 
 
