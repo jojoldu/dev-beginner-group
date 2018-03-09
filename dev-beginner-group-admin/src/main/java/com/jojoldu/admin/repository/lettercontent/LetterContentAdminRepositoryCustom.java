@@ -11,6 +11,6 @@ import java.util.List;
  * Github : https://github.com/jojoldu
  */
 
-public interface LetterContentWebRepositoryCustom {
+public interface LetterContentAdminRepositoryCustom {
     List<LetterContentResponseDto> findLetterContentDto(Pageable pageable);
 }

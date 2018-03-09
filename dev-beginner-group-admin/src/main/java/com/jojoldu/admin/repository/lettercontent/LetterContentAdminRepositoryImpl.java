@@ -19,7 +19,7 @@ import static com.jojoldu.beginner.domain.letter.QLetterContentMap.letterContent
  */
 
 @AllArgsConstructor
-public class LetterContentWebRepositoryImpl implements LetterContentWebRepositoryCustom {
+public class LetterContentAdminRepositoryImpl implements LetterContentAdminRepositoryCustom {
     private JPAQueryFactory queryFactory;
 
     public List<LetterContentResponseDto> findLetterContentDto(Pageable pageable){

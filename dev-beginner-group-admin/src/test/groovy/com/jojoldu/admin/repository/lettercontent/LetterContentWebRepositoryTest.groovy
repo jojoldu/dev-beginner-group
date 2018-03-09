@@ -24,7 +24,7 @@ class LetterContentWebRepositoryTest extends Specification {
     LetterRepository letterRepository
 
     @Autowired
-    LetterContentWebRepository repository
+    LetterContentAdminRepository repository
 
     void setup() {
         repository.deleteAllInBatch()

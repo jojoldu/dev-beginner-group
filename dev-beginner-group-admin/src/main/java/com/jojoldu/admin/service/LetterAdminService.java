@@ -7,7 +7,7 @@ import com.jojoldu.admin.dto.letter.save.LetterContentResponseDto;
 import com.jojoldu.admin.dto.mail.ArchiveDto;
 import com.jojoldu.admin.dto.mail.MailContentDto;
 import com.jojoldu.admin.dto.mail.MailSendDto;
-import com.jojoldu.admin.repository.lettercontent.LetterContentWebRepository;
+import com.jojoldu.admin.repository.lettercontent.LetterContentAdminRepository;
 import com.jojoldu.beginner.domain.letter.Letter;
 import com.jojoldu.beginner.domain.letter.LetterContent;
 import com.jojoldu.beginner.domain.letter.LetterRepository;
@@ -34,7 +34,7 @@ import java.util.stream.Collectors;
 public class LetterAdminService {
 
     private LetterRepository letterRepository;
-    private LetterContentWebRepository letterContentRepository;
+    private LetterContentAdminRepository letterContentRepository;
     private SubscriberRepository subscriberRepository;
     private WebProperties webProperties;
     private ArchiveFactory archiveFactory;
