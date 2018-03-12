@@ -1,7 +1,13 @@
 spring:
   profiles:
     active: local-test
-
+devbeginner:
+  static:
+    enabled: true
+  mail:
+    enabled: true
+  web:
+    url: http://localhost:8080
 ---
 spring:
   profiles: local-test

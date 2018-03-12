@@ -1,10 +1,7 @@
 package com.jojoldu.admin.service
 
 import com.jojoldu.admin.dto.LetterPageRequestDto
-import com.jojoldu.beginner.domain.letter.Letter
-import com.jojoldu.beginner.domain.letter.LetterContent
-import com.jojoldu.beginner.domain.letter.LetterContentRepository
-import com.jojoldu.beginner.domain.letter.LetterRepository
+import com.jojoldu.beginner.domain.letter.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import spock.lang.Specification
@@ -19,6 +16,9 @@ import spock.lang.Specification
 class LetterAdminServiceTest extends Specification {
 
     @Autowired
+    LetterContentMapRepository mapRepository
+
+    @Autowired
     LetterAdminService letterAdminService
 
     @Autowired
@@ -28,12 +28,17 @@ class LetterAdminServiceTest extends Specification {
     LetterContentRepository letterContentRepository
 
     void setup() {
-        letterContentRepository.deleteAllInBatch()
+        deleteAll()
     }
 
     void cleanup() {
-        letterRepository.deleteAllInBatch()
+        deleteAll()
+    }
+
+    void deleteAll() {
+        mapRepository.deleteAllInBatch()
         letterContentRepository.deleteAllInBatch()
+        letterRepository.deleteAllInBatch()
     }
 
     def "content 조회시 letterId가 포함된다."() {
@@ -50,9 +55,9 @@ class LetterAdminServiceTest extends Specification {
 
         then:
         responses.size() == 3
-        responses.get(0).getLetterId() == 1L
-        responses.get(1).getLetterId() == 1L
-        responses.get(2).getLetterId() == 1L
+        responses.get(0).getLetterId() >= 1L
+        responses.get(1).getLetterId() >= 1L
+        responses.get(2).getLetterId() >= 1L
     }
 
     LetterContent createContent(String title, String content, String contentMarkdown, String link, String img) {

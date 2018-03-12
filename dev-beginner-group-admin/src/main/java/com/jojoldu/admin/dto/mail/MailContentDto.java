@@ -1,7 +1,6 @@
 package com.jojoldu.admin.dto.mail;
 
 import com.jojoldu.beginner.domain.letter.LetterContent;
-import com.jojoldu.beginner.util.Decoder;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -25,10 +24,10 @@ public class MailContentDto {
     @Builder
     public MailContentDto(Long subscriberId, String baseUrl, LetterContent letterContent){
         id = letterContent.getId();
-        title = Decoder.decode(letterContent.getTitle());
+        title = letterContent.getTitle();
         link = templateLink(baseUrl, subscriberId, letterContent.getId(), letterContent.getLink());
         img = letterContent.getImg();
-        content = Decoder.decode(letterContent.getContent());
+        content = letterContent.getContent();
     }
 
     private String templateLink(String baseUrl, Long subscriberId, Long letterContentId, String link) {

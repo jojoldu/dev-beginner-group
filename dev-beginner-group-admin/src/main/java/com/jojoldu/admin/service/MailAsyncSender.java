@@ -9,7 +9,6 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
-import java.util.List;
 
 /**
  * Created by jojoldu@gmail.com on 2018. 2. 26.
@@ -25,13 +24,6 @@ public class MailAsyncSender {
     private NewsLetterFactory newsLetterFactory;
 
     @Async
-    public void sendAll(List<MailSendDto> mails) {
-        for (MailSendDto dto : mails) {
-            send(dto);
-        }
-    }
-
-    //SES가 초당 28밖에 안되서 동기로 다시 전환
     public void send(MailSendDto dto) {
         String content = newsLetterFactory.createContent(dto.getContentGroup());
 

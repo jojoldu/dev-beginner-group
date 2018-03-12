@@ -3,6 +3,7 @@ package com.jojoldu.admin.repository.lettercontent
 import com.jojoldu.admin.dto.letter.save.LetterContentResponseDto
 import com.jojoldu.beginner.domain.letter.Letter
 import com.jojoldu.beginner.domain.letter.LetterContent
+import com.jojoldu.beginner.domain.letter.LetterContentMapRepository
 import com.jojoldu.beginner.domain.letter.LetterRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -21,18 +22,26 @@ import spock.lang.Specification
 class LetterContentWebRepositoryTest extends Specification {
 
     @Autowired
+    LetterContentMapRepository mapRepository
+
+    @Autowired
     LetterRepository letterRepository
 
     @Autowired
     LetterContentAdminRepository repository
 
     void setup() {
-        repository.deleteAllInBatch()
+        deleteAll()
     }
 
     void cleanup() {
-        letterRepository.deleteAllInBatch()
+        deleteAll()
+    }
+
+    void deleteAll() {
+        mapRepository.deleteAllInBatch()
         repository.deleteAllInBatch()
+        letterRepository.deleteAllInBatch()
     }
 
     def "LetterContentMap이 없어도 조회된다."() {
