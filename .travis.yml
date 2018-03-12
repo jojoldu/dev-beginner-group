@@ -49,8 +49,8 @@ deploy:
 after_deploy:
   - echo "Performing after deploy procedures..."
 
+after_success:
+- ./gradlew jacocoRootReport coveralls
+
 notifications:
   webhooks: https://fathomless-fjord-24024.herokuapp.com/notify
-  email:
-    recipients:
-      - jojoldu@gmail.com
