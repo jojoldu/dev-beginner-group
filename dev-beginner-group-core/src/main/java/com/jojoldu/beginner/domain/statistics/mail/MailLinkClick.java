@@ -1,7 +1,6 @@
 package com.jojoldu.beginner.domain.statistics.mail;
 
 import com.jojoldu.beginner.domain.BaseTimeEntity;
-import com.jojoldu.beginner.domain.letter.Letter;
 import com.jojoldu.beginner.domain.letter.LetterContent;
 import com.jojoldu.beginner.domain.subscriber.Subscriber;
 import lombok.Builder;
@@ -20,7 +19,7 @@ import javax.persistence.*;
 public class MailLinkClick extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne

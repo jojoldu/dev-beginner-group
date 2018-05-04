@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '1.5.10.RELEASE'
+		springBootVersion = '2.0.1.RELEASE'
 	}
 	repositories {
 		mavenCentral()
@@ -11,9 +11,10 @@ buildscript {
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-		classpath "io.spring.gradle:dependency-management-plugin:1.0.4.RELEASE"
-		classpath "gradle.plugin.com.ewerk.gradle.plugins:querydsl-plugin:1.0.7"
+		classpath "io.spring.gradle:dependency-management-plugin:1.0.5.RELEASE"
+		classpath "gradle.plugin.com.ewerk.gradle.plugins:querydsl-plugin:1.0.9"
 		classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.2'
+		classpath "gradle.plugin.com.gorylenko.gradle-git-properties:gradle-git-properties:1.4.17"
 	}
 }
 
@@ -23,7 +24,7 @@ ext {
 }
 
 task wrapper(type: Wrapper) {
-	gradleVersion = '4.3.1'
+	gradleVersion = '4.5.1'
 }
 
 allprojects {
@@ -40,6 +41,7 @@ subprojects {
 	apply plugin: 'groovy'
 	apply plugin: 'eclipse'
 	apply plugin: 'org.springframework.boot'
+	apply plugin: "io.spring.dependency-management"
 	apply plugin: "com.ewerk.gradle.plugins.querydsl"
 
 	group = "${projectGroup}"
@@ -49,20 +51,6 @@ subprojects {
 	repositories {
 		mavenCentral()
 		jcenter()
-	}
-
-	//Spring Boot Overriding
-	ext['hibernate.version'] = '5.2.11.Final'
-	ext['hikaricp.version'] = '2.7.1'
-
-	springBoot {
-		buildInfo {
-			additionalProperties = [
-					'group'         : "${projectGroup}",
-					'version'       : "${projectVersion}",
-					'build-datetime': new Date().format("yyyyMMddHHmmss")
-			]
-		}
 	}
 
 	def querydslSrcDir = 'src/main/generated'
@@ -82,8 +70,6 @@ subprojects {
 	}
 
 	dependencies {
-		compile('org.springframework.boot:spring-boot-starter')
-		compile("org.springframework.boot:spring-boot-starter-actuator")
 		compile('org.apache.commons:commons-lang3:3.7')
 		compile 'com.google.code.findbugs:jsr305:3.0.2'
 		compile('org.projectlombok:lombok')

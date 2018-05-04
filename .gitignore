@@ -3,6 +3,9 @@
 !gradle/wrapper/gradle-wrapper.jar
 *.pid
 
+node_modules
+out
+
 ### STS ###
 .apt_generated
 .classpath

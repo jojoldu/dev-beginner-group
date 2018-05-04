@@ -1,7 +1,2 @@
 rootProject.name = 'dev-beginner-group'
-include 'dev-beginner-group-core'
-include 'dev-beginner-group-batch'
-include 'dev-beginner-group-mail'
-include 'dev-beginner-group-web'
-include 'dev-beginner-group-static-uploader'
-include 'dev-beginner-group-admin'
+include 'dev-beginner-group-core','dev-beginner-group-batch','dev-beginner-group-mail','dev-beginner-group-web','dev-beginner-group-static-uploader','dev-beginner-group-admin'

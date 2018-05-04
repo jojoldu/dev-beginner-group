@@ -1,10 +1,14 @@
 spring:
   profiles:
-    active: local-test
-
+    active: local
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
 ---
 spring:
-  profiles: local-test
+  profiles: local
   datasource:
       url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
       username: sa

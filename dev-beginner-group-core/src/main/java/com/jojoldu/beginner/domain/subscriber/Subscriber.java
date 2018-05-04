@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 
 import javax.annotation.Nonnull;
 import javax.persistence.*;
-import java.time.LocalDate;
 
 /**
  * Created by jojoldu@gmail.com on 2017. 11. 9.
@@ -22,7 +21,7 @@ import java.time.LocalDate;
 public class Subscriber extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String email;

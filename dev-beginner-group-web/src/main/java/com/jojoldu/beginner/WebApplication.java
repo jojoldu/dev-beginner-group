@@ -1,10 +1,10 @@
 package com.jojoldu.beginner;
 
+import com.zaxxer.hikari.HikariDataSource;
 import org.h2.tools.Server;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.system.ApplicationPidFileWriter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 
@@ -21,7 +21,6 @@ public class WebApplication {
 	public static void main(String[] args) {
 		new SpringApplicationBuilder(WebApplication.class)
 				.properties(APPLICATION_LOCATIONS)
-				.listeners(new ApplicationPidFileWriter())
 				.run(args);
 	}
 
@@ -30,6 +29,6 @@ public class WebApplication {
 	@ConfigurationProperties("spring.datasource") // yml의 설정값을 Set한다.
 	public DataSource dataSource() throws SQLException {
 		Server.createTcpServer("-tcp", "-tcpAllowOthers", "-tcpPort", "9093").start();
-		return new org.apache.tomcat.jdbc.pool.DataSource();
+		return new HikariDataSource();
 	}
 }

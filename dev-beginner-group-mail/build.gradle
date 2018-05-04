@@ -1,4 +1,5 @@
-bootRepackage.enabled = false
+bootJar { enabled = false }
+jar { enabled = true }
 
 dependencies {
 	compile project(':dev-beginner-group-core')
