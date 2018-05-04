@@ -6,6 +6,9 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        hbm2ddl.import_files_sql_extractor: org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor
+        default_batch_fetch_size: ${chunkSize:1000}
+
   devtools:
     livereload:
       enabled: false
@@ -20,6 +23,7 @@ devbeginner:
     enabled: true
   web:
     url: http://localhost:8080
+
 ---
 spring:
   profiles: local
@@ -34,3 +38,28 @@ spring:
     show-sql: true
 
 
+---
+spring:
+  profiles: real-app
+
+devbeginner:
+  mail:
+      enabled: true
+  web:
+      url: https://www.devbeginner.com
+---
+spring.profiles: set1
+spring.profiles.include:
+  - real-db
+  - real-app
+
+server:
+  port: 8081
+---
+spring.profiles: set2
+spring.profiles.include:
+  - real-db
+  - real-app
+
+server:
+  port: 8082
