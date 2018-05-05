@@ -14,15 +14,12 @@ cache:
 
 script: "./gradlew clean build"
 
+# 배포에 필요한 파일들만 deploy/devbeginner-group에 옮겨서 zip 파일로 만든다.
 before_deploy:
-  - mkdir -p deploy && mkdir -p deploy/devbeginner-group
-  - cp dev-beginner-group-web/build/libs/*.jar deploy/devbeginner-group/
-  - cp -r scripts/ deploy/devbeginner-group/
-  - cp appspec.yml deploy/devbeginner-group/
-  - cp .coveralls.yml deploy/devbeginner-group/
-  - cp .travis.yml deploy/devbeginner-group/
-  - zip -r deploy/devbeginner-group.zip deploy/devbeginner-group/
-  - rm -rf deploy/devbeginner-group/
+  - mkdir -p archive
+  - cp dev-beginner-group-web/build/libs/*.jar archive/
+  - cp -r scripts/ archive/
+  - cp appspec.yml archive/
 
 deploy:
   - provider: s3
@@ -31,7 +28,7 @@ deploy:
     bucket: deploy-devbeginner
     region: ap-northeast-2
     skip_cleanup: true
-    local_dir: deploy
+    local_dir: archive
     acl: public_read
     wait-until-deployed: true
     on:
