@@ -3,6 +3,7 @@
 !gradle/wrapper/gradle-wrapper.jar
 *.pid
 
+generated
 node_modules
 out
 

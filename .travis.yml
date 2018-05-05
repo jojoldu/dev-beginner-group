@@ -15,9 +15,12 @@ cache:
 script: "./gradlew clean build"
 
 before_deploy:
-  - zip -r devbeginner-group *
-  - mkdir -p deploy
-  - mv devbeginner-group.zip deploy/devbeginner-group.zip
+  - mkdir -p deploy && mkdir -p deploy/devbeginner-group
+  - cp devbeginner-group/dev-beginner-group-web/build/libs/*.jar deploy/devbeginner-group/
+  - cp -r devbeginner-group/scripts/ deploy/devbeginner-group/
+  - cp devbeginner-group/*.yml deploy/devbeginner-group/
+  - zip -r deploy/devbeginner-group *
+  - rm -rf deploy/devbeginner-group/
 
 deploy:
   - provider: s3
