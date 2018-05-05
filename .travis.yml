@@ -16,6 +16,7 @@ script: "./gradlew clean build"
 
 before_deploy:
   - mkdir -p deploy && mkdir -p deploy/devbeginner-group
+  - ls -al
   - cp devbeginner-group/dev-beginner-group-web/build/libs/*.jar deploy/devbeginner-group/
   - cp -r devbeginner-group/scripts/ deploy/devbeginner-group/
   - cp devbeginner-group/*.yml deploy/devbeginner-group/
