@@ -1,4 +1,4 @@
-package com.jojoldu;
+package com.jojoldu.beginner;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
