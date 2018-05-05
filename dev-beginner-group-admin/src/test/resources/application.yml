@@ -1,6 +1,8 @@
 spring:
   profiles:
     active: local-test
+  jpa:
+    open-in-view: false
 devbeginner:
   static:
     enabled: true

@@ -2,7 +2,7 @@ dependencies {
 	compile project(':dev-beginner-group-core')
 	compile project(':dev-beginner-group-static-uploader')
 	compile project(':dev-beginner-group-mail')
-	compile 'pl.allegro.tech.boot:handlebars-spring-boot-starter:0.2.15'
+	compile 'pl.allegro.tech.boot:handlebars-spring-boot-starter:0.3.0'
 	compile('org.springframework.boot:spring-boot-starter-web')
 	runtime('org.springframework.boot:spring-boot-devtools')
 }
