@@ -16,12 +16,10 @@ script: "./gradlew clean build"
 
 before_deploy:
   - mkdir -p deploy && mkdir -p deploy/devbeginner-group
-  - ls -al
-  - cp devbeginner-group/dev-beginner-group-web/build/libs/*.jar deploy/devbeginner-group/
-  - cp -r devbeginner-group/scripts/ deploy/devbeginner-group/
-  - cp devbeginner-group/*.yml deploy/devbeginner-group/
+  - cp dev-beginner-group-web/build/libs/*.jar deploy/devbeginner-group/
+  - cp -r scripts/ deploy/devbeginner-group/
+  - cp *.yml deploy/devbeginner-group/
   - zip -r deploy/devbeginner-group *
-  - rm -rf deploy/devbeginner-group/
 
 deploy:
   - provider: s3
@@ -51,7 +49,7 @@ deploy:
       branch: master
 
 after_deploy:
-  - echo "Performing after deploy procedures..."
+  - echo "Code Deploy 배포 진행중입니다."
 
 after_success:
 - ./gradlew jacocoRootReport coveralls
