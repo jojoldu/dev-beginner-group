@@ -18,8 +18,11 @@ before_deploy:
   - mkdir -p deploy && mkdir -p deploy/devbeginner-group
   - cp dev-beginner-group-web/build/libs/*.jar deploy/devbeginner-group/
   - cp -r scripts/ deploy/devbeginner-group/
-  - cp *.yml deploy/devbeginner-group/
-  - zip -r deploy/devbeginner-group *
+  - cp appspec.yml deploy/devbeginner-group/
+  - cp .coveralls.yml deploy/devbeginner-group/
+  - cp .travis.yml deploy/devbeginner-group/
+  - zip -r deploy/devbeginner-group.zip deploy/devbeginner-group/
+  - rm -rf deploy/devbeginner-group/
 
 deploy:
   - provider: s3
