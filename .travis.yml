@@ -17,7 +17,7 @@ script: "./gradlew clean build"
 # 배포에 필요한 파일들만 deploy/devbeginner-group에 옮겨서 zip 파일로 만든다.
 before_deploy:
   - mkdir -p web-archive && mkdir -p deploy
-  - cp web-archive/build/libs/*.jar web-archive/
+  - cp dev-beginner-group-web/build/libs/*.jar web-archive/
   - cp -r scripts/ web-archive/
   - cp appspec.yml web-archive/
   - zip -r deploy/web-archive.zip web-archive/
