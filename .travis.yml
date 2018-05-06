@@ -16,11 +16,11 @@ script: "./gradlew clean build"
 
 # 배포에 필요한 파일들만 deploy/devbeginner-group에 옮겨서 zip 파일로 만든다.
 before_deploy:
-  - mkdir -p archive && mkdir -p deploy
-  - cp dev-beginner-group-web/build/libs/*.jar archive/
-  - cp -r scripts/ archive/
-  - cp appspec.yml archive/
-  - zip -r deploy/archive.zip archive/
+  - mkdir -p dev-beginner-group-web && mkdir -p deploy
+  - cp dev-beginner-group-web/build/libs/*.jar dev-beginner-group-web/
+  - cp -r scripts/ dev-beginner-group-web/
+  - cp appspec.yml dev-beginner-group-web/
+  - zip -r deploy/dev-beginner-group-web.zip dev-beginner-group-web/
 
 deploy:
   - provider: s3
@@ -39,7 +39,7 @@ deploy:
     access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
     secret_access_key: $AWS_SECRET_KEY
     bucket: deploy-devbeginner
-    key: archive.zip
+    key: dev-beginner-group-web.zip
     bundle_type: zip
     application: devbeginner-group
     deployment_group: devbeginner
