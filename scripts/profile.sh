@@ -2,8 +2,16 @@
 
 function find_idle_profile
 {
+    echo "> find_idle_profile"
     echo "> 현재 구동중인 Set 확인"
     current_profile=$(curl -s http://localhost/profile)
+
+    if [ ${current_profile} -ge 10 ]
+    then
+        echo "> 404 오류 페이지가 호출됐습니다."
+        idle_profile=set2
+    fi
+
     echo "> $current_profile"
 
     # 쉬고 있는 set 찾기: set1이 사용중이면 set2가 쉬고 있고, 반대면 set1이 쉬고 있음
@@ -24,6 +32,7 @@ function find_idle_profile
 
 function find_idle_port
 {
+    echo "> find_idle_port"
     find_idle_profile
     idle_profile=$?
 
