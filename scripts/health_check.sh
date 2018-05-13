@@ -1,5 +1,9 @@
 #!/bin/bash
-source profile.sh
+
+ABSPATH=$(readlink -f $0)
+ABSDIR=$(dirname $ABSPATH)
+PROFILE_SH=${ABSDIR}/profile.sh
+source ${PROFILE_SH}
 
 find_idle_port
 idle_port=$?

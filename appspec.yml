@@ -1,7 +1,7 @@
 # AWS Codedeploy Spec
 
 # files.source에 정규표현식은 안먹힘
-# 디렉토리 채로 옮기거나, build/libs 채로 옮겨야 함
+# 디렉토리 채로 옮 기거나, build/libs 채로 옮겨야 함
 version: 0.0
 os: linux
 files:
@@ -21,7 +21,7 @@ hooks:
       timeout: 60
       runas: ec2-user
   ValidateService:
-    - location: scripts/health-check.sh
+    - location: scripts/health_check.sh
       timeout: 180
       runas: ec2-user
   BeforeAllowTraffic:

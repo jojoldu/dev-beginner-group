@@ -1,5 +1,9 @@
 #!/bin/bash
-source profile.sh
+
+ABSPATH=$(readlink -f $0)
+ABSDIR=$(dirname $ABSPATH)
+PROFILE_SH=${ABSDIR}/profile.sh
+source ${PROFILE_SH}
 
 deploy_path=/home/ec2-user/app
 build_path=$(ls ${deploy_path}/*.jar)
