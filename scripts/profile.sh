@@ -31,7 +31,7 @@ function find_idle_profile
 
     echo "> ${idle_profile}이 반환됩니다."
 
-    return ${idle_profile}
+    return "${idle_profile}"
 }
 
 function find_idle_port
@@ -44,8 +44,8 @@ function find_idle_port
 
     if [ ${idle_profile} == set1 ]
     then
-      return 8081
+      return "8081"
     else
-      return 8082
+      return "8082"
     fi
 }

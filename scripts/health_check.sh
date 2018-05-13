@@ -1,9 +1,7 @@
 #!/bin/bash
 
 ABSPATH=$(readlink -f $0)
-echo "> ABSPATH: $ABSPATH"
 ABSDIR=$(dirname $ABSPATH)
-echo "> ABSDIR: $ABSDIR"
 PROFILE_SH=${ABSDIR}/profile.sh
 echo "> PROFILE_SH_PATH: $PROFILE_SH"
 source ${PROFILE_SH}
