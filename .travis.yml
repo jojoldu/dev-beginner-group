@@ -44,7 +44,7 @@ deploy:
     access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
     secret_access_key: $AWS_SECRET_KEY
     bucket: deploy-devbeginner
-    key: web-archive
+    key: web-archive.zip
     bundle_type: zip
     application: devbeginner-group
     deployment_group: devbeginner
