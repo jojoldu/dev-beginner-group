@@ -5,8 +5,9 @@ function find_idle_profile
     echo "> find_idle_profile"
     echo "> 현재 구동중인 Set 확인"
     response_code=$(curl -s -o /dev/null -w "%{http_code}" http://localhost/profile)
+    echo "status code:  ${response_code}"
 
-    if [ ${response_code} ne 200 ]
+    if [ ${response_code} -ge 400 ]
     then
         echo "> $response_code 오류 페이지가 호출됐습니다."
         current_profile=set2
