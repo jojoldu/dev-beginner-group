@@ -9,7 +9,7 @@ function find_idle_profile
     if [ ${current_profile} -ge 10 ]
     then
         echo "> 404 오류 페이지가 호출됐습니다."
-        idle_profile=set2
+        current_profile=set2
     fi
 
     echo "> $current_profile"
