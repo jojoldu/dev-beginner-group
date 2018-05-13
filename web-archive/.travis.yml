@@ -20,7 +20,9 @@ before_deploy:
   - cp dev-beginner-group-web/build/libs/*.jar web-archive/
   - cp -r scripts/ web-archive/
   - cp appspec.yml web-archive/
-  - zip -r deploy/web-archive.zip web-archive/
+  - cd web-archive
+  - zip -r web-archive *
+  - cp web-archive.zip ../deploy/
 
 
 deploy:
