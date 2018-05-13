@@ -27,6 +27,8 @@ function find_idle_port
     find_idle_profile
     idle_profile=$?
 
+    echo "> idle_profile: $idle_profile"
+
     if [ ${idle_profile} == set1 ]
     then
       return 8081

@@ -17,6 +17,7 @@ cp ${build_path} ${jar_group_path}
 find_idle_profile
 idle_profile=$?
 
+echo "> idle_profile: $idle_profile"
 echo "> application.jar 교체"
 idle_application_name=${idle_profile}-application.jar
 idle_application_full_path=${jar_group_path}${idle_application_name}

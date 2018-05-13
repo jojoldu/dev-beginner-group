@@ -8,6 +8,7 @@ source ${PROFILE_SH}
 find_idle_port
 idle_port=$?
 
+echo "> idle_profile: $idle_port"
 echo "> 10초 후 Health check 시작"
 echo "> curl -s http://localhost:$idle_port/health "
 sleep 10
