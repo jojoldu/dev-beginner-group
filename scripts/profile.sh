@@ -4,12 +4,14 @@ function find_idle_profile
 {
     echo "> find_idle_profile"
     echo "> 현재 구동중인 Set 확인"
-    current_profile=$(curl -s http://localhost/profile)
+    response_code=$(curl -s -o /dev/null -w "%{http_code}" http://localhost/profile)
 
-    if [ ${current_profile} -ge 10 ]
+    if [ ${response_code} ne 200 ]
     then
-        echo "> 404 오류 페이지가 호출됐습니다."
+        echo "> $response_code 오류 페이지가 호출됐습니다."
         current_profile=set2
+    else
+        current_profile=$(curl -s http://localhost/profile)
     fi
 
     echo "> $current_profile"
@@ -23,9 +25,10 @@ function find_idle_profile
       idle_profile=set1
     else
       echo "> 일치하는 Profile이 없습니다. Profile: $current_profile"
-      echo "> set1이 반환됩니다."
       idle_profile=set1
     fi
+
+    echo "> ${idle_profile}이 반환됩니다."
 
     return ${idle_profile}
 }
