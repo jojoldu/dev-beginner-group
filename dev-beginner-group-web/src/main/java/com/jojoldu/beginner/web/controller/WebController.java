@@ -6,11 +6,15 @@ import com.jojoldu.beginner.web.exception.DevBeginnerException;
 import com.jojoldu.beginner.web.service.SubscribeService;
 import com.jojoldu.beginner.web.util.FormUtils;
 import lombok.AllArgsConstructor;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Arrays;
+import java.util.List;
 
 
 /**
@@ -24,6 +28,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class WebController {
 
     private SubscribeService subscribeService;
+    private Environment env;
+
+    @GetMapping("/profile")
+    public String getProfile () {
+        List<String> activeProfiles = Arrays.asList(env.getActiveProfiles());
+
+        if(activeProfiles.contains("set1")){
+            return "set1";
+        } else if(activeProfiles.contains("set2")) {
+            return "set2";
+        } else {
+            return "";
+        }
+    }
 
     @GetMapping("/")
     public String getMain(){

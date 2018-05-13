@@ -14,7 +14,7 @@ permissions:
     owner: ec2-user
     group: ec2-user
 
-
+# 배포 로그는 /opt/codedeploy-agent/deployment-root/deployment-logs 참고
 hooks:
   ApplicationStart:
     - location: scripts/deploy.sh

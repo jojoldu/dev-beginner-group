@@ -25,7 +25,6 @@ before_deploy:
   - cd ../
   - mv web-archive/web-archive.zip deploy/web-archive.zip
 
-
 deploy:
   - provider: s3
     access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
