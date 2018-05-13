@@ -3,7 +3,7 @@
 ABSPATH=$(readlink -n $0)
 ABSDIR=$(dirname $ABSPATH)
 PROFILE_SH=${ABSDIR}/profile.sh
-echo ${PROFILE_SH}
+echo "> PROFILE_SH_PATH: $PROFILE_SH"
 source ${PROFILE_SH}
 
 find_idle_port
