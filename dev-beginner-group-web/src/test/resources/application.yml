@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: local-test
+    active: local
 devbeginner:
   mail:
     enabled: true
@@ -8,9 +8,9 @@ devbeginner:
     url: http://localhost:8080
 ---
 spring:
-  profiles: local-test
+  profiles: local
   datasource:
-      url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+      jdbcUrl: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
       username: sa
       password:
       driverClassName: org.h2.Driver

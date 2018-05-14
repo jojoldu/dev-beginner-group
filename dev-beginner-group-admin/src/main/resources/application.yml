@@ -23,7 +23,7 @@ spring:
   profiles: local
   datasource:
     platform: h2
-    url: jdbc:h2:tcp://localhost:9092/mem:testdb;MVCC=TRUE
+    jdbcUrl: jdbc:h2:tcp://localhost:9092/mem:testdb;MVCC=TRUE
     username: sa
     password:
     driver-class-name: org.h2.Driver

@@ -17,6 +17,7 @@ import java.sql.SQLException;
 public class AdminApplication {
 
     public static final String APPLICATION_LOCATIONS = "spring.config.location="
+            + "classpath:application.yml,"
             + "/app/config/dev-beginner-group-common/real-db-application.yml";
 
     public static void main(String[] args) {

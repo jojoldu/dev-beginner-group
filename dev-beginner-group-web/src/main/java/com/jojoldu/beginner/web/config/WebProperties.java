@@ -3,8 +3,6 @@ package com.jojoldu.beginner.web.config;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 
 /**
  * Created by jojoldu@gmail.com on 2017. 11. 18.
