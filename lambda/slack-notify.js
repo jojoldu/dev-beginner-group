@@ -81,47 +81,16 @@ var formatFields = function(string) {
             },
             {
                 "title" : "Error Code",
-                "value" : ((message.completeTime) ? message.errorInformation.ErrorCode : ''),
+                "value" : message.errorInformation.ErrorCode,
                 "short" : true
             },
             {
                 "title" : "Error Message",
-                "value" : ((message.completeTime) ? message.errorInformation.ErrorMessage : ''),
+                "value" : message.errorInformation.ErrorMessage,
                 "short" : true
             }
         ];
 
-        if (message.deploymentOverview) {
-            deploymentOverview = JSON.parse(message.deploymentOverview);
-
-            fields.push(
-                {
-                    "title" : "Succeeded",
-                    "value" : deploymentOverview.Succeeded,
-                    "short" : true
-                },
-                {
-                    "title" : "Failed",
-                    "value" : deploymentOverview.Failed,
-                    "short" : true
-                },
-                {
-                    "title" : "Skipped",
-                    "value" : deploymentOverview.Skipped,
-                    "short" : true
-                },
-                {
-                    "title" : "In Progress",
-                    "value" : deploymentOverview.InProgress,
-                    "short" : true
-                },
-                {
-                    "title" : "Pending",
-                    "value" : deploymentOverview.Pending,
-                    "short" : true
-                }
-            );
-        }
     }
 
     return fields;

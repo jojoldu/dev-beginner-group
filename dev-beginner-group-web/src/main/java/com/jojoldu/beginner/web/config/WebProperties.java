@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Getter
+@Setter
 public class WebProperties {
 
     @Value("${devbeginner.web.url}")

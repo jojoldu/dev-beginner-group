@@ -20,8 +20,11 @@ server:
 
 logging.path: logs/dev-beginner-group-web/
 
-devbeginner.mail.enabled: true
-devbeginner.web.url: http://localhost:8080
+devbeginner:
+  mail:
+    enabled: true
+  web:
+    url: http://localhost:8080
 
 ---
 spring:
@@ -43,9 +46,11 @@ spring:
 
 logging.path: /home/ec2-user/logs/dev-beginner-group-web/
 
-devbeginner.mail.enabled: true
-devbeginner.web.url: https://www.devbeginner.com
-
+devbeginner:
+  mail:
+      enabled: true
+  web:
+      url: https://www.devbeginner.com
 
 ---
 spring.profiles: set1
