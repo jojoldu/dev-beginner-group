@@ -14,6 +14,7 @@
     </springProfile>
 
     <springProfile name="set1, set2">
+        <include resource="org/springframework/boot/logging/logback/base.xml"/>
 
         <!-- Application Log -->
         <include resource="logback/application-appender.xml"/>
