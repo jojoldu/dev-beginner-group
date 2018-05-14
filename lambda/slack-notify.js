@@ -10,6 +10,21 @@ var channel = process.env.CHANNEL;  // And this with the Slack channel
 var https = require('https');
 var util = require('util');
 
+function toYyyymmddhhmmss(date) {
+
+    if(!date){
+        return '';
+    }
+
+    function pad2(n) { return n < 10 ? '0' + n : n }
+    return date.getFullYear().toString()
+        + '-'+ pad2(date.getMonth() + 1)
+        + '-'+ pad2( date.getDate())
+        + ' '+ pad2( date.getHours())
+        + ':'+ pad2( date.getMinutes())
+        + ':'+ pad2( date.getSeconds());
+}
+
 var formatFields = function(string) {
     var message = JSON.parse(string),
         fields  = [],
@@ -50,12 +65,22 @@ var formatFields = function(string) {
             },
             {
                 "title" : "Create Time",
-                "value" : message.createTime,
+                "value" : toYyyymmddhhmmss(new Date(message.createTime)),
                 "short" : true
             },
             {
                 "title" : "Complete Time",
-                "value" : ((message.completeTime) ? message.completeTime : ''),
+                "value" : toYyyymmddhhmmss(new Date((message.completeTime) ? message.completeTime : '')),
+                "short" : true
+            },
+            {
+                "title" : "Error Code",
+                "value" : ((message.completeTime) ? message.errorInformation.ErrorCode : ''),
+                "short" : true
+            },
+            {
+                "title" : "Error Message",
+                "value" : ((message.completeTime) ? message.errorInformation.ErrorMessage : ''),
                 "short" : true
             }
         ];
