@@ -2,7 +2,7 @@
 
 function find_idle_profile
 {
-    echo "> find_idle_profile"
+    echo "> Execute find_idle_profile"
     echo "> 현재 구동중인 Set 확인"
     response_code=$(curl -s -o /dev/null -w "%{http_code}" http://localhost/profile)
     echo "> status code:  ${response_code}"
@@ -36,11 +36,10 @@ function find_idle_profile
 
 function find_idle_port
 {
-    echo "> find_idle_port"
-    find_idle_profile
-    idle_profile=$?
+    echo "> Execute find_idle_port"
+    idle_profile=$(find_idle_profile)
 
-    echo "> idle_profile: $idle_profile"
+    echo "> find_idle_port - idle_profile: $idle_profile"
 
     if [ ${idle_profile} == set1 ]
     then
