@@ -1,0 +1,12 @@
+spring:
+  profiles: real-db
+  datasource:
+    url: ${url}
+    username: ${username}
+    password: ${password}
+    driver-class-name: org.mariadb.jdbc.Driver
+    hikari:
+      connectionTimeout: 30000 #30s
+      idleTimeout: 600000      #10m
+      maxLifetime: 1800000     #30m
+      maximumPoolSize: 100

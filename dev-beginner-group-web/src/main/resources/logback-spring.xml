@@ -14,7 +14,7 @@
         <logger name="org.hibernate.SQL" level="DEBUG"/>
     </springProfile>
 
-    <springProfile name="real">
+    <springProfile name="set1, set2">
 
         <!-- Spring Trace Profile Config -->
         <include resource="logback/spring-trace/spring-trace-file-base.xml"/>
