@@ -7,7 +7,6 @@
 
     <springProfile name="local">
         <include resource="org/springframework/boot/logging/logback/base.xml"/>
-        <include resource="logback/spring-trace/spring-trace-console-base.xml"/>
         <logger name="org.springframework.web" level="DEBUG"/>
         <logger name="org.springframework.web.servlet.handler" level="INFO"/>
         <logger name="com.jojoldu.beginner" level="DEBUG"/>
@@ -15,9 +14,6 @@
     </springProfile>
 
     <springProfile name="set1, set2">
-
-        <!-- Spring Trace Profile Config -->
-        <include resource="logback/spring-trace/spring-trace-file-base.xml"/>
 
         <!-- Application Log -->
         <include resource="logback/application-appender.xml"/>
