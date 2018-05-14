@@ -1,6 +1,7 @@
 package com.jojoldu.beginner.web.config;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -11,12 +12,11 @@ import org.springframework.stereotype.Component;
  * Github : https://github.com/jojoldu
  */
 
-@Component
 @Getter
 @Setter
+@NoArgsConstructor
 public class WebProperties {
 
-    @Value("${devbeginner.web.url}")
     private String webUrl;
 
 }

@@ -3,6 +3,7 @@ package com.jojoldu.beginner.web.config;
 import com.jojoldu.beginner.mail.template.HandlebarsFactory;
 import com.jojoldu.beginner.mail.template.TemplateComponent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -30,5 +31,11 @@ public class AppConfig {
     @Bean
     public TemplateComponent templateComponent() {
         return new TemplateComponent(handlebarsFactory);
+    }
+
+    @Bean
+    @ConfigurationProperties("devbeginner")
+    public WebProperties webProperties(){
+        return new WebProperties();
     }
 }
