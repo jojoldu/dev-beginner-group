@@ -4,20 +4,109 @@
  * Github : http://github.com/jojoldu
  */
 
+var services = process.env.SERVICES;  // Update this with your Slack service...
+var channel = process.env.CHANNEL;  // And this with the Slack channel
+
 var https = require('https');
 var util = require('util');
 
+var formatFields = function(string) {
+    var
+        message = JSON.parse(string),
+        fields  = [],
+        deploymentOverview;
+
+    // Make sure we have a valid response
+    if (message) {
+        fields = [
+            {
+                "title" : "Task",
+                "value" : message.eventTriggerName,
+                "short" : true
+            },
+            {
+                "title" : "Status",
+                "value" : message.status,
+                "short" : true
+            },
+            {
+                "title" : "Application",
+                "value" : message.applicationName,
+                "short" : true
+            },
+            {
+                "title" : "Deployment Group",
+                "value" : message.deploymentGroupName,
+                "short" : true
+            },
+            {
+                "title" : "Region",
+                "value" : message.region,
+                "short" : true
+            },
+            {
+                "title" : "Deployment Id",
+                "value" : message.deploymentId,
+                "short" : true
+            },
+            {
+                "title" : "Create Time",
+                "value" : message.createTime,
+                "short" : true
+            },
+            {
+                "title" : "Complete Time",
+                "value" : ((message.completeTime) ? message.completeTime : ''),
+                "short" : true
+            }
+        ];
+
+        if (message.deploymentOverview) {
+            deploymentOverview = JSON.parse(message.deploymentOverview);
+
+            fields.push(
+                {
+                    "title" : "Succeeded",
+                    "value" : deploymentOverview.Succeeded,
+                    "short" : true
+                },
+                {
+                    "title" : "Failed",
+                    "value" : deploymentOverview.Failed,
+                    "short" : true
+                },
+                {
+                    "title" : "Skipped",
+                    "value" : deploymentOverview.Skipped,
+                    "short" : true
+                },
+                {
+                    "title" : "In Progress",
+                    "value" : deploymentOverview.InProgress,
+                    "short" : true
+                },
+                {
+                    "title" : "Pending",
+                    "value" : deploymentOverview.Pending,
+                    "short" : true
+                }
+            );
+        }
+    }
+
+    return fields;
+};
+
 exports.handler = function(event, context) {
-    console.log(JSON.stringify(event, null, 2));
-    console.log('From SNS:', event.Records[0].Sns.Message);
 
     var postData = {
-        "channel": "#aws-sns",
-        "username": "AWS SNS via Lamda :: DevQa Cloud",
+        "channel": channel,
+        "username": "AWS SNS via Lamda :: CodeDeploy Status",
         "text": "*" + event.Records[0].Sns.Subject + "*",
         "icon_emoji": ":aws:"
     };
 
+    var fields = formatFields(event.Records[0].Sns.Message);
     var message = event.Records[0].Sns.Message;
     var severity = "good";
 
@@ -25,6 +114,7 @@ exports.handler = function(event, context) {
         " but with errors",
         " to RED",
         "During an aborted deployment",
+        "FAILED",
         "Failed to deploy application",
         "Failed to deploy configuration",
         "has a dependent object",
@@ -69,7 +159,7 @@ exports.handler = function(event, context) {
     postData.attachments = [
         {
             "color": severity,
-            "text": message
+            "fields": fields
         }
     ];
 
@@ -77,7 +167,7 @@ exports.handler = function(event, context) {
         method: 'POST',
         hostname: 'hooks.slack.com',
         port: 443,
-        path: '/services/your-slack-webhook-url-info-goes-here'
+        path: services  // Defined above
     };
 
     var req = https.request(options, function(res) {
