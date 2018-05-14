@@ -38,4 +38,5 @@ else
 fi
 
 echo "> $idle_profile 배포"
-nohup java -jar -Dspring.profiles.active=${idle_profile} ${idle_application_full_path} > /dev/null 2> /dev/null < /dev/null &
+echo "> nohup java -jar -Dspring.profiles.active=${idle_profile} ${idle_application_full_path}"
+nohup java -jar -Dspring.profiles.active=${idle_profile} ${idle_application_full_path} >> /home/ec2-user/jar/app.out 2>&1&
