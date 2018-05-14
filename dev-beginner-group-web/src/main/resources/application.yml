@@ -35,10 +35,10 @@ spring:
     username: sa
     password:
     driver-class-name: org.h2.Driver
+    data: classpath:data-h2.sql
   jpa:
     database-platform: H2
     show-sql: true
-
 
 ---
 spring:
