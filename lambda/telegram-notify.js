@@ -11,8 +11,7 @@ var https = require('https');
 var util = require('util');
 
 var formatFields = function(string) {
-    var
-        message = JSON.parse(string),
+    var message = JSON.parse(string),
         fields  = [],
         deploymentOverview;
 
@@ -147,7 +146,7 @@ exports.handler = function(event, context) {
     }
 
     // Only check for warning messages if necessary
-    if (severity == "good") {
+    if (severity === "good") {
         for(var warningMessagesItem in warningMessages) {
             if (message.indexOf(warningMessages[warningMessagesItem]) != -1) {
                 severity = "warning";
