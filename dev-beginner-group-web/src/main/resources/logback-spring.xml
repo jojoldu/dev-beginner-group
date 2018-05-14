@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration debug="true">
-    <property name="LOG_PATH" value="logs/dev-beginner-group-web/" />
+    <property name="LOG_PATH" value="/home/ec2-user/logs/dev-beginner-group-web/" />
     <springProfile name="default">
         <include resource="org/springframework/boot/logging/logback/base.xml"/>
     </springProfile>

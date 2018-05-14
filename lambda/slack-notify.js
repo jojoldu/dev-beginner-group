@@ -16,13 +16,19 @@ function toYyyymmddhhmmss(date) {
         return '';
     }
 
+    function utcToKst(utcDate) {
+        return new Date(utcDate.getTime() + 32400000);
+    }
+
     function pad2(n) { return n < 10 ? '0' + n : n }
-    return date.getFullYear().toString()
-        + '-'+ pad2(date.getMonth() + 1)
-        + '-'+ pad2( date.getDate())
-        + ' '+ pad2( date.getHours())
-        + ':'+ pad2( date.getMinutes())
-        + ':'+ pad2( date.getSeconds());
+
+    var kstDate = utcToKst(date);
+    return kstDate.getFullYear().toString()
+        + '-'+ pad2(kstDate.getMonth() + 1)
+        + '-'+ pad2(kstDate.getDate())
+        + ' '+ pad2(kstDate.getHours())
+        + ':'+ pad2(kstDate.getMinutes())
+        + ':'+ pad2(kstDate.getSeconds());
 }
 
 var formatFields = function(string) {

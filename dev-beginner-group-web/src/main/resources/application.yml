@@ -49,6 +49,9 @@ devbeginner:
       enabled: true
   web:
       url: https://www.devbeginner.com
+
+logging.path: /home/ec2-user/logs/dev-beginner-group-web/
+
 ---
 spring.profiles: set1
 spring.profiles.include:
