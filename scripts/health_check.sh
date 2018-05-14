@@ -2,12 +2,9 @@
 
 ABSPATH=$(readlink -f $0)
 ABSDIR=$(dirname $ABSPATH)
-PROFILE_SH=${ABSDIR}/profile.sh
-echo "> PROFILE_SH_PATH: $PROFILE_SH"
-source ${PROFILE_SH}
+source ${ABSDIR}/profile.sh
 
-find_idle_port
-idle_port=$?
+idle_port=$(find_idle_port)
 
 echo "> idle_profile: $idle_port"
 echo "> 10초 후 Health check 시작"

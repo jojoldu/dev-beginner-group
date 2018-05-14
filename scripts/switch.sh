@@ -2,11 +2,9 @@
 
 ABSPATH=$(readlink -f $0)
 ABSDIR=$(dirname $ABSPATH)
-PROFILE_SH=${ABSDIR}/profile.sh
-source ${PROFILE_SH}
+source ${ABSDIR}/profile.sh
 
-find_idle_port
-idle_port=$?
+idle_port=$(find_idle_port)
 
 echo "> 전환할 Port: $idle_port"
 echo "> Port 전환"
