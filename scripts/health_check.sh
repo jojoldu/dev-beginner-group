@@ -7,7 +7,7 @@ source ${ABSDIR}/profile.sh
 idle_port=$(find_idle_port)
 
 echo "> Health Check Start!"
-echo "> idle_profile: $idle_port"
+echo "> idle_port: $idle_port"
 echo "> curl -s http://localhost:$idle_port/health "
 sleep 10
 

@@ -1,5 +1,6 @@
 package com.jojoldu.beginner.web.config;
 
+import com.jojoldu.beginner.mail.aws.Sender;
 import com.jojoldu.beginner.mail.template.HandlebarsFactory;
 import com.jojoldu.beginner.mail.template.TemplateComponent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,11 @@ public class AppConfig {
     @Bean
     public TemplateComponent templateComponent() {
         return new TemplateComponent(handlebarsFactory);
+    }
+
+    @Bean
+    public Sender sender() {
+        return new Sender();
     }
 
     @Bean

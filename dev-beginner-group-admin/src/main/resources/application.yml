@@ -13,8 +13,6 @@ server:
 devbeginner:
   static:
     enabled: true
-  mail:
-    enabled: true
   web:
     url: http://localhost:8080
 
@@ -59,8 +57,6 @@ spring:
 devbeginner:
   static:
     enabled: true
-  mail:
-      enabled: true
   web:
       url: https://www.devbeginner.com
 ---

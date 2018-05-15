@@ -1,5 +1,6 @@
 package com.jojoldu.beginner.admin.config;
 
+import com.jojoldu.beginner.mail.aws.Sender;
 import com.jojoldu.beginner.mail.template.HandlebarsFactory;
 import com.jojoldu.beginner.mail.template.TemplateComponent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,11 @@ public class AppConfig {
         executor.setThreadNamePrefix("Async-");
         executor.initialize();
         return executor;
+    }
+
+    @Bean
+    public Sender sender() {
+        return new Sender();
     }
 
     @Bean
