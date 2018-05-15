@@ -2,7 +2,7 @@
 /build/
 !gradle/wrapper/gradle-wrapper.jar
 *.pid
-
+logs
 generated
 node_modules
 out

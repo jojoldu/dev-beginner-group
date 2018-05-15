@@ -19,7 +19,7 @@ import java.sql.SQLException;
  */
 
 @Configuration
-public class CoreConfig {
+public class QuerydslConfig {
 
     @PersistenceContext
     private EntityManager entityManager;

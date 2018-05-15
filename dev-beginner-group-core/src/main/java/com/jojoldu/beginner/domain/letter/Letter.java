@@ -46,7 +46,7 @@ public class Letter extends BaseTimeEntity {
     private List<LetterContentMap> letterContents = new ArrayList<>();
 
     @Builder
-    public Letter(@Nonnull String subject, String sender, String archiveUrl, List<LetterContent> letterContents) {
+    public Letter(@Nonnull String subject, @Nonnull String sender, @Nonnull String archiveUrl, List<LetterContent> letterContents) {
         this.subject = subject;
         this.sender = StringUtils.isEmpty(sender)? Constants.ADMIN_EMAIL : sender;
         this.archiveUrl = archiveUrl;

@@ -24,11 +24,4 @@ public class WebApplication {
 				.run(args);
 	}
 
-	@Bean
-	@Profile("local")
-	@ConfigurationProperties("spring.datasource") // yml의 설정값을 Set한다.
-	public DataSource dataSource() throws SQLException {
-		Server.createTcpServer("-tcp", "-tcpAllowOthers", "-tcpPort", "9093").start();
-		return new HikariDataSource();
-	}
 }

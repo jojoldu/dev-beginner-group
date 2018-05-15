@@ -3,6 +3,8 @@ spring:
     active: local
   jpa:
     open-in-view: false
+    hibernate:
+      ddl-auto: none
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
@@ -27,17 +29,19 @@ devbeginner:
 ---
 spring:
   profiles: local
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
   datasource:
     platform: h2
-    jdbcUrl: jdbc:h2:tcp://localhost:9093/mem:testdb;MVCC=TRUE
+    jdbcUrl: jdbc:h2:mem://localhost/~/testdb;MVCC=TRUE
     username: sa
     password:
     driver-class-name: org.h2.Driver
-    data: classpath:data-h2.sql
-  jpa:
-    database-platform: H2
-    show-sql: true
-
+  h2:
+    console.enabled: true
+    console.path: /h2-console #접속 URL -> jdbc:h2:mem:testdb, ID:sa, PW: (EMPTY)
+    console.settings.trace: false
 ---
 spring:
   profiles: real-app
