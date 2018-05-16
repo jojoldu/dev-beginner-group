@@ -9,6 +9,7 @@ spring:
       username: {username}
       password: {password}
       driver-class-name: org.mariadb.jdbc.Driver
+      connectionTimeout: 10000
       idleTimeout: 600000      #10m
-      maxLifetime: 1800000     #30m
-      maximumPoolSize: 100
+      maxLifetime: 600000     #10m
+      maximumPoolSize: 5       # Pool 하나당 커넥션 수 (https://stackoverflow.com/a/27506460)
