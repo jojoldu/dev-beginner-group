@@ -47,8 +47,7 @@ spring:
 spring:
   profiles: real-app
 
-logging.path: logs/dev-beginner-group-web/
-#logging.path: /home/ec2-user/logs/dev-beginner-group-web/
+logging.path: /home/ec2-user/logs/dev-beginner-group-web/
 
 devbeginner:
   web:
