@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: local-test
+    active: local
   jpa:
     open-in-view: false
 devbeginner:
@@ -12,12 +12,13 @@ devbeginner:
     url: http://localhost:8080
 ---
 spring:
-  profiles: local-test
+  profiles: local
   datasource:
-      jdbcUrl: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    hikari:
+      jdbc-url: jdbc:h2:mem://localhost/~/testdb;MVCC=TRUE
       username: sa
       password:
-      driverClassName: org.h2.Driver
+      driver-class-name: org.h2.Driver
   jpa:
     show-sql: true
     hibernate:
