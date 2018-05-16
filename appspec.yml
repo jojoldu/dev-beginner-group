@@ -24,7 +24,3 @@ hooks:
     - location: scripts/health_check.sh
       timeout: 180
       runas: ec2-user
-  BeforeAllowTraffic:
-    - location: scripts/switch.sh
-      timeout: 30
-      runas: ec2-user
