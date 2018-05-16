@@ -20,7 +20,7 @@ buildscript {
 
 ext {
 	projectGroup = 'com.jojoldu.dev-beginner-group'
-	projectVersion = '0.0.15-'+new Date().format("yyyyMMddHHmmss")
+	projectVersion = '0.0.16-'+new Date().format("yyyyMMddHHmmss")
 }
 
 task wrapper(type: Wrapper) {
