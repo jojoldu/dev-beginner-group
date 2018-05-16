@@ -34,10 +34,11 @@ spring:
       ddl-auto: create-drop
   datasource:
     platform: h2
-    jdbcUrl: jdbc:h2:mem://localhost/~/testdb;MVCC=TRUE
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
+    hikari:
+      jdbc-url: jdbc:h2:mem://localhost/~/testdb;MVCC=TRUE
+      username: sa
+      password:
+      driver-class-name: org.h2.Driver
   h2:
     console.enabled: true
     console.path: /h2-console #접속 URL -> jdbc:h2:mem:testdb, ID:sa, PW: (EMPTY)
@@ -46,7 +47,8 @@ spring:
 spring:
   profiles: real-app
 
-logging.path: /home/ec2-user/logs/dev-beginner-group-web/
+logging.path: logs/dev-beginner-group-web/
+#logging.path: /home/ec2-user/logs/dev-beginner-group-web/
 
 devbeginner:
   web:

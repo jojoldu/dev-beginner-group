@@ -1,12 +1,14 @@
 spring:
   profiles: real-db
+  jpa:
+    hibernate:
+      ddl-auto: none
   datasource:
-    jdbcUrl: ${url}
-    username: ${username}
-    password: ${password}
-    driver-class-name: org.mariadb.jdbc.Driver
     hikari:
-      connectionTimeout: 30000 #30s
+      jdbc-url: {url}
+      username: {username}
+      password: {password}
+      driver-class-name: org.mariadb.jdbc.Driver
       idleTimeout: 600000      #10m
       maxLifetime: 1800000     #30m
       maximumPoolSize: 100
