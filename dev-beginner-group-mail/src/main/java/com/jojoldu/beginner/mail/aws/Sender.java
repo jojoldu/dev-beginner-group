@@ -1,6 +1,10 @@
 package com.jojoldu.beginner.mail.aws;
 
 import com.amazonaws.AmazonClientException;
+import com.amazonaws.auth.AWSCredentialsProviderChain;
+import com.amazonaws.auth.EnvironmentVariableCredentialsProvider;
+import com.amazonaws.auth.InstanceProfileCredentialsProvider;
+import com.amazonaws.auth.SystemPropertiesCredentialsProvider;
 import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailService;
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailServiceClientBuilder;
@@ -19,20 +23,15 @@ public class Sender {
         try {
             log.info("Attempting to send an email through Amazon SES by using the AWS SDK for Java...");
 
-            ProfileCredentialsProvider credentialsProvider = new ProfileCredentialsProvider();
-
-            try {
-                credentialsProvider.getCredentials();
-            } catch (Exception e) {
-                throw new AmazonClientException(
-                        "Cannot load the credentials from the credential profiles file. " +
-                                "Please make sure that your credentials file is at the correct " +
-                                "location (~/.aws/credentials), and is in valid format.",
-                        e);
-            }
+            AWSCredentialsProviderChain chain = new AWSCredentialsProviderChain(
+                    new ProfileCredentialsProvider(),
+                    new SystemPropertiesCredentialsProvider(),
+                    new EnvironmentVariableCredentialsProvider(),
+                    InstanceProfileCredentialsProvider.getInstance()
+            );
 
             AmazonSimpleEmailService client = AmazonSimpleEmailServiceClientBuilder.standard()
-                    .withCredentials(credentialsProvider)
+                    .withCredentials(chain)
                     .withRegion("us-west-2")
                     .build();
 

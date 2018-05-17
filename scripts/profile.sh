@@ -1,6 +1,6 @@
 #!/bin/bash
 
-function find_idle_profile
+function find_idle_profile()
 {
     response_code=$(curl -s -o /dev/null -w "%{http_code}" http://localhost/profile)
 
@@ -25,7 +25,7 @@ function find_idle_profile
     echo "${idle_profile}"
 }
 
-function find_idle_port
+function find_idle_port()
 {
     idle_profile=$(find_idle_profile)
 

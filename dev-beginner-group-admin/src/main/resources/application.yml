@@ -30,7 +30,7 @@ spring:
     database-platform: H2
     show-sql: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
   devtools:
     livereload:
       enabled: true

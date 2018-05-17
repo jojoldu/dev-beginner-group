@@ -21,7 +21,7 @@ function switch()
     checkSwitch
 }
 
-function checkSwitch
+function checkSwitch()
 {
     response=$(curl -s http://localhost/actuator/health)
     up_count=$(echo ${response} | grep 'UP' | wc -l)
