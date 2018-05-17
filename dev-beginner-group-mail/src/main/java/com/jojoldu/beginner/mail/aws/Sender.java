@@ -19,19 +19,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Sender {
 
-    public void send(SenderDto senderDto){
+    public void send(SenderDto senderDto) {
         try {
             log.info("Attempting to send an email through Amazon SES by using the AWS SDK for Java...");
 
-            AWSCredentialsProviderChain chain = new AWSCredentialsProviderChain(
-                    new ProfileCredentialsProvider(),
-                    new SystemPropertiesCredentialsProvider(),
-                    new EnvironmentVariableCredentialsProvider(),
-                    InstanceProfileCredentialsProvider.getInstance()
-            );
-
             AmazonSimpleEmailService client = AmazonSimpleEmailServiceClientBuilder.standard()
-                    .withCredentials(chain)
+                    .withCredentials(getCredentialsChain())
                     .withRegion("us-west-2")
                     .build();
 
@@ -42,12 +35,27 @@ public class Sender {
             log.info("Email sent!");
 
         } catch (Exception ex) {
-            log.error("The email was not sent.: "+senderDto.getTo().get(0));
+            log.error("The email was not sent.: " + senderDto.getTo().get(0));
             log.error("Error message: " + ex.getMessage());
-            throw new AmazonClientException(
-                    ex.getMessage(),
-                    ex);
+            throw new AmazonClientException(ex.getMessage(), ex);
         }
+    }
+
+    /**
+     * 우선순위
+     * <p>
+     * 1. 자바 시스템 프로퍼티 -Daws.accessKeyId=? -Daws.secretKey=?
+     * 2. os 환경변수 AWS_ACCESS_KEY_ID=?, AWS_SECRET_KEY=?
+     * 3. ~/.aws/credentials
+     * 4. IAM Role (aws configure list)
+     */
+    private AWSCredentialsProviderChain getCredentialsChain() {
+        return new AWSCredentialsProviderChain(
+                new SystemPropertiesCredentialsProvider(),
+                new EnvironmentVariableCredentialsProvider(),
+                new ProfileCredentialsProvider(),
+                InstanceProfileCredentialsProvider.getInstance()
+        );
     }
 
 }
