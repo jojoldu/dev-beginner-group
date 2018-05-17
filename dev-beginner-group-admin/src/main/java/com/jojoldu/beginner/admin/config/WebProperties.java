@@ -3,8 +3,6 @@ package com.jojoldu.beginner.admin.config;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 
 /**
  * Created by jojoldu@gmail.com on 2017. 11. 18.
@@ -17,6 +15,6 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 public class WebProperties {
 
-    private String webUrl;
+    private String url;
 
 }

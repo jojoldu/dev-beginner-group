@@ -97,8 +97,8 @@ public class SubscribeService {
         return templateComponent.template("certify", model);
     }
 
-    private String createCertifyLink(String email, String certifyMessage) {
-        return String.format("%s/subscribe/certify?email=%s&message=%s", webProperties.getWebUrl(), email, certifyMessage);
+    String createCertifyLink(String email, String certifyMessage) {
+        return String.format("%s/subscribe/certify?email=%s&message=%s", webProperties.getUrl(), email, certifyMessage);
     }
 
 }

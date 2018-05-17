@@ -40,7 +40,7 @@ public class AppConfig {
     }
 
     @Bean
-    @ConfigurationProperties("devbeginner")
+    @ConfigurationProperties("devbeginner.web")
     public WebProperties webProperties(){
         return new WebProperties();
     }

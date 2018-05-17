@@ -6,8 +6,6 @@ spring:
 devbeginner:
   static:
     enabled: true
-  mail:
-    enabled: true
   web:
     url: http://localhost:8080
 ---

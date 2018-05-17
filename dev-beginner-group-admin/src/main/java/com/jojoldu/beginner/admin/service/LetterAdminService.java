@@ -83,7 +83,7 @@ public class LetterAdminService {
 
     private List<MailContentDto> createMailContents(Long subscriberId, List<LetterContent> contents) {
         return contents.stream()
-                .map(content -> new MailContentDto(subscriberId, webProperties.getWebUrl(), content))
+                .map(content -> new MailContentDto(subscriberId, webProperties.getUrl(), content))
                 .collect(Collectors.toList());
     }
 }

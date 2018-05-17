@@ -15,6 +15,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class WebProperties {
 
-    private String webUrl;
+    private String url;
 
 }

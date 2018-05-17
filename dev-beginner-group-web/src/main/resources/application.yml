@@ -51,7 +51,7 @@ logging.path: /home/ec2-user/logs/dev-beginner-group-web/
 
 devbeginner:
   web:
-      url: https://www.devbeginner.com
+    url: https://www.devbeginner.com
 
 ---
 spring.profiles: set1

@@ -3,6 +3,7 @@ package com.jojoldu.beginner.web.service
 import com.jojoldu.beginner.domain.subscriber.Subscriber
 import com.jojoldu.beginner.domain.subscriber.SubscriberRepository
 import com.jojoldu.beginner.mail.aws.Sender
+import com.jojoldu.beginner.web.exception.ExceptionStatus
 import com.jojoldu.beginner.web.exception.InvalidParameterException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -55,7 +56,7 @@ class SubscribeServiceTest extends Specification {
 
         then:
         Subscriber subscriber = subscriberRepository.findAll().get(0)
-        subscriber.isCertified() == true
+        subscriber.isCertified()
     }
 
     def "인증메일의 링크가 잘못되면 오류 발생" () {
@@ -69,5 +70,18 @@ class SubscribeServiceTest extends Specification {
 
         then:
         def e = thrown(InvalidParameterException.class)
+        e.status == ExceptionStatus.BAD_REQUEST
+    }
+
+    def "WebProperties를 정상적으로 읽어온다."() {
+        given:
+        String email = "jojoldu@gmail.com"
+        String certifyMessage = "test"
+
+        when:
+        String link = subscribeService.createCertifyLink(email, certifyMessage)
+
+        then:
+        link == "http://localhost:8080/subscribe/certify?email="+email+"&message="+certifyMessage
     }
 }

@@ -2,8 +2,6 @@ spring:
   profiles:
     active: local
 devbeginner:
-  mail:
-    enabled: true
   web:
     url: http://localhost:8080
 ---
