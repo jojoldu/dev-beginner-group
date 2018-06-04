@@ -9,7 +9,7 @@ import com.jojoldu.beginner.admin.service.MailAsyncSender;
 import com.jojoldu.beginner.domain.letter.LetterContentRepository;
 import com.jojoldu.beginner.staticuploader.aws.StaticUploader;
 import com.jojoldu.beginner.util.Constants;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,18 +25,18 @@ import java.util.List;
  * Github : https://github.com/jojoldu
  */
 
+@RequiredArgsConstructor
 @RestController
-@AllArgsConstructor
 public class AdminRestController {
 
-    private MailAsyncSender mailAsyncSender;
-    private StaticUploader staticUploader;
-    private LetterAdminService letterAdminService;
-    private LetterContentRepository letterContentRepository;
+    private final MailAsyncSender mailAsyncSender;
+    private final StaticUploader staticUploader;
+    private final LetterAdminService letterAdminService;
+    private final LetterContentRepository letterContentRepository;
 
     @PostMapping("/image/upload")
     public String uploadImage(@RequestParam("data") MultipartFile file) throws IOException {
-        return staticUploader.upload(file);
+        return staticUploader.upload(file, "static/content");
     }
 
     @PostMapping("/letter-content/save")

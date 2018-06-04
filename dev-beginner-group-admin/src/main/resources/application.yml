@@ -11,11 +11,19 @@ spring:
 server:
   port: 9080
 devbeginner:
-  static:
-    enabled: true
   web:
     url: http://localhost:8080
 
+cloud:
+  aws:
+    s3:
+      bucket: devbeginner.com
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+    credentials:
+      instanceProfile: true
 ---
 spring:
   profiles: local
@@ -55,8 +63,6 @@ spring:
   profiles: real-app
 
 devbeginner:
-  static:
-    enabled: true
   web:
       url: https://www.devbeginner.com
 ---

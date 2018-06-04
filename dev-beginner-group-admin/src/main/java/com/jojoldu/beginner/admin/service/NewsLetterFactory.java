@@ -2,7 +2,7 @@ package com.jojoldu.beginner.admin.service;
 
 import com.jojoldu.beginner.admin.dto.mail.MailContentGroupDto;
 import com.jojoldu.beginner.mail.template.TemplateComponent;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 /**
@@ -12,10 +12,10 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class NewsLetterFactory {
 
-    private TemplateComponent templateComponent;
+    private final TemplateComponent templateComponent;
 
     public String createContent(MailContentGroupDto contentGroupDto){
         return templateComponent.template("newsletter", contentGroupDto);

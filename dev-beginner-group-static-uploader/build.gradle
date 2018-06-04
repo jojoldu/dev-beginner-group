@@ -2,8 +2,8 @@ bootJar { enabled = false }
 jar { enabled = true }
 
 dependencies {
-	compile('org.springframework.boot:spring-boot-starter-web')
-	compile('com.amazonaws:aws-java-sdk-s3:1.11.232')
-	compile group: 'commons-io', name: 'commons-io', version: '2.6'
-
+    compile('org.springframework:spring-web')
+    compile('org.springframework.boot:spring-boot-starter-logging')
+    compile('org.springframework.cloud:spring-cloud-starter-aws')
+    compile 'pl.allegro.tech.boot:handlebars-spring-boot-starter:0.3.0'
 }

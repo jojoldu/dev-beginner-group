@@ -4,7 +4,6 @@ import com.jojoldu.beginner.admin.config.WebProperties;
 import com.jojoldu.beginner.admin.dto.LetterAdminSaveRequestDto;
 import com.jojoldu.beginner.admin.dto.LetterPageRequestDto;
 import com.jojoldu.beginner.admin.dto.letter.save.LetterContentResponseDto;
-import com.jojoldu.beginner.admin.dto.mail.ArchiveDto;
 import com.jojoldu.beginner.admin.dto.mail.MailContentDto;
 import com.jojoldu.beginner.admin.dto.mail.MailSendDto;
 import com.jojoldu.beginner.admin.repository.lettercontent.LetterContentAdminRepository;
@@ -37,7 +36,6 @@ public class LetterAdminService {
     private LetterContentAdminRepository letterContentRepository;
     private SubscriberRepository subscriberRepository;
     private WebProperties webProperties;
-    private ArchiveFactory archiveFactory;
 
     @Transactional(readOnly = true)
     public List<LetterContentResponseDto> findByPageable(LetterPageRequestDto dto){
@@ -62,17 +60,12 @@ public class LetterAdminService {
         Letter letter = dto.toEntity();
         List<LetterContent> letterContents = letterContentRepository.findAllByIdIn(dto.getContentIds());
         letter.addContents(letterContents);
-        letter.updateArchive(archiveFactory.createArchive(createArchiveDto(dto.getSubject(), letterContents)));
         return letterRepository.save(letter).getId();
     }
 
     private Letter findLetter(Long letterId) {
         return letterRepository.findById(letterId)
                 .orElseThrow(() -> new IllegalArgumentException(String.format("해당하는 Letter가 없습니다. ID: %d", letterId)));
-    }
-
-    private ArchiveDto createArchiveDto(String subject, List<LetterContent> letterContents){
-        return new ArchiveDto(subject, createMailContents(findAdminId(), letterContents));
     }
 
     private Long findAdminId(){

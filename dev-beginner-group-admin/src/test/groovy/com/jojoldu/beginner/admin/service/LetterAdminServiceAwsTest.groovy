@@ -38,9 +38,6 @@ class LetterAdminServiceAwsTest extends Specification {
     @SpyBean
     Sender sender
 
-    @SpyBean
-    ArchiveFactory archiveFactory
-
     def setup() {
         subscriberRepository.deleteAll()
         letterContentRepository.deleteAll()
