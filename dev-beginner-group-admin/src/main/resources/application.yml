@@ -64,7 +64,7 @@ spring:
 
 devbeginner:
   web:
-      url: https://www.devbeginner.com
+    url: https://www.devbeginner.com
 ---
 spring.profiles: set1
 spring.profiles.include:

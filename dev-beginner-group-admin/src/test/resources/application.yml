@@ -8,6 +8,16 @@ devbeginner:
     enabled: true
   web:
     url: http://localhost:8080
+cloud:
+  aws:
+    s3:
+      bucket: devbeginner.com
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+    credentials:
+      instanceProfile: true
 ---
 spring:
   profiles: local
@@ -20,4 +30,4 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
