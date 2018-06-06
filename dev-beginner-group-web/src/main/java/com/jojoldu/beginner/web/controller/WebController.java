@@ -25,6 +25,12 @@ public class WebController {
 
     private SubscribeService subscribeService;
 
+    @GetMapping("/index")
+    public String index(){
+        return "index";
+    }
+
+
     @GetMapping("/")
     public String getMain(){
         return "redirect:/subscribe/form";
