@@ -43,6 +43,10 @@ spring:
     console.enabled: true
     console.path: /h2-console #접속 URL -> jdbc:h2:mem:testdb, ID:sa, PW: (EMPTY)
     console.settings.trace: false
+  devtools:
+    livereload:
+      enabled: true
+handlebars.cache: false
 ---
 spring:
   profiles: real-app
