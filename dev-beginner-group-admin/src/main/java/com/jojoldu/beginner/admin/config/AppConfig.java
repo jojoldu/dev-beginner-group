@@ -1,5 +1,6 @@
 package com.jojoldu.beginner.admin.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jojoldu.beginner.mail.aws.Sender;
 import com.jojoldu.beginner.mail.template.HandlebarsFactory;
 import com.jojoldu.beginner.mail.template.TemplateComponent;
@@ -52,6 +53,11 @@ public class AppConfig {
     @Bean
     public Sender sender() {
         return new Sender();
+    }
+
+    @Bean
+    public ObjectMapper objectMapper() {
+        return new ObjectMapper();
     }
 
     @Bean
