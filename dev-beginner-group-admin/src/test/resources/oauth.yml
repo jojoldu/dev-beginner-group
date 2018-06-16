@@ -1,0 +1,9 @@
+bitly:
+  client:
+    clientId:
+    clientSecret:
+    accessTokenUri: https://api-ssl.Bitly.com/oauth/access_token
+    userAuthorizationUri: https://Bitly.com/oauth/authorize
+    clientAuthenticationScheme: form
+  resource:
+    userInfoUri: https://api-ssl.Bitly.com/v4/user
