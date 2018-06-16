@@ -44,40 +44,9 @@ spring:
       enabled: true
 
 ---
-spring.profiles: set1
-spring.profiles.include: real
-
-server:
-  port: 8081
-
----
-spring.profiles: set2
-spring.profiles.include: real
-
-server:
-  port: 8082
-
-
----
-spring:
-  profiles: real-app
+spring.profiles: real
+spring.profiles.include: real-db
 
 devbeginner:
   web:
     url: https://www.devbeginner.com
----
-spring.profiles: set1
-spring.profiles.include:
-  - real-db
-  - real-app
-
-server:
-  port: 9081
----
-spring.profiles: set2
-spring.profiles.include:
-  - real-db
-  - real-app
-
-server:
-  port: 9082

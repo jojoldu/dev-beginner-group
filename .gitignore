@@ -7,6 +7,7 @@ generated
 node_modules
 out
 aws.yml
+bitly.yml
 
 ### STS ###
 .apt_generated

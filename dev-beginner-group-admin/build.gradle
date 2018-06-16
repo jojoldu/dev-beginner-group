@@ -4,5 +4,9 @@ dependencies {
 	compile project(':dev-beginner-group-mail')
 	compile 'pl.allegro.tech.boot:handlebars-spring-boot-starter:0.3.0'
 	compile('org.springframework.boot:spring-boot-starter-web')
+	compile('org.springframework.boot:spring-boot-starter-security')
+	compile('org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.0.1.RELEASE')
 	runtime('org.springframework.boot:spring-boot-devtools')
+
+	testCompile('org.springframework.security:spring-security-test')
 }
