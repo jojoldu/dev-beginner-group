@@ -9,7 +9,7 @@ spring:
         hbm2ddl.import_files_sql_extractor: org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor
         default_batch_fetch_size: ${chunkSize:1000}
 server:
-  port: 9080
+  port: 8180
 devbeginner:
   web:
     url: http://localhost:8080
@@ -28,6 +28,7 @@ cloud:
 spring:
   profiles: local
   datasource:
+    data: classpath:data-h2.sql
     platform: h2
     hikari:
       jdbc-url: jdbc:h2:mem://localhost/~/testdb;MVCC=TRUE

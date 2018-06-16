@@ -12,7 +12,7 @@ $('#btn-send').on('click', function () {
 
     $.ajax({
         type: 'POST',
-        url: '/letter/send',
+        url: '/admin/letter/send',
         dataType: 'json',
         contentType:'application/json; charset=utf-8',
         data: JSON.stringify(request)
@@ -31,7 +31,7 @@ $('#btn-target-send').on('click', function () {
 
     $.ajax({
         type: 'POST',
-        url: '/letter/send',
+        url: '/admin/letter/send',
         dataType: 'json',
         contentType:'application/json; charset=utf-8',
         data: JSON.stringify(request)
@@ -49,7 +49,7 @@ $('#btn-test-send').on('click', function () {
 
     $.ajax({
         type: 'POST',
-        url: '/letter/send/test',
+        url: '/admin/letter/send/test',
         dataType: 'json',
         contentType:'application/json; charset=utf-8',
         data: JSON.stringify(request)
@@ -71,12 +71,12 @@ $('#btn-save').on('click', function () {
 
     $.ajax({
         type: 'POST',
-        url: '/letter/save',
+        url: '/admin/letter/save',
         dataType: 'json',
         contentType:'application/json; charset=utf-8',
         data: JSON.stringify(request)
     }).done(function(data) {
-        alert('ID: '+data+' 뉴스테러가 저장 되었습니다.');
+        alert('ID: '+data+' 뉴스레터가 저장 되었습니다.');
     }).fail(function (error) {
         alert(JSON.stringify(error));
     });

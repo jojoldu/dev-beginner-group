@@ -34,31 +34,31 @@ public class AdminRestController {
     private final LetterAdminService letterAdminService;
     private final LetterContentRepository letterContentRepository;
 
-    @PostMapping("/image/upload")
+    @PostMapping("/admin/image/upload")
     public String uploadImage(@RequestParam("data") MultipartFile file) throws IOException {
         return staticUploader.upload(file, "static/content");
     }
 
-    @PostMapping("/letter-content/save")
+    @PostMapping("/admin/letter-content/save")
     public Long saveContent(@RequestBody LetterContentRequestDto requestDto) {
         return letterContentRepository.save(requestDto.toEntity()).getId();
     }
 
-    @PostMapping("/letter/save")
+    @PostMapping("/admin/letter/save")
     public Long saveLetter(@RequestBody LetterAdminSaveRequestDto requestDto) {
         Long letterId = letterAdminService.saveLetter(requestDto);
         sendAll(letterId, Constants.TEST_USERS);
         return letterId;
     }
 
-    @PostMapping("/letter/send")
+    @PostMapping("/admin/letter/send")
     public int sendLetter(@RequestBody LetterAdminSendRequestDto requestDto) {
         List<MailSendDto> mails = letterAdminService.createSendMailList(requestDto.getLetterId(), requestDto.getEmails());
         sendAll(mails);
         return mails.size();
     }
 
-    @PostMapping("/letter/send/test")
+    @PostMapping("/admin/letter/send/test")
     public Long sendLetterToTestUser(@RequestBody LetterAdminSendRequestDto requestDto) {
         sendAll(requestDto.getLetterId(), Constants.TEST_USERS);
         return requestDto.getLetterId();

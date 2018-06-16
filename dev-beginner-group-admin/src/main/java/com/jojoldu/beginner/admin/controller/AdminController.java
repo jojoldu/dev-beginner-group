@@ -21,15 +21,15 @@ public class AdminController {
 
     @GetMapping("/")
     public String main() {
-        return "redirect:/content/form/save";
+        return "index";
     }
 
-    @GetMapping("/content/form/save")
+    @GetMapping("/admin/content/form/save")
     public String contentSaveForm() {
         return "content/save";
     }
 
-    @GetMapping("/letter/form/save")
+    @GetMapping("/admin/letter/form/save")
     public String letterSaveForm(Model model, LetterPageRequestDto pageDto) {
         model.addAttribute("contents", service.findByPageable(pageDto));
         return "letter/save";

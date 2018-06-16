@@ -36,7 +36,7 @@ $('#btn-save').on('click', function () {
 
         $.ajax({
             type: 'POST',
-            url: '/letter-content/save',
+            url: '/admin/letter-content/save',
             dataType: 'json',
             contentType:'application/json; charset=utf-8',
             data: JSON.stringify(request)
@@ -54,7 +54,7 @@ function uploadImage(file, callback) {
 
     $.ajax({
         type: 'POST',
-        url: '/image/upload',
+        url: '/admin/image/upload',
         data: formData,
         processData: false,
         contentType: false
