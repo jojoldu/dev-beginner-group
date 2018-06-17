@@ -17,10 +17,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class BitlyUserService implements UserDetailsService {
 
-    private BitlyUserRepository bitlyUserRepository;
+    private final BitlyUserRepository bitlyUserRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) {
         return bitlyUserRepository.findByUsername(username)
                 .map(BitlyUserDetails::new)
                 .orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다. username: "+username));

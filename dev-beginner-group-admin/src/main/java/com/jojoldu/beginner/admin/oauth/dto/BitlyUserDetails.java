@@ -30,7 +30,7 @@ public class BitlyUserDetails implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new HashSet<>(1);
-        authorities.add(new SimpleGrantedAuthority(role != null? role.getKey() : Role.GUEST.getKey()));
+        authorities.add(new SimpleGrantedAuthority(role != null? role.name() : Role.GUEST.name()));
         return authorities;
     }
 

@@ -25,10 +25,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.antMatcher("/**")
+        http
                 .authorizeRequests()
                     .antMatchers("/admin/**").hasRole(Role.ADMIN.name())
-                    .antMatchers("/**", "/h2-console/*", "/favicon.ico", "/dist/**", "/login**", "/error**")
+                    .antMatchers("/", "/h2-console/*", "/favicon.ico", "/dist/**", "/login**", "/error**")
                     .permitAll()
                 .anyRequest()
                     .authenticated()
@@ -37,4 +37,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().csrf().disable()
                 .addFilterBefore(ssoFilter, BasicAuthenticationFilter.class);
     }
+
+
 }
