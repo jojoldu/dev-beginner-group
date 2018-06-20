@@ -86,7 +86,7 @@ subprojects {
 
 	dependencyManagement {
 		imports {
-			mavenBom 'org.springframework.cloud:spring-cloud-aws:2.0.0.RC2'
+			mavenBom 'org.springframework.cloud:spring-cloud-aws:2.0.0.RELEASE'
 		}
 	}
 }

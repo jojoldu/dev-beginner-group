@@ -8,6 +8,7 @@ node_modules
 out
 aws.yml
 bitly.yml
+bitly-token.http
 
 ### STS ###
 .apt_generated
@@ -30,3 +31,4 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+
