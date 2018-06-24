@@ -1,7 +1,7 @@
 package com.jojoldu.beginner.admin.oauth.dto;
 
-import com.jojoldu.beginner.admin.oauth.domain.Role;
-import com.jojoldu.beginner.admin.oauth.domain.bitly.BitlyUser;
+import com.jojoldu.beginner.admin.bitly.domain.BitlyUser;
+import com.jojoldu.beginner.admin.bitly.domain.Role;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

@@ -1,4 +1,4 @@
-package com.jojoldu.beginner.admin.oauth.domain.bitly;
+package com.jojoldu.beginner.admin.bitly.domain;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

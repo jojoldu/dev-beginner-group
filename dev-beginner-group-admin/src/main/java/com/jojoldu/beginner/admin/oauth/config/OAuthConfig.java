@@ -1,7 +1,7 @@
 package com.jojoldu.beginner.admin.oauth.config;
 
-import com.jojoldu.beginner.admin.oauth.domain.Role;
-import com.jojoldu.beginner.admin.oauth.domain.bitly.BitlyUserRepository;
+import com.jojoldu.beginner.admin.bitly.domain.BitlyUserRepository;
+import com.jojoldu.beginner.admin.bitly.domain.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.AuthoritiesExtractor;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;

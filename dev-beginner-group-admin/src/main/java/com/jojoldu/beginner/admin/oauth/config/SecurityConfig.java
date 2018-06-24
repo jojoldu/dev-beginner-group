@@ -1,6 +1,6 @@
 package com.jojoldu.beginner.admin.oauth.config;
 
-import com.jojoldu.beginner.admin.oauth.domain.Role;
+import com.jojoldu.beginner.admin.bitly.domain.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

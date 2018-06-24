@@ -1,6 +1,5 @@
-package com.jojoldu.beginner.admin.oauth.domain.bitly;
+package com.jojoldu.beginner.admin.bitly.domain;
 
-import com.jojoldu.beginner.admin.oauth.domain.Role;
 import com.jojoldu.beginner.domain.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -26,10 +25,10 @@ public class BitlyUser extends BaseTimeEntity {
     private Long id;
 
     private String accessToken;
-    private String name;
+    private String name;    // 본명
 
     @Column(nullable = false)
-    private String username;
+    private String username;    // login (계정명 혹은 유니크명)
 
     @Column(nullable = false)
     private String email;

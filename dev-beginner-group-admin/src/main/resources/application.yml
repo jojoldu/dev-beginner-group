@@ -1,6 +1,11 @@
 spring:
   profiles:
     active: local
+  redis:
+    host: localhost
+    port: 6379
+  session:
+    store-type: jdbc
   jpa:
     open-in-view: false
     properties:
@@ -28,7 +33,6 @@ cloud:
 spring:
   profiles: local
   datasource:
-    data: classpath:data-h2.sql
     platform: h2
     hikari:
       jdbc-url: jdbc:h2:mem://localhost/~/testdb;MVCC=TRUE

@@ -1,4 +1,4 @@
-package com.jojoldu.beginner.admin.oauth.domain;
+package com.jojoldu.beginner.admin.bitly.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

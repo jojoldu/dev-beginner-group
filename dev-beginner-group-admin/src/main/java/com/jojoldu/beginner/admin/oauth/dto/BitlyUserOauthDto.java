@@ -2,8 +2,8 @@ package com.jojoldu.beginner.admin.oauth.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.jojoldu.beginner.admin.oauth.domain.Role;
-import com.jojoldu.beginner.admin.oauth.domain.bitly.BitlyUser;
+import com.jojoldu.beginner.admin.bitly.domain.BitlyUser;
+import com.jojoldu.beginner.admin.bitly.domain.Role;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,11 +20,12 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BitlyUserDto {
+public class BitlyUserOauthDto {
 
     private String login;
     private String name;
     private List<BitlyEmail> emails;
+    private String accessToken;
 
     public String getEmail(){
         return emails.stream()
@@ -34,12 +35,21 @@ public class BitlyUserDto {
                 .orElseGet(() -> emails.get(0).getEmail());
     }
 
-    public BitlyUser toEntity() {
+    public BitlyUser toNewEntity() {
         return BitlyUser.builder()
+                .accessToken(accessToken)
                 .email(getEmail())
                 .name(name)
                 .username(login)
                 .role(Role.GUEST)
+                .build();
+    }
+
+    public SessionUser toSessionDto() {
+        return SessionUser.builder()
+                .accessToken(accessToken)
+                .email(getEmail())
+                .name(name)
                 .build();
     }
 

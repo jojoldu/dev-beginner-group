@@ -1,5 +1,6 @@
-package com.jojoldu.beginner.admin.oauth.domain.bitly;
+package com.jojoldu.beginner.admin.oauth.config;
 
+import com.jojoldu.beginner.admin.bitly.domain.BitlyUserRepository;
 import com.jojoldu.beginner.admin.oauth.dto.BitlyUserDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,7 +16,7 @@ import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 @Component
-public class BitlyUserService implements UserDetailsService {
+public class BitlyUserDetailsService implements UserDetailsService {
 
     private final BitlyUserRepository bitlyUserRepository;
 
