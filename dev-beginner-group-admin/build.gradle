@@ -6,6 +6,8 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.boot:spring-boot-starter-security')
 	compile('org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.0.1.RELEASE')
+	compile('org.springframework.session:spring-session-redis')
+	compile group: 'it.ozimov', name: 'embedded-redis', version: '0.7.2'
 	runtime('org.springframework.boot:spring-boot-devtools')
 
 	testCompile('org.springframework.security:spring-security-test')
