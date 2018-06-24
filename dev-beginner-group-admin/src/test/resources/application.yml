@@ -4,6 +4,8 @@ spring:
   redis:
     host: localhost
     port: 6379
+  session:
+    store-type: redis
   jpa:
     open-in-view: false
     properties:
